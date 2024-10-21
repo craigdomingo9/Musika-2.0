@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 import sys
 import os
 
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     # apps
+    'api_gateway',
     'account',
     'agents',
     'analytics',

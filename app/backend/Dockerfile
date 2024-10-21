@@ -11,7 +11,7 @@ WORKDIR /app/backend
 COPY requirements.txt .
 
 # Install dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt 
+RUN pip install --no-cache-dir -r requirements.txt 
 
 # Copy the project files
 COPY . .

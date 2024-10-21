@@ -16,30 +16,30 @@ services:
       - musika_network
 
   backend:
-    build:
-      context: ./app/backend/
-      dockerfile: Dockerfile
+    build: ./app/backend/
     container_name: musika_backend
-    volumes:
-      - ./app/backend:app/backend
     ports:
       - 8000:8000
     depends_on:
       - db
     networks:
       - musika_network
+    develop:
+      watch:
+        - action: rebuild
+          path: ./app/backend
+          target: /app/backend
 
   frontend:
-    build:
-      context: ./app/frontend/
-      dockerfile: Dockerfile
+    build: ./app/frontend/
     container_name: musika_frontend
     ports:
-      - "3000:3000"
+      - 3000:3000
     environment:
       - NEXT_PUBLIC_API_URL=http://backend:8000/api/
-    volumes:
-      - ./app/frontend:/app/frontend
+    # volumes:
+    #   - ./app/frontend:/app/frontend
+    #   - /app/frontend/node_modules
     depends_on:
       - backend
     networks:
@@ -55,25 +55,35 @@ services:
     restart: always
     container_name: musika_pgadmin
     ports:
-      - "8888:80"
+      - 8888:80
     env_file:
       - ./app/backend/.env
     networks:
       - musika_network
+    depends_on:
+      - db
   
   nginx:
     container_name: musika_nginx
     image: nginx:stable-alpine
     ports:
-      - "80:80"
+      - 80:80
     volumes:
       - ./app/nginx/nginx-setup.conf:/etc/nginx/nginx.conf
     depends_on:
       - backend
       - frontend
+    develop:
+      watch:
+        - action: rebuild
+          path: ./app/nginx
+          target: /app/nginx
+    networks:
+      - musika_network
 
 
 volumes:
   db_data:
+
 networks:
   musika_network:
