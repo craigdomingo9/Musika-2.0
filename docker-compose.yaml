@@ -17,8 +17,8 @@ services:
 
   backend:
     build:
-      context: .
-      dockerfile: ./app/backend/Dockerfile
+      context: ./app/backend/
+      dockerfile: Dockerfile
     container_name: musika_backend
     volumes:
       - ./app/backend:app/backend
@@ -36,6 +36,10 @@ services:
     container_name: musika_frontend
     ports:
       - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000/api/
+    volumes:
+      - ./app/frontend:/app/frontend
     depends_on:
       - backend
     networks:
