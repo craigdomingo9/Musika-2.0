@@ -1,0 +1,68 @@
+name: musika
+
+services:
+  
+  db:
+    image: postgres:17
+    container_name: musika_db
+    restart: always
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+    env_file:
+      ./app/backend/.env
+    ports:
+      - 5432:5432
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./app/backend/Dockerfile
+    container_name: musika_backend
+    volumes:
+      - ./app/backend:app/backend
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    networks:
+      - musika_network
+
+  frontend:
+    build:
+      context: ./app/frontend/
+      dockerfile: Dockerfile
+    container_name: musika_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - musika_network
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: musika_pgadmin
+    ports:
+      - "8888:80"
+    env_file:
+      - ./app/backend/.env
+    networks:
+      - musika_network
+  
+  nginx:
+    container_name: musika_nginx
+    image: nginx:stable-alpine
+    ports:
+      - "80:8080"
+    volumes:
+      - ./app/nginx/nginx-setup.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend
+      - frontend
+
+
+volumes:
+  db_data:
+networks:
+  musika_network:

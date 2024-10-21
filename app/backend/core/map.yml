@@ -1,0 +1,137 @@
+apps:
+  account:
+    purpose:
+      - Manages user accounts and authentication.
+    models:
+      - User
+      - Token
+      - Cart
+    features:
+      - User registration and login/logout.
+      - Password reset and recovery.
+      - User permissions and roles.
+  
+  agents:
+    purpose:
+      - Manages agents profiles.
+    models:
+      - Agent
+      - Agent Profile
+      - Preferences
+      - Assigned Products
+      - Leads
+      - Lead Source
+    features:
+      - Agent registration and management.
+  
+  analytics:
+    purpose:
+      - Gathering and analyzing data.
+    models:
+      - UserAnalyticsData
+      - AgentAnalyticsData
+      - BusinessAnalyticsData
+    features:
+      - Data aggregation and reporting.
+      - User behavior analysis.
+      - Performance metrics for different business processes.
+  
+  business:
+    purpose:
+      - Manages business profiles.
+    models:
+      - Business
+      - Business Profile
+      - Category
+      - Catalog
+      - Product
+      - Product Image
+      - Product Variant
+      - Product Review
+    features:
+      - Business registration and login/logout.
+      - Product and catalog Management
+  
+  communications:
+    purpose:
+      - Manages communication channels within the application. 
+    models:
+      - Conversation
+      - Message
+    features:
+      - Messaging services.
+  
+  notifications:
+    purpose:
+      - Handles user notifications across the platform.
+    models:
+      - Notification
+    features:
+      - Sending alerts for important events (e.g., order updates, messages).
+      - Managing notification preferences and channels.
+      - Storing and displaying notification history for users.
+  
+  orders:
+    purpose:
+      - Manages the order lifecycle within the application.
+    models:
+      - Pending Orders
+      - Cancelled Orders
+      - Closed Orders
+    features:
+      - Order placement and tracking.
+      - Inventory management related to orders.
+  
+  payment:
+    purpose:
+      - Handles all payment-related functionalities.
+    models:
+      - Payment Details
+      - Payment History
+      - Refunds
+    features:
+      - Integration with payment gateways.
+      - Managing transactions and payment history.
+      - Handling refunds and payment disputes.
+  
+  recommended:
+    purpose:
+      - Providing product or service recommendations to users.
+    models:
+      - 
+    features:
+      - Algorithms for personalized recommendations based on user behavior.
+      - Integration with analytics to refine recommendations.
+      - Management of recommendation logic and data.
+  
+  relationships:
+    purpose:
+      - Manage connections between different entities in the application.
+    models:
+      - Business Agent Relationship
+      - Agent Application
+      - Business Offer
+    features:
+      - Handling relationships between business and agents.
+      - Assigning products to agents.
+      - Handling agent applications/requests and business recruit requests.
+  
+  search:
+    purpose:
+      - Implementing search functionalities across the application.
+    models:
+      - SearchQuery
+    features:
+      - Full-text search capabilities for various models.
+      - Integration with external search engines for improved performance.
+
+  subscription:
+    purpose:
+      - Manages the subscriptions of the entities on the platform.
+    models:
+      - Subscription
+      - Subscription Plan
+      - Feature
+      - SubscriptionPayments
+    features:
+      - Manages subscriptions available on the platform.
