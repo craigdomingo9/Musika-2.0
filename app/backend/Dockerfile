@@ -8,17 +8,17 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app/backend
 
 # Copy the requirements file
-COPY ./app/backend/requirements.txt .
+COPY requirements.txt .
 
 # Install dependencies
 RUN pip3 install --no-cache-dir -r requirements.txt 
 
 # Copy the project files
-COPY ./app/backend/ .
+COPY . .
 
 # Copy the .env file
-COPY ./app/backend/.env .
+COPY .env .
 
 
 # Start the application
-CMD ["gunicorn", "core.core.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8000"]

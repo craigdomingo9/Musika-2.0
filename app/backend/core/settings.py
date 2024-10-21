@@ -28,6 +28,14 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+import sys
+import os
+
+# Add the apps directory to the Python path
+sys.path.append(os.path.join(BASE_DIR, 'apps'))
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
