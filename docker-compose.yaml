@@ -1,7 +1,6 @@
 name: musika
 
 services:
-  
   db:
     image: postgres:17
     container_name: musika_db
@@ -20,6 +19,9 @@ services:
     container_name: musika_backend
     ports:
       - 8000:8000
+    volumes:
+      - ./app/backend/apps:/app/apps
+      - static_data:/app/static
     depends_on:
       - db
     networks:
@@ -28,27 +30,26 @@ services:
       watch:
         - action: rebuild
           path: ./app/backend
-          target: /app/backend
+          target: /app
 
-  frontend:
-    build: ./app/frontend/
-    container_name: musika_frontend
-    ports:
-      - 3000:3000
-    environment:
-      - NEXT_PUBLIC_API_URL=http://backend:8000/api/
-    # volumes:
-    #   - ./app/frontend:/app/frontend
-    #   - /app/frontend/node_modules
-    depends_on:
-      - backend
-    networks:
-      - musika_network
-    develop:
-      watch:
-        - action: sync
-          path: ./app/frontend
-          target: /app/frontend
+  # frontend:
+  #   build: ./app/frontend/
+  #   container_name: musika_frontend
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://backend:8000/api/
+  #   volumes:
+  #     - ./app/frontend/node_modules:/app/frontend/node_modules
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - musika_network
+  #   develop:
+  #     watch:
+  #       - action: sync
+  #         path: ./app/frontend
+  #         target: /app/frontend
   
   pgadmin:
     image: dpage/pgadmin4
@@ -70,20 +71,17 @@ services:
       - 80:80
     volumes:
       - ./app/nginx/nginx-setup.conf:/etc/nginx/nginx.conf
+      - static_data:/app/static
     depends_on:
       - backend
-      - frontend
-    develop:
-      watch:
-        - action: rebuild
-          path: ./app/nginx
-          target: /app/nginx
+      # - frontend
     networks:
       - musika_network
 
 
 volumes:
   db_data:
+  static_data:
 
 networks:
   musika_network:

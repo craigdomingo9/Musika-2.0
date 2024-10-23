@@ -1,21 +1,30 @@
-# managers.py
 from django.contrib.auth.hashers import make_password
 from django.utils.translation import gettext_lazy as _
 
 
 from django.db import models
+
+
 class CustomUserManager(models.Manager):
-    def create_user(self, username, email, password=None):
-        if not email:
-            raise ValueError(_('The Email field must be set'))
-        email = self.normalize_email(email)
-        user = self.model(username=username, email=email)
-        user.password = make_password(password)
-        user.save(using=self._db)
-        return user
+    def get_by_natural_key(self, username):
+        return self.get(username=username)
+    
+    
+    def create_anonymous_user(self):
+        """Create and return a new anonymous user."""
+        anonymous_user = self.model(is_anonymous=True)
+        anonymous_user.save(using=self._db)
+        return anonymous_user
 
     def create_superuser(self, username, email, password):
-        user = self.create_user(username, email, password)
-        user.is_admin = True
+        """Create and return a new superuser."""
+        user = self.model(
+            username=username,
+            email=email,
+            is_admin=True,
+            is_staff=True,
+            is_anonymous=False  # Superusers are not anonymous
+        )
+        user.password = make_password(password)
         user.save(using=self._db)
         return user

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(5o3&1+*l@9n-2s5&sbje94yf#5gfi61966^k%)lj@e0&ayfv-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['backend','localhost']
 
 import sys
 import os
@@ -63,6 +63,8 @@ INSTALLED_APPS = [
 ]
 
 
+AUTH_USER_MODEL = 'account.Account'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -72,6 +74,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'account.middleware.AnonymousUserMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -108,6 +112,8 @@ DATABASES = {
         'PASSWORD': config('POSTGRES_PASSWORD'),
         'HOST': config('DB_HOST'),  # This should correctly reference 'db'
         'PORT': config('DB_PORT'),
+        'ATOMIC_REQUESTS': True,
+
     }
 }
 
@@ -147,6 +153,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = 'static/'
+
+
+# Actual directory user files go to
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'backend/media')
+
+# URL used to access the media
+MEDIA_URL = '/media/'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

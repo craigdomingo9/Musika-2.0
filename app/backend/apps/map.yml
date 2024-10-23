@@ -1,4 +1,8 @@
 apps:
+  api_gateway:
+    purpose:
+      - Handles routing to all the applications
+      
   account:
     purpose:
       - Manages user accounts and authentication.
