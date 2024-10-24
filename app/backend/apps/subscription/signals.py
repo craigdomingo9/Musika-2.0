@@ -5,6 +5,7 @@ from .models import SubscriptionPayment, Subscription
 from notifications.models import Notification
 
 
+
 @receiver(post_save, sender=SubscriptionPayment)
 def handle_successful_payment(sender, instance, created, **kwargs):
     if created and instance.is_successful:
