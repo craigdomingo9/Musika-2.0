@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 logger = getLogger(__name__)
 
 from .serializers import AccountSerializer, AccountCreateSerializer
-from account.utils.account_dict import AccountUpdater
+from account.utils.account_updater import AccountUpdater
 from .serializers import PasswordChangeSerializer
 
 
