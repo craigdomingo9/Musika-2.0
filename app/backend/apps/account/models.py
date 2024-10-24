@@ -30,6 +30,9 @@ class Account(models.Model):
     sex = models.CharField(**get_field_args())
     city = models.CharField(**get_field_args())
     
+    is_agent = models.BooleanField(default=False)
+    is_business = models.BooleanField(default=False)
+    
     is_anonymous = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

@@ -41,8 +41,8 @@ services:
       - NEXT_PUBLIC_API_URL=http://backend:8000/api/
     volumes:
       - ./app/frontend/node_modules:/app/frontend/node_modules
-    depends_on:
-      - backend
+    # depends_on:
+    #   - backend
     networks:
       - musika_network
     develop:

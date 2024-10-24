@@ -7,6 +7,8 @@ from django.db import transaction
 from logging import getLogger
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
+from django.contrib.auth import login,logout,authenticate
+from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
 
 logger = getLogger(__name__)
 
@@ -17,6 +19,7 @@ from .serializers import PasswordChangeSerializer
 
 # views.py
 class AccountViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
     queryset = get_user_model().objects.all()
     serializer_class = AccountSerializer
     
@@ -26,7 +29,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         return super().get_serializer_class()
     
     
-    def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+    def create(self, request: Request) -> Response:
 
         data = dict(request.data.copy())
         del data["csrfmiddlewaretoken"]
@@ -46,13 +49,42 @@ class AccountViewSet(viewsets.ModelViewSet):
             # Handle exception
             logger.error(f"Account creation failed: {e}")
 
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "An unexpected error occurred."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PasswordChangeView(APIView):
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request):
         serializer = PasswordChangeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'message': 'Password changed successfully'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginView(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request: Request) -> Response:
+        username = request.data['username']
+        password = request.data['password']
+        
+        if not username or not password:
+            return Response({'error': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            request.session['user_uuid'] = str(user.uuid)
+            return Response({'user_uuid': request.session['user_uuid'], 'message':"Logged in successfully."}, status=status.HTTP_200_OK)
+        else:
+            logger.warning(f"Invalid login attempt for username: {username}")
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request: Request) -> Response:
+        logout(request)
+        request.session.flush()
+        return Response(status=status.HTTP_200_OK)
