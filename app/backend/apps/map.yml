@@ -60,6 +60,7 @@ apps:
       - Manages communication channels within the application. 
     models:
       - Conversation
+      - Participant
       - Message
     features:
       - Messaging services.

@@ -26,7 +26,7 @@ class Account(models.Model):
     password = models.CharField(**get_field_args())  # Store hashed passwords
     uuid = models.UUIDField(default=uuid4, editable=False, unique=True,**get_field_args())  # Use UUIDField
     
-    age = models.IntegerField(**get_field_args())
+    age = models.IntegerField(null=True, blank=True)
     sex = models.CharField(**get_field_args())
     city = models.CharField(**get_field_args())
     
