@@ -9,7 +9,6 @@ apps:
     models:
       - User
       - Token
-      - Cart
     features:
       - User registration and login/logout.
       - Password reset and recovery.
