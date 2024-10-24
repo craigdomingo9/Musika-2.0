@@ -3,19 +3,25 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 
+from .models import AccountPreferences
 
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'uuid', 'age', 'sex', 'city', 'is_anonymous', 'is_active', 'is_admin', 'created_at','updated_at']
+        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'uuid', 'age', 'sex', 'city', 'is_agent', 'is_business', 'is_anonymous', 'is_active', 'is_admin', 'created_at','updated_at']
 
 
 class AccountCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'username', 'email', 'age', 'sex', 'city']
+        fields = ['first_name', 'last_name', 'username', 'email', 'age', 'sex', 'city', 'is_agent', 'is_business']
 
+
+class AccountPreferencesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AccountPreferences
+        fields = ['user', 'language', 'receive_notifications', 'theme', 'show_tips']
 
 class PasswordChangeSerializer(serializers.Serializer):
     """

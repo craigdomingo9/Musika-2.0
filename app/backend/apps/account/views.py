@@ -8,14 +8,14 @@ from logging import getLogger
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from django.contrib.auth import login,logout,authenticate
-from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
+from rest_framework.permissions import IsAuthenticated,AllowAny
 
 logger = getLogger(__name__)
 
-from .serializers import AccountSerializer, AccountCreateSerializer
+from .serializers import AccountSerializer, AccountCreateSerializer, AccountPreferencesSerializer
 from account.utils.account_updater import AccountUpdater
 from .serializers import PasswordChangeSerializer
-
+from .models import AccountPreferences
 
 # views.py
 class AccountViewSet(viewsets.ModelViewSet):
@@ -51,6 +51,11 @@ class AccountViewSet(viewsets.ModelViewSet):
 
             return Response({"error": "An unexpected error occurred."}, status=status.HTTP_400_BAD_REQUEST)
 
+class AccountPreferencesViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = AccountPreferences.objects.all()
+    serializer_class = AccountPreferencesSerializer
+    
 
 class PasswordChangeView(APIView):
     permission_classes = [IsAuthenticated]

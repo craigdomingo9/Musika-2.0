@@ -24,7 +24,7 @@ class Account(models.Model):
     username = models.CharField(max_length=150, unique=True, null=True)
     email = models.EmailField(unique=True, **get_field_args())
     password = models.CharField(**get_field_args())  # Store hashed passwords
-    uuid = models.UUIDField(default=uuid4, editable=False, unique=True)  # Use UUIDField
+    uuid = models.UUIDField(default=uuid4, editable=False, unique=True,**get_field_args())  # Use UUIDField
     
     age = models.IntegerField(**get_field_args())
     sex = models.CharField(**get_field_args())
@@ -53,7 +53,6 @@ class Account(models.Model):
 
     
     def set_password(self, raw_password):
-        # Custom password validation or hashing...
         password = make_password(raw_password)
         self.password = password
         self._password = raw_password
@@ -70,4 +69,27 @@ class Account(models.Model):
     @property
     def is_authenticated(self):
         return not self.is_anonymous
+
+
+class AccountPreferences(models.Model):
+    user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name='preferences')
     
+    language = models.CharField(**get_field_args(), default='en')
+    receive_notifications = models.BooleanField(default=True)
+    theme = models.CharField(max_length=20, choices=[
+        ('light', 'Light'),
+        ('dark', 'Dark'),
+    ], default='light')
+    show_tips = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Preferences"
+
+
+
+class AccountChangeLog(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    field_name = models.CharField(**get_field_args())
+    old_value = models.TextField(**get_field_args())
+    new_value = models.TextField(**get_field_args())
+    changed_at = models.DateTimeField(auto_now_add=True)
