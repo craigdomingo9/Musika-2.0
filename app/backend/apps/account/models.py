@@ -2,29 +2,26 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
-from uuid import uuid4
 from django.contrib.auth.hashers import make_password,check_password
+from uuid import uuid4
+
 
 
 from .managers import *
+from account.utils.models import get_field_args,generate_uuid
 
 
 
-def get_field_args():
-    return {
-        "max_length": 150,
-        "blank": True,
-        "null": True
-    }
-
+def generate_code() -> uuid4:
+    return generate_uuid(Account)
 
 class Account(models.Model):
     first_name = models.CharField(**get_field_args())
     last_name = models.CharField(**get_field_args())
-    username = models.CharField(max_length=150, unique=True, null=True)
+    username = models.CharField(**get_field_args(),unique=True)
     email = models.EmailField(unique=True, **get_field_args())
     password = models.CharField(**get_field_args())  # Store hashed passwords
-    uuid = models.UUIDField(default=uuid4, editable=False, unique=True,**get_field_args())  # Use UUIDField
+    uuid = models.UUIDField(default=generate_code, editable=False, unique=True)  # Use UUIDField
     
     age = models.IntegerField(null=True, blank=True)
     sex = models.CharField(**get_field_args())
