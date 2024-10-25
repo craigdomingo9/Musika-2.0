@@ -2,12 +2,21 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-
+from uuid import uuid4
 
 User = get_user_model()
 
+
+from communications.utils.models import get_field_args,generate_uuid
+
+
+def generate_code() -> uuid4:
+    return generate_uuid(Conversation)
+
+
 class Conversation(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(**get_field_args(max_length=255))
+    uuid = models.UUIDField(default=generate_code, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
