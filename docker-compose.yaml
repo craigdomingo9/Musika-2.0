@@ -21,7 +21,9 @@ services:
       - 8000:8000
     volumes:
       - ./app/backend/apps:/app/apps
+      - ./app/backend/media:/app/media
       - static_data:/app/static
+      - media_data:/app/media
     depends_on:
       - db
     networks:
@@ -72,6 +74,7 @@ services:
     volumes:
       - ./app/nginx/nginx-setup.conf:/etc/nginx/nginx.conf
       - static_data:/app/static
+      - media_data:/app/media
     depends_on:
       - backend
       # - frontend
@@ -82,6 +85,7 @@ services:
 volumes:
   db_data:
   static_data:
+  media_data:
 
 networks:
   musika_network:

@@ -3,7 +3,7 @@ from uuid import uuid4
 from django.db import models
 
 
-def get_field_args(max_length:int=150,blank:bool=True,null:bool=True) -> Dict[int,bool | int]:
+def get_field_args(max_length:int=150,blank:bool=True,null:bool=True) -> Dict[str,bool | int]:
     """Returns a dictionary of field arguments for Django model fields."""
     return {
         "max_length": max_length,

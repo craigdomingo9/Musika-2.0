@@ -50,10 +50,11 @@ apps:
       - Product
       - Product Image
       - Product Variant
+      - Variant Attributes
       - Product Review
     features:
-      - Business registration and login/logout.
-      - Product and catalog Management
+      - Business registration.
+      - Product,catalog and profile Management
   
   communications:
     purpose:

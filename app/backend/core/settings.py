@@ -163,11 +163,10 @@ STATIC_URL = 'static/'
 STATIC_ROOT = 'static/'
 
 
-# Actual directory user files go to
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'backend/media')
-
-# URL used to access the media
+# Define the MEDIA_URL and MEDIA_ROOT settings
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 

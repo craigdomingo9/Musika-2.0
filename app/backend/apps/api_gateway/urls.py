@@ -6,5 +6,6 @@ urlpatterns = [
     path("users/",include("account.urls")),
     path("notifications/",include("notifications.urls")),
     path("subscriptions/",include("subscription.urls")),
-    path("communications/",include("communications.urls"))
+    path("communications/",include("communications.urls")),
+    path("business/",include("business.urls"))
 ]
