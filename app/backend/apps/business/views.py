@@ -15,6 +15,7 @@ from .serializers import (
     BusinessSerializer,
     BusinessCreateSerializer,
     ProfileSerializer,
+    ProfileCreateSerializer,
     LocationSerializer,
     CategorySerializer,
     CatalogSerializer,
@@ -40,6 +41,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     lookup_field = "business__code"
+    
+    def get_serializer_class(self):
+        if self.action in ["create"]:
+            self.serializer_class = ProfileCreateSerializer
+        return super().get_serializer_class()
 
 
 class LocationViewSet(viewsets.ModelViewSet):

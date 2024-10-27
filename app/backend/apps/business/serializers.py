@@ -32,6 +32,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 1
 
+class ProfileCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['id', 'business', 'name', 'description', 'categories', 'logo', 'cover_photo', 'phone_number', 'email', 'website', 'business_type']
+
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
