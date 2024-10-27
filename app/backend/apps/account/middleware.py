@@ -17,15 +17,16 @@ class AnonymousUserMiddleware(MiddlewareMixin):
         # if user is an anonymous user
         if not request.user.is_authenticated:
             self.create_anonymous_user(request)
+                
 
     def create_anonymous_user(self, request: Request) -> None:
         """Creates an anonymous user and stores id in session"""
         try:
-            anonymous_user_id = request.session.get('anonymous_user_id')
+            anonymous_user_id = request.session.get('user_uuid')
             if anonymous_user_id:
                 request.user = self.model.objects.get(uuid=anonymous_user_id)
             else:
                 request.user = self.model.objects.create_anonymous_user()
-                request.session['anonymous_user_id'] = str(request.user.uuid)
+                request.session['user_uuid'] = str(request.user.uuid)
         except ObjectDoesNotExist as e:
             logger.error(f"Account was not found: {e}")
