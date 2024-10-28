@@ -9,4 +9,5 @@ urlpatterns = [
     path("communications/",include("communications.urls")),
     path("business/",include("business.urls")),
     path("agents/",include("agents.urls")),
+    path("relationships/",include("relationships.urls")),
 ]
