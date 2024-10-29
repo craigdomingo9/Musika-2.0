@@ -18,8 +18,8 @@ def create_agent_profile(sender, instance, created, **kwargs):
     if created:
         message = f"New agent created: {instance.full_name()}"
         # Notify admin or other relevant users
-        for user in User.objects.filter(is_admin=True):
-            create_notification(user, message)
+        for admin in User.objects.filter(is_admin=True):
+            create_notification(admin, message)
 
 @receiver(post_save, sender=AgentProfile)
 def agent_profile_created(sender, instance, created, **kwargs):
@@ -42,8 +42,8 @@ def lead_created(sender, instance, created, **kwargs):
         # Notify the agent associated with the lead
         create_notification(instance.agent.user, message)  # Notify the agent
         # Optionally notify the sales team or admin
-        for user in User.objects.filter(is_admin=True):
-            create_notification(user, message)
+        for admin in User.objects.filter(is_admin=True):
+            create_notification(admin, message)
 
 
 @receiver(post_save, sender=AssignedProduct)
@@ -51,6 +51,6 @@ def assigned_product_created(sender, instance, created, **kwargs):
     if created:
         message = f"Product {instance.product.name} assigned to agent {instance.agent.full_name()}"
         create_notification(instance.agent.user, message)  # Notify the agent
-        for user in User.objects.filter(is_admin=True):
-            create_notification(user, message)
+        for admin in User.objects.filter(is_admin=True):
+            create_notification(admin, message)
 

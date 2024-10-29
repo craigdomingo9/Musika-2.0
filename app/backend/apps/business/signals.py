@@ -12,10 +12,18 @@ User = get_user_model()
 @receiver(post_save, sender=Business)
 def business_created_or_updated(sender, instance, created, **kwargs):
     if created:
-        message = f"New business created: {instance.name}"
+        user = User.objects.get(uuid=instance.user.uuid)
+        user.is_business = True
+        user.save(update_fields=["is_business"])
         
-        # Notify the admin
-        Notification.objects.create(user=User.objects.get(is_superuser=True), message=message)
+        message = f"New business created: {instance.user.username}'s business"
+        
+        # Notify the admins
+        admins = User.objects.filter(is_admin=True)
+        
+        for admin in admins:
+            Notification.objects.create(user=admin, message=message)
+    
     
 
 

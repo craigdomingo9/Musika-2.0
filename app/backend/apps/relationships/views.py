@@ -2,6 +2,7 @@ from rest_framework import viewsets,status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from .permissions import IsBusinessOwner, IsAgentOrBusiness
 from .models import BusinessAgentRelationship, AcceptedOffer, AgentApplication, BusinessOffer
 from .serializers import (
     BusinessAgentRelationshipSerializer,
@@ -15,7 +16,7 @@ from .serializers import (
 
 class BusinessAgentRelationshipViewSet(viewsets.ModelViewSet):
     queryset = BusinessAgentRelationship.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAgentOrBusiness]
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
@@ -36,7 +37,7 @@ class BusinessAgentRelationshipViewSet(viewsets.ModelViewSet):
 
 class AgentApplicationViewSet(viewsets.ModelViewSet):
     queryset = AgentApplication.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsBusinessOwner]
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
@@ -67,7 +68,7 @@ class AgentApplicationViewSet(viewsets.ModelViewSet):
 
 class BusinessOfferViewSet(viewsets.ModelViewSet):
     queryset = BusinessOffer.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAgentOrBusiness]
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
@@ -76,7 +77,7 @@ class BusinessOfferViewSet(viewsets.ModelViewSet):
 
 class AcceptedOfferViewSet(viewsets.ModelViewSet):
     queryset = AcceptedOffer.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsAgentOrBusiness]
 
     def get_serializer_class(self):
         if self.action == 'create':
