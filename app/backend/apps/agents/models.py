@@ -1,13 +1,19 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from agents.utils.models import generate_unique_code
 
 User = get_user_model()
 
 from business.models import Product
 
 
+def generate_code():
+    return generate_unique_code(Agent)
+
+
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agent_profile')
+    code = models.CharField(max_length=8)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
@@ -26,7 +32,7 @@ class Agent(models.Model):
 class AgentProfile(models.Model):
     agent = models.OneToOneField(Agent, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField(blank=True)
-    profile_picture = models.ImageField(upload_to='agents/profile_pictures/', blank=True)
+    profile_picture = models.ImageField(upload_to='images/agents/profile_pictures/', blank=True)
     minimum_commission_rate = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     social_links = models.JSONField(blank=True, null=True)
     
