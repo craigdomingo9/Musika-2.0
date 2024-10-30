@@ -10,4 +10,5 @@ urlpatterns = [
     path("business/",include("business.urls")),
     path("agents/",include("agents.urls")),
     path("relationships/",include("relationships.urls")),
+    path("analytics/",include("analytics.urls")),
 ]
