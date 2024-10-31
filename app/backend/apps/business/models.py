@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from phonenumber_field.modelfields import PhoneNumberField
-from django.utils import timezone
-
+from django.contrib.postgres.indexes import GinIndex
 
 User = get_user_model()
 
@@ -126,6 +125,12 @@ class Product(models.Model):
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        indexes = [
+            GinIndex(fields=['name'], name='gin_name_trgm_idx', opclasses=['gin_trgm_ops']),
+            GinIndex(fields=['description'], name='gin_description_trgm_idx', opclasses=['gin_trgm_ops']),
+        ]
 
     def __str__(self) -> str:
         return self.name

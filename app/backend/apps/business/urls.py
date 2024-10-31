@@ -1,4 +1,5 @@
 from rest_framework.routers import DefaultRouter
+from django.urls import path, include
 from .views import (
     BusinessViewSet,
     ProfileViewSet,
@@ -25,5 +26,5 @@ router.register(r'variants', ProductVariantViewSet)
 router.register(r'attributes', VariantAttributeViewSet)
 
 urlpatterns = [
-
+    path('products/search/',include('search.urls'))
 ] + router.urls
