@@ -11,6 +11,12 @@ class Notification(models.Model):
     
     class Meta:
         ordering = ["-id"]
+    
+    def mark_as_read(self):
+        """Mark the notification as read"""
+        if not self.is_read:  # Only update if it hasn't been set
+            self.is_read = True
+            self.save(update_fields=['is_read'])
 
     def __str__(self):
         return self.message
