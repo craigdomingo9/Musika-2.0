@@ -2,8 +2,20 @@ from rest_framework import viewsets,status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IsBusinessOwner, IsAgentOrBusiness
-from .models import BusinessAgentRelationship, AcceptedOffer, AgentApplication, BusinessOffer
+from middleware.permissions import IsBusinessOwner, IsAgentOrBusiness
+from django_filters import rest_framework as filters
+from .filters import (
+    BusinessAgentRelationshipFilter,
+    AgentApplicationFilter,
+    BusinessOfferFilter,
+    AcceptedOfferFilter
+)
+from .models import (
+    BusinessAgentRelationship,
+    AcceptedOffer,
+    AgentApplication,
+    BusinessOffer
+)
 from .serializers import (
     BusinessAgentRelationshipSerializer,
     BusinessAgentRelationshipCreateSerializer,
@@ -17,6 +29,8 @@ from .serializers import (
 class BusinessAgentRelationshipViewSet(viewsets.ModelViewSet):
     queryset = BusinessAgentRelationship.objects.all()
     permission_classes = [IsAuthenticated, IsAgentOrBusiness]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BusinessAgentRelationshipFilter
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
@@ -38,6 +52,8 @@ class BusinessAgentRelationshipViewSet(viewsets.ModelViewSet):
 class AgentApplicationViewSet(viewsets.ModelViewSet):
     queryset = AgentApplication.objects.all()
     permission_classes = [IsAuthenticated, IsBusinessOwner]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = AgentApplicationFilter
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
@@ -69,6 +85,8 @@ class AgentApplicationViewSet(viewsets.ModelViewSet):
 class BusinessOfferViewSet(viewsets.ModelViewSet):
     queryset = BusinessOffer.objects.all()
     permission_classes = [IsAuthenticated, IsAgentOrBusiness]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BusinessOfferFilter
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
@@ -78,6 +96,8 @@ class BusinessOfferViewSet(viewsets.ModelViewSet):
 class AcceptedOfferViewSet(viewsets.ModelViewSet):
     queryset = AcceptedOffer.objects.all()
     permission_classes = [IsAuthenticated,IsAgentOrBusiness]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = AcceptedOfferFilter
 
     def get_serializer_class(self):
         if self.action == 'create':
