@@ -1,12 +1,21 @@
-# views.py
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
-from .filters import ConversationFilter
-from .models import Conversation, Participant, Message
-from .serializers import ConversationSerializer, ConversationDetailSerializer, ParticipantSerializer, MessageSerializer
+from .filters import ConversationFilter, MessageFilter
+from .models import (
+    Conversation, 
+    Participant, 
+    Message, 
+    Role
+)
+from .serializers import (
+    ConversationSerializer, 
+    ParticipantSerializer, 
+    MessageSerializer, 
+    RoleSerializer
+)
 
 class ConversationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -15,10 +24,6 @@ class ConversationViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ConversationFilter
     
-    def get_serializer_class(self):
-        if self.action in ['retrieve']:
-            self.serializer_class = ConversationDetailSerializer
-        return super().get_serializer_class()
 
 
 class ParticipantViewSet(viewsets.ModelViewSet):
@@ -27,10 +32,18 @@ class ParticipantViewSet(viewsets.ModelViewSet):
     serializer_class = ParticipantSerializer
 
 
+class RoleViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
+
+
 class MessageViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = MessageFilter
     
     @action(detail=True, methods=['post'], url_path='mark-as-read')
     def mark_as_read(self):
