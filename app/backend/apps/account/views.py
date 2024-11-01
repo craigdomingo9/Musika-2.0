@@ -17,7 +17,7 @@ from account.utils.account_updater import AccountUpdater
 from .serializers import PasswordChangeSerializer
 from .models import AccountPreferences
 from .filters import AccountPreferencesFilter, AccountFilter
-from .permissions import IsAccountOwner
+from middleware.permissions import IsAccountOwner
 
 # views.py
 class AccountViewSet(viewsets.ModelViewSet):
