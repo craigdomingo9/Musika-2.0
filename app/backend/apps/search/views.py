@@ -3,9 +3,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from django_filters import rest_framework as filters
 from .search import search_products
 from .models import SearchResults
 from .serializers import SearchResultsSerializer
+from .filters import SearchResultsFilter
 
 
 class ProductSearchView(APIView):
@@ -34,7 +36,11 @@ class ProductSearchView(APIView):
 class SearchHistoryViewSet(viewsets.ModelViewSet):
     queryset = SearchResults.objects.all().order_by('-created_at')  # Order by creation time
     serializer_class = SearchResultsSerializer
-
+    permission_classes = [IsAuthenticated]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = SearchResultsFilter
+    
+    
     def perform_create(self, serializer):
         # Automatically set the user when creating a new search history entry
         serializer.save(user=self.request.user)
