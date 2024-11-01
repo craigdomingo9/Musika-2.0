@@ -2,13 +2,13 @@ from rest_framework import viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
-from typing import Any
 from django.db import transaction
 from logging import getLogger
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from django.contrib.auth import login,logout,authenticate
 from rest_framework.permissions import IsAuthenticated,AllowAny
+from django_filters import rest_framework as filters
 
 logger = getLogger(__name__)
 
@@ -16,12 +16,17 @@ from .serializers import AccountSerializer, AccountCreateSerializer, AccountPref
 from account.utils.account_updater import AccountUpdater
 from .serializers import PasswordChangeSerializer
 from .models import AccountPreferences
+from .filters import AccountPreferencesFilter, AccountFilter
+from .permissions import IsAccountOwner
 
 # views.py
 class AccountViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     queryset = get_user_model().objects.all()
     serializer_class = AccountSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = AccountFilter
+    
     
     def get_serializer_class(self):
         if self.action in ["create", "update"]:
@@ -52,9 +57,11 @@ class AccountViewSet(viewsets.ModelViewSet):
             return Response({"error": "An unexpected error occurred."}, status=status.HTTP_400_BAD_REQUEST)
 
 class AccountPreferencesViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAccountOwner]
     queryset = AccountPreferences.objects.all()
     serializer_class = AccountPreferencesSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = AccountPreferencesFilter
     
 
 class PasswordChangeView(APIView):

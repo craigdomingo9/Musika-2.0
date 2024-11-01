@@ -17,13 +17,13 @@ class Acquisition(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    source = models.CharField(max_length=20, choices=ACQUISITION_SOURCE_CHOICES)
+    source = models.CharField(max_length=100, choices=ACQUISITION_SOURCE_CHOICES)
     medium = models.CharField(max_length=50, blank=True)
     referring_agent_code = models.CharField(max_length=100, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    device = models.CharField(default="mobile", max_length=20, blank=True)
-    browser = models.CharField(default="chrome", max_length=20, blank=True)
-    os = models.CharField(default="Android", max_length=20, blank=True)
+    device = models.CharField(default="mobile", max_length=100, blank=True)
+    browser = models.CharField(default="chrome", max_length=100, blank=True)
+    os = models.CharField(default="Android", max_length=100, blank=True)
 
     def __str__(self):
         return f"Acquisition {self.id}"

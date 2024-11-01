@@ -1,7 +1,21 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
+from django_filters import rest_framework as filters
 from rest_framework import status
-from .models import Agent, AgentProfile, Preferences, AssignedProduct, Lead, LeadSource
+from .filters import (
+    AgentProfileFilter,
+    AgentPreferencesFilter,
+    AssignedProductsFilter,
+    LeadFilter
+)
+from .models import (
+    Agent,
+    AgentProfile,
+    Preferences,
+    AssignedProduct,
+    Lead,
+    LeadSource
+)
 from .serializers import (
     AgentSerializer, AgentCreateSerializer,
     AgentProfileSerializer, AgentProfileCreateSerializer,
@@ -10,6 +24,7 @@ from .serializers import (
     LeadSerializer, LeadCreateSerializer,
     LeadSourceSerializer, LeadSourceCreateSerializer,
 )
+
 
 class AgentViewSet(viewsets.ModelViewSet):
     queryset = Agent.objects.all()
@@ -22,6 +37,8 @@ class AgentViewSet(viewsets.ModelViewSet):
 
 class AgentProfileViewSet(viewsets.ModelViewSet):
     queryset = AgentProfile.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = AgentProfileFilter
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
@@ -30,6 +47,8 @@ class AgentProfileViewSet(viewsets.ModelViewSet):
 
 class PreferencesViewSet(viewsets.ModelViewSet):
     queryset = Preferences.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = AgentPreferencesFilter
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
@@ -38,6 +57,8 @@ class PreferencesViewSet(viewsets.ModelViewSet):
 
 class AssignedProductViewSet(viewsets.ModelViewSet):
     queryset = AssignedProduct.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = AssignedProductsFilter
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
@@ -46,6 +67,8 @@ class AssignedProductViewSet(viewsets.ModelViewSet):
 
 class LeadViewSet(viewsets.ModelViewSet):
     queryset = Lead.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = LeadFilter
 
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:

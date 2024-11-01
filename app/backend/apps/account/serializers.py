@@ -21,7 +21,8 @@ class AccountCreateSerializer(serializers.ModelSerializer):
 class AccountPreferencesSerializer(serializers.ModelSerializer):
     class Meta:
         model = AccountPreferences
-        fields = ['user', 'language', 'receive_notifications', 'theme', 'show_tips']
+        fields = ['id' ,'user', 'language', 'receive_notifications', 'theme', 'show_tips']
+        read_only_fields = ['id', 'user']
 
 class PasswordChangeSerializer(serializers.Serializer):
     """

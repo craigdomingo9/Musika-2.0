@@ -16,3 +16,5 @@ python-dotenv
 pandas==2.2.0
 # scikit-learn==1.5.0
 django-filter
+pyyaml 
+user-agents

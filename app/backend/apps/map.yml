@@ -2,6 +2,10 @@ apps:
   api_gateway:
     purpose:
       - Handles routing to all the applications
+  
+  middleware:
+    purpose:
+      - Handles all middleware functions. eg, Anonymous Users, Lead Tracking, Analytics
       
   account:
     purpose:

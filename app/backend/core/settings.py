@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'relationships',
     'search',
     'subscription',
+    'middleware',
 ]
 
 
@@ -86,7 +87,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
-    'account.middleware.AnonymousUserMiddleware',
+    'middleware.middleware.AnonymousUserMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
