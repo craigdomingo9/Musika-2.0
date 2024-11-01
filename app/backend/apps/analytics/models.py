@@ -63,8 +63,6 @@ class ProductAnalytics(models.Model):
     """
     Model to track analytics for various types of products.
     """
-
-
     title = models.CharField(max_length=100)
     description = models.TextField()
     product_id = models.CharField(max_length=50)
