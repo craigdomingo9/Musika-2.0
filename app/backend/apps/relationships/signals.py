@@ -77,15 +77,13 @@ def notify_business_and_admin_agent_application(sender, instance, created, **kwa
 @receiver(post_save, sender=BusinessOffer)
 def notify_admin_and_agents_business_offer(sender, instance, created, **kwargs):
     if created:
-        agents = Agent.objects.all()
+        agent = instance.agent
 
         # Create notifications for all agents
-        for agent in agents:
-            Notification.objects.create(
-                user=agent.user,
-                message=f"A new offer '{instance.title}' is available from {instance.business}."
-            )
-
+        Notification.objects.create(
+            user=agent.user,
+            message=f"A new offer '{instance.title}' is available from {instance.business}."
+        )
         # notify the admin as well
         admins = User.objects.filter(is_admin=True)
         for admin in admins:
@@ -104,6 +102,11 @@ def create_relationship_on_accepted_offer(sender, instance, created, **kwargs):
             agent=instance.agent,
             commission_rate=instance.business_offer.offered_commission,
         )
+        
+        # copy the commission rate of the offer
+        accepted_offer = AcceptedOffer.objects.get(id=instance.pk)
+        accepted_offer.commission_rate = instance.business_offer.offered_commission
+        accepted_offer.save(update_fields=['commission_rate'])
 
         # Send notification to the agent
         Notification.objects.create(

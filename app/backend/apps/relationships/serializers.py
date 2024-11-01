@@ -29,7 +29,7 @@ class BusinessOfferSerializer(serializers.ModelSerializer):
 class BusinessOfferCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = BusinessOffer
-        fields = ['business', 'title', 'description', 'offered_commission', 'available_slots']
+        fields = ['business', 'agent', 'title', 'description', 'offered_commission']
 
 class AcceptedOfferSerializer(serializers.ModelSerializer):
     class Meta:

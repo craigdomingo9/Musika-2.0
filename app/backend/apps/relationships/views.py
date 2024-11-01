@@ -84,7 +84,7 @@ class AgentApplicationViewSet(viewsets.ModelViewSet):
 
 class BusinessOfferViewSet(viewsets.ModelViewSet):
     queryset = BusinessOffer.objects.all()
-    permission_classes = [IsAuthenticated, IsAgentOrBusiness]
+    permission_classes = [IsAuthenticated]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = BusinessOfferFilter
 

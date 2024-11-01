@@ -48,6 +48,7 @@ class AgentApplication(models.Model):
 
 class BusinessOffer(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='offers')
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE, related_name='offers')
     title = models.CharField(**get_field_args())
     description = models.TextField(**get_field_args(max_length=1000))
     offered_commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
