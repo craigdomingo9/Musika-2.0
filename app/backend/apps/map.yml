@@ -5,7 +5,7 @@ apps:
   
   middleware:
     purpose:
-      - Handles all middleware functions. eg, Anonymous Users, Lead Tracking, Analytics
+      - Handles all middleware functions. eg, Anonymous Users, Permissions, Lead Tracking, Analytics
       
   account:
     purpose:
