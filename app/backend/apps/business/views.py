@@ -1,4 +1,12 @@
 from rest_framework import viewsets
+from django_filters import rest_framework as filters
+from .filters import (
+    ProductFilter,
+    BusinessProfileFilter,
+    BusinessLocationFilter,
+    ProductReviewFilter,
+    CatalogFilter
+)
 from .models import (
     Business,
     Profile,
@@ -26,21 +34,24 @@ from .serializers import (
     VariantAttributeSerializer,
 )
 
+
+
 class BusinessViewSet(viewsets.ModelViewSet):
     queryset = Business.objects.all()
     serializer_class = BusinessSerializer
-    lookup_field = "user__uuid"
     
     def get_serializer_class(self):
         if self.action in ["create"]:
             self.serializer_class = BusinessCreateSerializer
+            
         return super().get_serializer_class()
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    lookup_field = "business__code"
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BusinessProfileFilter
     
     def get_serializer_class(self):
         if self.action in ["create"]:
@@ -51,6 +62,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
 class LocationViewSet(viewsets.ModelViewSet):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BusinessLocationFilter
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -61,16 +74,22 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class CatalogViewSet(viewsets.ModelViewSet):
     queryset = Catalog.objects.all()
     serializer_class = CatalogSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = CatalogFilter
 
 
 class ProductReviewViewSet(viewsets.ModelViewSet):
     queryset = ProductReview.objects.all()
     serializer_class = ProductReviewSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ProductReviewFilter
 
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ProductFilter
 
 
 class ProductImageViewSet(viewsets.ModelViewSet):

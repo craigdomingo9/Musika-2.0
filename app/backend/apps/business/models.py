@@ -157,7 +157,6 @@ class ProductVariant(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2,blank=True )
     on_sale = models.BooleanField(default=False)
     sale_price = models.DecimalField(max_digits=10, decimal_places=2,blank=True,null=True) 
-    attributes = models.ManyToManyField("VariantAttribute", related_name='variants', blank=True)
 
     def __str__(self) -> str:
         return f"{self.product.name} - Variant ID: {self.id}, Price: {self.price}"
@@ -166,6 +165,7 @@ class ProductVariant(models.Model):
 
 """   Variant Attribute   """
 class VariantAttribute(models.Model):
+    variant = models.ForeignKey("ProductVariant", on_delete=models.CASCADE, related_name="attributes")
     name = models.CharField(**get_field_args(blank=False,null=False))
     value = models.CharField(**get_field_args(blank=False,null=False))
 
