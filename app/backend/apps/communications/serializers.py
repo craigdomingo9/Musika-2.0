@@ -28,5 +28,5 @@ class ConversationDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Conversation
-        fields = ['id', 'participants', 'title', 'created_at', 'messages']
+        fields = ['id', 'participants', 'messages']
         depth = 2

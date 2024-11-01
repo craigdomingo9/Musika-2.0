@@ -4,7 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-
+from django_filters import rest_framework as filters
+from .filters import ConversationFilter
 from .models import Conversation, Participant, Message
 from .serializers import ConversationSerializer, ConversationDetailSerializer, ParticipantSerializer, MessageSerializer
 
@@ -12,6 +13,8 @@ class ConversationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Conversation.objects.all()
     serializer_class = ConversationSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ConversationFilter
     
     def get_serializer_class(self):
         if self.action in ['retrieve']:
