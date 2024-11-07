@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
+from rest_framework.permissions import AllowAny
 from .filters import (
     ProductFilter,
     BusinessProfileFilter,
@@ -39,6 +40,7 @@ from .serializers import (
 class BusinessViewSet(viewsets.ModelViewSet):
     queryset = Business.objects.all()
     serializer_class = BusinessSerializer
+    permission_classes = [AllowAny,]
     
     def get_serializer_class(self):
         if self.action in ["create"]:
@@ -50,6 +52,7 @@ class BusinessViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = [AllowAny,]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = BusinessProfileFilter
     
@@ -62,6 +65,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 class LocationViewSet(viewsets.ModelViewSet):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
+    permission_classes = [AllowAny,]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = BusinessLocationFilter
 
@@ -69,11 +73,13 @@ class LocationViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [AllowAny,]
 
 
 class CatalogViewSet(viewsets.ModelViewSet):
     queryset = Catalog.objects.all()
     serializer_class = CatalogSerializer
+    permission_classes = [AllowAny,]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CatalogFilter
 
@@ -81,6 +87,7 @@ class CatalogViewSet(viewsets.ModelViewSet):
 class ProductReviewViewSet(viewsets.ModelViewSet):
     queryset = ProductReview.objects.all()
     serializer_class = ProductReviewSerializer
+    permission_classes = [AllowAny,]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ProductReviewFilter
 
@@ -88,6 +95,7 @@ class ProductReviewViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [AllowAny,]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ProductFilter
 
@@ -95,13 +103,16 @@ class ProductViewSet(viewsets.ModelViewSet):
 class ProductImageViewSet(viewsets.ModelViewSet):
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
+    permission_classes = [AllowAny,]
 
 
 class ProductVariantViewSet(viewsets.ModelViewSet):
     queryset = ProductVariant.objects.all()
     serializer_class = ProductVariantSerializer
+    permission_classes = [AllowAny,]
 
 
 class VariantAttributeViewSet(viewsets.ModelViewSet):
     queryset = VariantAttribute.objects.all()
     serializer_class = VariantAttributeSerializer
+    permission_classes = [AllowAny,]
