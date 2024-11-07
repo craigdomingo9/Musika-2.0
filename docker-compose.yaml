@@ -34,24 +34,20 @@ services:
           path: ./app/backend
           target: /app
 
-  frontend:
-    build: ./app/frontend/
-    container_name: musika_frontend
-    ports:
-      - 3000:3000
-    environment:
-      - NEXT_PUBLIC_API_URL=http://backend:8000/api/
-    volumes:
-      - ./app/frontend/node_modules:/app/frontend/node_modules
-    # depends_on:
-    #   - backend
-    networks:
-      - musika_network
-    develop:
-      watch:
-        - action: sync
-          path: ./app/frontend
-          target: /app/frontend
+  # frontend:
+  #   build: ./app/frontend/
+  #   container_name: musika_frontend
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://backend:8000/api/
+  #   volumes:
+  #     - ./app/frontend:/app/frontend  # Bind mount for live reloading
+  #     - /app/frontend/node_modules  # Prevents conflicts between host and container node_modules
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - musika_network
   
   pgadmin:
     image: dpage/pgadmin4
