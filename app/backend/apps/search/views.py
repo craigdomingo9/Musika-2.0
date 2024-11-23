@@ -2,16 +2,21 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django_filters import rest_framework as filters
 from .search import search_products
 from .models import SearchResults
 from .serializers import SearchResultsSerializer
 from .filters import SearchResultsFilter
+from business.serializers import ProductSerializer
+from typing import Any
+
 
 
 class ProductSearchView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny,]
+    
+    
     def get(self, request, **kwargs):
         query = kwargs['query']
         user = request.user
@@ -20,17 +25,21 @@ class ProductSearchView(APIView):
 
         if query:
             results = search_products(query)
-
+            
         # Save the search results
         search_result = SearchResults.objects.create(
             query=query,
             user=user,
-            product_ids=[result['id'] for result in results],  # Assuming results is a list of dicts
+            product_ids=[result.id for result in results],  # Assuming results is a list of dicts
             total_results=len(results)
         )
         
+        context = {'request': self.request}
+        
+        serializer = ProductSerializer(results, many=True, context=context)
+        
 
-        return Response(results, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class SearchHistoryViewSet(viewsets.ModelViewSet):

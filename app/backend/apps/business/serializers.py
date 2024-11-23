@@ -64,10 +64,15 @@ class VariantAttributeSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
         
 class ProductImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
     class Meta:
         model = ProductImage
         fields = ['id', 'image', 'alt_text', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
+    
+    def get_image(self, obj):
+        # Return relative URL instead of absolute URL
+        return obj.image.url.replace(f'http://{self.context.get("request").get_host()}', '')
 
 
 class ProductVariantSerializer(serializers.ModelSerializer):
@@ -78,19 +83,7 @@ class ProductVariantSerializer(serializers.ModelSerializer):
         model = ProductVariant
         fields = ['id', 'stock_quantity', 'price', 'on_sale', 'sale_price', 'images', 'attributes']
         read_only_fields = ['id']
-        
 
-
-class ProductSerializer(serializers.ModelSerializer):
-    variants = ProductVariantSerializer(many=True, read_only=True, source='variant')
-    category = CategorySerializer(read_only=True)
-    catalog = CatalogSerializer(read_only=True)
-    business = BusinessSerializer(read_only=True)
-    
-    class Meta:
-        model = Product
-        fields = fields = ['id', 'category', 'catalog', 'business', 'name', 'description', 'is_featured', 'created_at', 'updated_at', 'variants']
-        read_only_fields = ['id', 'created_at', 'updated_at']
 
 class ProductReviewSerializer(serializers.ModelSerializer):
     
@@ -98,4 +91,20 @@ class ProductReviewSerializer(serializers.ModelSerializer):
         model = ProductReview
         fields = ['id', 'content', 'rating', 'product', 'user']
         read_only_fields = ['id', 'product', 'user']
+        depth = 1
 
+
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    variants = ProductVariantSerializer(many=True, read_only=True, source='variant')
+    category = CategorySerializer(read_only=True)
+    catalog = CatalogSerializer(read_only=True)
+    business = BusinessSerializer(read_only=True)
+    reviews = ProductReviewSerializer(many=True,read_only=True)
+    
+    
+    class Meta:
+        model = Product
+        fields = fields = ['id', 'uuid', 'category', 'catalog', 'business', 'name', 'description', 'is_featured', 'created_at', 'updated_at', 'variants', 'reviews']
+        read_only_fields = ['id', 'uuid', 'created_at', 'updated_at']

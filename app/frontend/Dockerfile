@@ -16,6 +16,7 @@ COPY . .
 # Expose the port your app runs on
 EXPOSE 3000
 
+ENV NODE_ENV=development
 
 # Start the Next.js development server
 CMD ["npm", "run", "dev"]

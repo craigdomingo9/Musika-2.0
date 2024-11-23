@@ -2,14 +2,23 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.postgres.indexes import GinIndex
+import uuid
 
 User = get_user_model()
 
-from business.utils.models import generate_unique_code, get_field_args, get_default_operating_hours
+from business.utils.models import (
+    generate_unique_code, 
+    generate_uuid, 
+    get_field_args, 
+    get_default_operating_hours
+)
 
 
 def generate_code():
     return generate_unique_code(Business)
+
+def generate_unique_uuid():
+    return generate_uuid(Product)
 
 
 """   Business   """
@@ -111,12 +120,13 @@ class ProductReview(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.author.username} - {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
+        return f"{self.user.username} - {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
 
 
 
 """   Product   """
 class Product(models.Model):
+    uuid = models.UUIDField(default=uuid.uuid4)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
     catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, related_name="products")
     business = models.ForeignKey(Business, on_delete=models.CASCADE,related_name="products")

@@ -2,13 +2,8 @@
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
   } from "@/components/ui/card"
 import Link from "next/link";
-import { Separator } from "../ui/separator";
 
 
 
@@ -18,11 +13,10 @@ type Props = {
 
 
 function SearchAutoComplete({data}: Props) {
-    console.log(data)
 
   return (
     <>
-        <Card className="mt-2">
+        <Card className="mt-2 absolute top-full w-full z-50">
             <CardContent className="grid items-center gap-2 p-4">
                 {data.map((result) => (
                     <Link className="" href={{
@@ -36,6 +30,9 @@ function SearchAutoComplete({data}: Props) {
                         </p>
                     </Link>
                 ))}
+                {data.length == 0 && (
+                    <p className="text-center text-sm">No results.</p>
+                )}
             </CardContent>
         </Card>
     </>

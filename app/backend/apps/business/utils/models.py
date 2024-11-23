@@ -2,7 +2,7 @@ from typing import Type,Dict
 from django.db import models
 import random
 import string
-
+from uuid import uuid4
 
 
 
@@ -24,6 +24,18 @@ def generate_unique_code(model: Type[models.Model]):
             break
 
     return code
+
+
+
+
+def generate_uuid(model: Type[models.Model]) -> uuid4:
+    """Generate a unique UUID for a model."""
+    while True:
+        new_uuid = uuid4()  # Generate a new UUID
+        if hasattr(model, 'uuid') and not model.objects.filter(uuid=new_uuid).exists():
+            return new_uuid  # Return if it's unique
+            
+
 
 
 def get_default_operating_hours():

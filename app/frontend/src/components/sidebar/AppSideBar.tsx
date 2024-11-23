@@ -9,7 +9,6 @@ import {
   Settings2,
   ShoppingCart
 } from "lucide-react"
-
 import { NavMain } from "@/components/sidebar/NavMain"
 import {
   Sidebar,
@@ -32,14 +31,9 @@ const data = {
     {
       name: "shadcn",
       email: "m@example.com",
-      avatar: "/avatars/shadcn.jpg",
+      avatar: "/media/images/users/user.jpg",
     },
   navMain: [
-    {
-      title: "Search",
-      url: "#search",
-      icon: Search,
-    },
     {
       title: "Home",
       url: "#",

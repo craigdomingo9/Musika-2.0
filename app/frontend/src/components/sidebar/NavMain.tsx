@@ -6,6 +6,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 
@@ -19,12 +20,17 @@ export function NavMain({
     isActive?: boolean
   }[]
 }) {
+    const { toggleSidebar, isMobile } = useSidebar();
+
   return (
     <SidebarMenu>
       {items.map((item) => (
         <SidebarMenuItem key={item.title}>
           <SidebarMenuButton asChild isActive={item.isActive}>
-            <Link href={item.url}>
+            <Link 
+            href={item.url}
+            onClick={() => {isMobile && toggleSidebar()}}
+            >
               <item.icon />
               <span>{item.title}</span>
             </Link>

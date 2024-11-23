@@ -13,6 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { DialogTitle } from "@radix-ui/react-dialog"
 
 
 type Props = {

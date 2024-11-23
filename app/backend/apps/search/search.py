@@ -1,7 +1,6 @@
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.contrib.postgres.search import TrigramSimilarity
 from business.models import Product
-from business.serializers import ProductSerializer
 
 
 
@@ -18,4 +17,4 @@ def search_products(query):
     ).filter(similarity__gt=0.1).order_by('-similarity')  # Adjust threshold as needed
     
 
-    return ProductSerializer(results, many=True).data
+    return results

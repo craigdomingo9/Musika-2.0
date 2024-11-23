@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
 from rest_framework.permissions import AllowAny
+from .pagination import ProductPagination
 from .filters import (
     ProductFilter,
     BusinessProfileFilter,
@@ -92,18 +93,24 @@ class ProductReviewViewSet(viewsets.ModelViewSet):
     filterset_class = ProductReviewFilter
 
 
+
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [AllowAny,]
+    pagination_class = ProductPagination
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ProductFilter
+    
 
 
 class ProductImageViewSet(viewsets.ModelViewSet):
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
     permission_classes = [AllowAny,]
+    
+    def get_serializer_context(self):
+        return {'request': self.request}
 
 
 class ProductVariantViewSet(viewsets.ModelViewSet):

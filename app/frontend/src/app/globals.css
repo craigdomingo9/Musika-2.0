@@ -110,4 +110,14 @@ body {
       --sidebar-ring: 217.2 91.2% 59.8%;
     }
   }
-  
+
+
+@font-face {
+    font-family: musika_font;
+    src: url('./fonts/DM_Sans/static/DMSans-Regular.ttf')
+    format('truetype');
+}
+
+div {
+    font-family: musika_font;
+}
