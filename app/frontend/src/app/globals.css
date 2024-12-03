@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 @layer base {
   :root {
@@ -78,11 +75,21 @@ body {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+@font-face {
+  font-family: Branding;
+  src: url(fonts/LeckerliOne-Regular.ttf);
 }
+
+@font-face {
+  font-family: PrimaryFont;
+  src: url(fonts/Comfortaa-Medium.ttf);
+}
+
+body {
+  font-family: PrimaryFont;
+}
+
+.font-branding {
+  font-family: Branding;
+}
+
