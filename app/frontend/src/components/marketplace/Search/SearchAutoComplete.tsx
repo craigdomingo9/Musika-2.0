@@ -32,7 +32,7 @@ function SearchAutoComplete({searchQuery}: Props) {
   return (
     <>
     {searchQuery && (
-      <div className="absolute flex flex-col bg-white w-[19rem] px-4 mt-3 min-h-96 shadow-lg">
+      <div className="absolute flex flex-col z-50 bg-white w-[19rem] px-4 mt-3 min-h-96 shadow-lg">
         {searchResults.map((result) => (
           <Link href={{
             pathname: "/product",
