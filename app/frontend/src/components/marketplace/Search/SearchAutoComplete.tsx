@@ -1,5 +1,6 @@
 "use client";
 import { ProductEndpoints } from "@/services/api/endpoints/marketplace/product";
+import useSearchedProductsStore from "@/store/SearchedProducts";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -12,7 +13,7 @@ type Props = {
 
 function SearchAutoComplete({searchQuery}: Props) {
   const [searchResults, setSearchResults] = useState<Product[]>([]);
-  
+  const {setProducts} = useSearchedProductsStore();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -22,6 +23,7 @@ function SearchAutoComplete({searchQuery}: Props) {
       apiService.isOnClient();
       const data = await apiService.searchProducts({ query: searchQuery });
       setSearchResults(data);
+      setProducts(data);
     };
 
     fetchProducts();

@@ -1,10 +1,11 @@
+import SearchBox from "@/components/marketplace/Search/SearchBox";
 
 export default function Home() {
 
   
   return (
-    <div>
-      
-    </div>
+    <main>
+      <SearchBox />
+    </main>
   );
 }
