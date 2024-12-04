@@ -1,10 +1,10 @@
-import React from 'react'
+import Link from 'next/link'
 
 function HeaderTitle() {
   return (
-    <p className='font-branding text-2xl'>
+    <Link href={'/'} className='font-branding text-2xl'>
       Musika
-    </p>
+    </Link>
   )
 }
 

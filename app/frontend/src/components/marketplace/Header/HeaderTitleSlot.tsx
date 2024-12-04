@@ -2,17 +2,23 @@
 import { usePathname } from 'next/navigation'
 import HeaderTitle from './HeaderTitle';
 import BackButton from '../BackButton';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const TitlePaths = ['/']
 
 function HeaderTitleSlot() {
   const pathName = usePathname();
+  const isMobile = useIsMobile();
+  
+  const condition = TitlePaths.find(path => path == pathName);
+  console.log(isMobile, condition)
 
   return (
     <div className='px-2'>
-      {TitlePaths.find(path => path == pathName) ? (
+      {(condition || !isMobile) && (
         <HeaderTitle />
-      ) : (
+      )}
+      {isMobile && !condition && (
         <BackButton />
       )}
     </div>
