@@ -7,6 +7,7 @@ export class ProductEndpoints extends ApiClient {
     super();
   }
 
+  
   /**
    * Fetches a list of products based on the given parameters.
    *
@@ -20,7 +21,6 @@ export class ProductEndpoints extends ApiClient {
    * @param page_size: number - size of page
    * @returns A Promise that resolves to an array of products.
    */
-
   getProducts(params: paramsProps<Record<string, any>>): Promise<ApiResponse<Product[]>> {
     const urlPath = '/business/products/';
     this.constructUrl(urlPath, params);
@@ -28,12 +28,6 @@ export class ProductEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  /**
-   * Fetches a specific product by its ID.
-   *
-   * @param id - The ID of the product to fetch.
-   * @returns A Promise that resolves to the fetched product.
-   */
   getProduct(id: number): Promise<ApiResponse<Product[]>> {
     const urlPath = `/business/products/${id}/`;
     this.constructUrl(urlPath);
@@ -41,12 +35,6 @@ export class ProductEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  /**
-   * Searches for products based on a query string.
-   *
-   * @param query - The query string to search for.
-   * @returns A Promise that resolves to an array of matching products.
-   */
   searchProducts({ query }: paramsProps<Record<string, any>>): Promise<ApiResponse<Product[]>> {
     const urlPath = `/business/products/search/q=${query}/`;
     this.constructUrl(urlPath);
@@ -54,11 +42,6 @@ export class ProductEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  /**
-   * Fetches a list of product categories.
-   *
-   * @returns A Promise that resolves to an array of categories.
-   */
   getCategories(): Promise<ApiResponse<Category[]>> {
     const urlPath = `/business/categories/`;
     this.constructUrl(urlPath);
@@ -66,23 +49,13 @@ export class ProductEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  /**
-   * Fetches a list of product catalogs.
-   *
-   * @returns A Promise that resolves to an array of catalogs.
-   */
   getCatalogs(): Promise<ApiResponse<Category[]>> {
     const urlPath = `/business/catalogs/`;
     this.constructUrl(urlPath);
 
     return this.fulfillRequest();
   }
-  /**
-   * Fetches a specific catalog.
-   *
-   * @param id - The ID of the catalog to fetch.
-   * @returns A Promise that resolves to the fetched catalog.
-   */
+
   getCatalog(id: number): Promise<ApiResponse<Category[]>> {
     const urlPath = `/business/catalogs/${id}/`;
     this.constructUrl(urlPath);

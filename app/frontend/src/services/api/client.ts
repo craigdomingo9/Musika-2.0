@@ -41,7 +41,7 @@ export class ApiClient {
   protected async fulfillRequest(): Promise<ApiResponse<Product[]>> {
     try {
       // Perform a fetch request and return the response
-      console.log(this.url)
+      // console.log(this.url)
       const response = await fetch(this.url, this.options);
       return await response.json();
     } catch (error) {
