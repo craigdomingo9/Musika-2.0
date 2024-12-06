@@ -4,3 +4,9 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export function trunc(string: string ,max_length: number): string {
+  if (string.length < max_length) return string;
+
+  return string.substring(0, max_length) + "...";
+}

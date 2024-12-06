@@ -20,7 +20,7 @@ function SearchAutoComplete({searchQuery}: Props) {
       if (!searchQuery) return;
 
       const apiService = new ProductEndpoints();
-      apiService.isOnClient();
+      apiService.isOnClient(window);
       const data = await apiService.searchProducts({ query: searchQuery });
       setSearchResults(data);
       setProducts(data);

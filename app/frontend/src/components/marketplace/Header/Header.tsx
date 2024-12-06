@@ -5,7 +5,7 @@ import HeaderTitleSlot from "./HeaderTitleSlot"
 function Header() {
   return (
     <div className="h-14 shadow flex justify-center">
-      <div className="w-full sm:w-[640px] md:w-[900px] flex justify-between items-center">
+      <div className="section-width flex justify-between items-center">
         <HeaderTitleSlot />
         <HeaderLinksSlot />
       </div>

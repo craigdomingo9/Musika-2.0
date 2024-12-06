@@ -11,7 +11,6 @@ function HeaderTitleSlot() {
   const isMobile = useIsMobile();
   
   const condition = TitlePaths.find(path => path == pathName);
-  console.log(isMobile, condition)
 
   return (
     <div className='px-2'>

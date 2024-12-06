@@ -21,7 +21,7 @@ export class ProductEndpoints extends ApiClient {
    * @param page_size: number - size of page
    * @returns A Promise that resolves to an array of products.
    */
-  getProducts(params: paramsProps<Record<string, any>>): Promise<ApiResponse<Product[]>> {
+  getProducts(params: paramsProps<Record<string, any>>): Promise<PaginatedData<Product[]>> {
     const urlPath = '/business/products/';
     this.constructUrl(urlPath, params);
 

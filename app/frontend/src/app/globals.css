@@ -93,3 +93,41 @@ body {
   font-family: Branding;
 }
 
+
+.color-primary {
+  @apply text-blue-500;
+}
+
+.bg-primary {
+  @apply bg-blue-500;
+}
+
+.bg-primary:hover {
+  background-color: rgb(30 58 138 / var(--tw-bg-opacity, 1));
+}
+
+.section-width {
+  @apply w-full lg:w-[900px];
+}
+
+/* Hide scrollbar for all elements */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.text-opacity {
+  @apply opacity-75;
+}
+
+.sub-text {
+  @apply opacity-35;
+  @apply text-[0.65rem];
+  @apply leading-none;
+}
+
