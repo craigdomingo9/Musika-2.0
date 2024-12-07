@@ -10,7 +10,7 @@ type Props = {
 }
 
 function ProductCardFace({product, isSale}: Props) {
-  const baseUrl = window.location.href;
+  const baseUrl = new URL(window.location.href).origin;
   const isMobile = useIsMobile();
   return (
     <>
