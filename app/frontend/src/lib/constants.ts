@@ -8,3 +8,4 @@ export const saleSectionTitle = "Sale";
 export const featuredSectionTitle = "Featured";
 export const exploreTitle = "Explore";
 export const truncationMinLength = 40;
+export const purchaseProductActionLabel = "Buy";

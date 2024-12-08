@@ -28,7 +28,7 @@ export class ProductEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  getProduct(id: number): Promise<ApiResponse<Product[]>> {
+  getProduct(id: number): Promise<Product> {
     const urlPath = `/business/products/${id}/`;
     this.constructUrl(urlPath);
 

@@ -93,25 +93,29 @@ body {
   font-family: Branding;
 }
 
+:root {
+  --baseColor: rgb(59 130 246);
+  --baseColorHover: rgb(30 64 175);
+}
 
 .color-primary {
-  @apply text-blue-500;
+  @apply text-[--baseColor];
 }
 
 .bg-primary {
-  @apply bg-blue-500;
+  @apply bg-[--baseColor];
 }
 
 .bg-primary:hover {
-  background-color: rgb(30 58 138 / var(--tw-bg-opacity, 1));
+  @apply bg-[--baseColorHover];
 }
 
 .section-width {
-  @apply w-full lg:w-[900px];
+  @apply w-full sm:w-[650px] md:w-[800px] lg:w-[900px];
 }
 
 /* Hide scrollbar for all elements */
-::-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
 }
 
@@ -125,8 +129,12 @@ body {
   @apply opacity-75;
 }
 
-.sub-text {
+.sub-text-opacity {
   @apply opacity-35;
+}
+
+.sub-text {
+  @apply sub-text-opacity;
   @apply text-[0.65rem];
   @apply leading-none;
 }

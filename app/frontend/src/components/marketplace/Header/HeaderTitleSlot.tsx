@@ -4,7 +4,7 @@ import HeaderTitle from './HeaderTitle';
 import BackButton from '../BackButton';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-const TitlePaths = ['/']
+const TitlePaths = ['/',]
 
 function HeaderTitleSlot() {
   const pathName = usePathname();
