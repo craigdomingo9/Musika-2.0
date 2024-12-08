@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
-from .models import Business, Profile
+from .models import Business, Profile, ProductImage, VariantAttribute
 from notifications.models import Notification
 
 
@@ -40,3 +40,12 @@ def profile_created_or_updated(sender, instance, created, **kwargs):
         )
         # Notify the user associated with the business
         Notification.objects.create(user=instance.business.user, message=message)
+
+
+@receiver(post_save, sender=ProductImage)
+def product_image_created_or_updated(sender, instance, created, **kwargs):
+    if created:
+      product_image = ProductImage.objects.get(id=instance.pk)
+      attributes = VariantAttribute.objects.filter(variant=instance.variant).first()
+      product_image.alt_text = f"{instance.variant.product.name} - {attributes.value} {attributes.name}"
+      product_image.save(update_fields=['alt_text'])

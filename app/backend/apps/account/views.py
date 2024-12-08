@@ -62,7 +62,7 @@ class AccountPreferencesViewSet(viewsets.ModelViewSet):
     serializer_class = AccountPreferencesSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = AccountPreferencesFilter
-    
+
 
 class PasswordChangeView(APIView):
     permission_classes = [IsAuthenticated]

@@ -25,6 +25,7 @@ class AnonymousUserMiddleware(MiddlewareMixin):
         """Creates an anonymous user and stores id in session."""
         try:
             anonymous_user_id = request.session.get('user_uuid')
+            # or request.META['HTTP_X_UUID']
             if anonymous_user_id:
                 request.user = self.model.objects.get(uuid=anonymous_user_id)
             else:

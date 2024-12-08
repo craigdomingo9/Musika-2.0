@@ -13,7 +13,22 @@ from .models import (
     VariantAttribute
 )
 
+
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    logo = serializers.SerializerMethodField()
+    class Meta:
+        model = Profile
+        fields = ['id', 'business', 'name', 'description', 'categories', 'logo', 'cover_photo', 'phone_number', 'email', 'website', 'business_type']
+        depth = 1
+        
+    def get_logo(self, obj):
+        # Return relative URL instead of absolute URL
+        return obj.logo.url.replace(f'http://{self.context.get("request").get_host()}', '')
+
 class BusinessSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(read_only=True)
     class Meta:
         model = Business
         fields = ['id', 'code', 'created_at', 'updated_at', 'profile']
@@ -26,11 +41,6 @@ class BusinessCreateSerializer(serializers.ModelSerializer):
         read_only_fields = ['code']
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = '__all__'
-        depth = 1
 
 class ProfileCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,7 +57,10 @@ class LocationSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['id', 'name', 'description', 'image', 'has_products']
+    
+    def get_has_products(self, obj):
+      return obj.has_products()
 
 
 class CatalogSerializer(serializers.ModelSerializer):
@@ -77,11 +90,11 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
 class ProductVariantSerializer(serializers.ModelSerializer):
     attributes = VariantAttributeSerializer(many=True, read_only=True)
-    images = ProductImageSerializer(many=True, read_only=True)
+    image = ProductImageSerializer(read_only=True)
     
     class Meta:
         model = ProductVariant
-        fields = ['id', 'stock_quantity', 'price', 'on_sale', 'sale_price', 'images', 'attributes']
+        fields = ['id', 'stock_quantity', 'price', 'on_sale', 'sale_price', 'image', 'attributes']
         read_only_fields = ['id']
 
 

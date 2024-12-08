@@ -65,7 +65,7 @@ class AssignedProduct(models.Model):
     ], default='active')
 
     def __str__(self):
-        return f"{self.agent.full_name()} - {self.product.title}"
+        return f"{self.agent.full_name()} - {self.product.name}"
 
 
 

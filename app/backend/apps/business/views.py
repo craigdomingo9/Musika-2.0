@@ -42,6 +42,7 @@ class BusinessViewSet(viewsets.ModelViewSet):
     queryset = Business.objects.all()
     serializer_class = BusinessSerializer
     permission_classes = [AllowAny,]
+    lookup_field = "code"
     
     def get_serializer_class(self):
         if self.action in ["create"]:
@@ -56,6 +57,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny,]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = BusinessProfileFilter
+    
+    def get_serializer_context(self):
+        return {'request': self.request}
     
     def get_serializer_class(self):
         if self.action in ["create"]:

@@ -39,7 +39,7 @@ class Business(models.Model):
 
 """   Business Profile   """
 class Profile(models.Model):
-    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='profile')
+    business = models.OneToOneField(Business, on_delete=models.CASCADE, related_name='profile')
     name = models.CharField(**get_field_args(null=False,blank=False))
     description = models.TextField(**get_field_args(max_length=1000))
     categories = models.CharField(max_length=100)
@@ -149,14 +149,25 @@ class Product(models.Model):
 
 """   Product Image   """
 class ProductImage(models.Model):
-    variant = models.ForeignKey("ProductVariant", on_delete=models.CASCADE, related_name="images")
+    variant = models.OneToOneField("ProductVariant", on_delete=models.CASCADE, related_name="image")
     image = models.ImageField(upload_to='images/business/products')
     alt_text = models.CharField(**get_field_args())
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return self.product.name
+        return self.variant.product.name
+
+
+
+"""   Variant Attribute   """
+class VariantAttribute(models.Model):
+    variant = models.ForeignKey("ProductVariant", on_delete=models.CASCADE, related_name="attributes")
+    name = models.CharField(**get_field_args(blank=False,null=False))
+    value = models.CharField(**get_field_args(blank=False,null=False))
+
+    def __str__(self) -> str:
+        return f"{self.variant.product.name} - {self.name}: {self.value}"
 
 
 
@@ -169,16 +180,5 @@ class ProductVariant(models.Model):
     sale_price = models.DecimalField(max_digits=10, decimal_places=2,blank=True,null=True) 
 
     def __str__(self) -> str:
-        return f"{self.product.name} - Variant ID: {self.id}, Price: {self.price}"
-
-
-
-"""   Variant Attribute   """
-class VariantAttribute(models.Model):
-    variant = models.ForeignKey("ProductVariant", on_delete=models.CASCADE, related_name="attributes")
-    name = models.CharField(**get_field_args(blank=False,null=False))
-    value = models.CharField(**get_field_args(blank=False,null=False))
-
-    def __str__(self) -> str:
-        return f"{self.name}: {self.value}"
-
+        variant = VariantAttribute.objects.filter(variant=self.id).first()
+        return f"{self.product.name} - {variant.value} {variant.name}"
