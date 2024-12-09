@@ -23,7 +23,7 @@ function CartProducts() {
 
   if (items)
   return (
-    <div className="grid mb-6">
+    <div className="grid mb-6 sm:grid-cols-2">
       {items.map(item => (
         <div key={item.variant_id} className="grid grid-cols-[40%_60%] h-32 mx-4 my-2 rounded-lg border">
           <div className=" m-2 my-auto max-h-32 rounded-lg">
@@ -34,7 +34,7 @@ function CartProducts() {
                 v: item.variant_id
               }}}>
               <Image 
-                className="object-scale-down max-h-full"
+                className="object-scale-down max-h-[7.5rem] sm:shadow"
                 src={item.image.image}
                 width={400}
                 height={400}
