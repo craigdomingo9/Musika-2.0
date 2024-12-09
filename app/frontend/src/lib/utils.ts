@@ -10,3 +10,8 @@ export function trunc(string: string ,max_length: number): string {
 
   return string.substring(0, max_length) + "...";
 }
+
+export function roundNumber(number: number, decimalPlaces: number) {
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.round(number * factor) / factor;
+}

@@ -38,9 +38,9 @@ export default class ProductServices {
           image: variant.image,
           attributes: variant.attributes,
         }))
-        .filter(splitProduct => {
-          if (uniqueProductUuids.has(splitProduct.uuid)) return false;
-          uniqueProductUuids.add(splitProduct.uuid);
+        .filter(StandardProduct => {
+          if (uniqueProductUuids.has(StandardProduct.uuid)) return false;
+          uniqueProductUuids.add(StandardProduct.uuid);
           return true;
         })
     );

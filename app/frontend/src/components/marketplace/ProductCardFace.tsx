@@ -5,7 +5,7 @@ import Image from 'next/image'
 import React from 'react'
 
 type Props = {
-  product: SplitProduct,
+  product: StandardProduct,
   isSale?: boolean
 }
 

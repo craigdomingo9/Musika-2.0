@@ -101,7 +101,8 @@ interface Product {
   reviews: ProductReview[],
 }
 
-interface SplitProduct {
+
+interface StandardProduct {
   id: number,
   uuid: string,
   category: Category,
@@ -118,4 +119,8 @@ interface SplitProduct {
   sale_price: string,
   image: ProductImage,
   attributes: ProductAttribute[]
+}
+
+interface CartProduct extends StandardProduct {
+  quantity: number,
 }

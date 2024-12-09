@@ -5,7 +5,7 @@ import Link from "next/link";
 import ProductCardFace from "../ProductCardFace";
 
 type Props = {
-  product: SplitProduct
+  product: StandardProduct
 }
 
 function FeaturedProductCard({product}: Props) {

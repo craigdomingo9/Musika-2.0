@@ -96,6 +96,7 @@ body {
 :root {
   --baseColor: rgb(59 130 246);
   --baseColorHover: rgb(30 64 175);
+  --headerHeight: 56px;
 }
 
 .color-primary {
@@ -137,5 +138,9 @@ body {
   @apply sub-text-opacity;
   @apply text-[0.65rem];
   @apply leading-none;
+}
+
+button {
+  @apply outline-0;
 }
 

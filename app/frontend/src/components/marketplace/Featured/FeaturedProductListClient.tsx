@@ -2,7 +2,7 @@
 import FeaturedProductCard from "./FeaturedProductCard";
 
 type Props = {
-  products: SplitProduct[];
+  products: StandardProduct[];
 }
 
 function FeaturedProductListClient({products}: Props) {

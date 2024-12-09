@@ -9,3 +9,6 @@ export const featuredSectionTitle = "Featured";
 export const exploreTitle = "Explore";
 export const truncationMinLength = 40;
 export const purchaseProductActionLabel = "Buy";
+export const cartPageTitle = "Your Cart";
+export const checkoutActionTitle = "Checkout";
+export const cartIsEmptyLabel = "Your cart is Empty...";

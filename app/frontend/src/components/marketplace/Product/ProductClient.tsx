@@ -37,7 +37,7 @@ function ProductClient({product, defaultVariant}: Props) {
         </div>
         <div className="grid mx-2">
           <ProductBody product={product} />
-          <ProductActions />
+          <ProductActions product={product} />
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ export default class SaleProductService extends ProductServices {
     super(products);
   }
 
-  resolveOnSaleProducts(): SplitProduct[] {
+  resolveOnSaleProducts(): StandardProduct[] {
     const uniqueProductUuids = new Set<string>(); // Keep track of processed product UUIDs
     return this._products.flatMap(product =>
       product.variants
@@ -29,9 +29,9 @@ export default class SaleProductService extends ProductServices {
           image: variant.image,
           attributes: variant.attributes,
         }))
-        .filter(splitProduct => {
-          if (uniqueProductUuids.has(splitProduct.uuid)) return false;
-          uniqueProductUuids.add(splitProduct.uuid);
+        .filter(StandardProduct => {
+          if (uniqueProductUuids.has(StandardProduct.uuid)) return false;
+          uniqueProductUuids.add(StandardProduct.uuid);
           return true;
         })
     );

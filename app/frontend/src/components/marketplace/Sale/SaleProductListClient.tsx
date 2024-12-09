@@ -4,7 +4,7 @@ import SaleProductCard from "./SaleProductCard";
 
 
 type Props = {
-  products: SplitProduct[];
+  products: StandardProduct[];
 }
 
 function SaleProductListClient({products}: Props) {
