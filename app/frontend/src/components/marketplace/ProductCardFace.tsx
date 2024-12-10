@@ -10,14 +10,13 @@ type Props = {
 }
 
 function ProductCardFace({product, isSale}: Props) {
-  const baseUrl = new URL(window.location.href).origin;
   const isMobile = useIsMobile();
   return (
     <>
     <div>
       <Image
         className={cn("rounded-xl shadow sm:max-h-48", isSale && "sm:h-40")}
-        src={`${baseUrl}${product.image.image}`}
+        src={product.image.image}
         width={500}
         height={500}
         alt={product.image.alt_text}

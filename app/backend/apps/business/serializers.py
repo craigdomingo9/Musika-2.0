@@ -63,12 +63,6 @@ class CategorySerializer(serializers.ModelSerializer):
       return obj.has_products()
 
 
-class CatalogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Catalog
-        fields = '__all__'
-
-
 
 class VariantAttributeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -107,17 +101,21 @@ class ProductReviewSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-
-
 class ProductSerializer(serializers.ModelSerializer):
     variants = ProductVariantSerializer(many=True, read_only=True, source='variant')
     category = CategorySerializer(read_only=True)
-    catalog = CatalogSerializer(read_only=True)
     business = BusinessSerializer(read_only=True)
     reviews = ProductReviewSerializer(many=True,read_only=True)
-    
     
     class Meta:
         model = Product
         fields = fields = ['id', 'uuid', 'category', 'catalog', 'business', 'name', 'description', 'is_featured', 'created_at', 'updated_at', 'variants', 'reviews']
         read_only_fields = ['id', 'uuid', 'created_at', 'updated_at']
+
+
+class CatalogSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(many=True, read_only=True)
+    class Meta:
+        model = Catalog
+        fields = ['id', 'name', 'description', 'category', 'products']
+    

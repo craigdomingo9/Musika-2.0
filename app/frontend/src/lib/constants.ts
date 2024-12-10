@@ -12,3 +12,4 @@ export const purchaseProductActionLabel = "Buy";
 export const cartPageTitle = "Your Cart";
 export const checkoutActionTitle = "Checkout";
 export const cartIsEmptyLabel = "Your cart is Empty...";
+export const truncationLength = 80;

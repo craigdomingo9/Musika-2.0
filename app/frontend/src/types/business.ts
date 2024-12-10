@@ -19,6 +19,7 @@ interface Catalog {
   id: number,
   name: string,
   description: string,
+  products: StandardProduct[],
   created_at: string,
 }
 
@@ -118,7 +119,8 @@ interface StandardProduct {
   on_sale: boolean,
   sale_price: string,
   image: ProductImage,
-  attributes: ProductAttribute[]
+  attributes: ProductAttribute[],
+  variants?: ProductVariant[]
 }
 
 interface CartProduct extends StandardProduct {

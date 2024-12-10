@@ -2,6 +2,7 @@ import { ProductEndpoints } from "@/services/api/endpoints/marketplace/product";
 import ProductServices from "@/services/marketplace/product";
 import FeaturedProductCard from "./FeaturedProductCard";
 import FeaturedProductListClient from "./FeaturedProductListClient";
+import ProductDetailServices from "@/services/marketplace/productdetail";
 
 async function FeaturedProductList() {
   const apiService = new ProductEndpoints();
@@ -12,6 +13,8 @@ async function FeaturedProductList() {
   })
   const productService = new ProductServices(data);
   const products = productService.splitVariants()
+
+  
   
   return (
     <FeaturedProductListClient products={products} />

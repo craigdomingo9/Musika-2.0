@@ -15,7 +15,8 @@ export class ApiClient {
   };
   
   isOnClient(window: Window) {
-    this.baseURL = window.location.href + "api";
+    const url = new URL(window.location.href)
+    this.baseURL = url.origin + '/api';
   }
   
   protected constructUrl<T extends Record<string, any>>(urlPath: string,params?: paramsProps<T>) {

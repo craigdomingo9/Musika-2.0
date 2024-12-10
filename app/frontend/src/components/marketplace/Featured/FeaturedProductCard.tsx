@@ -1,5 +1,3 @@
-import { truncationMinLength } from "@/lib/constants";
-import { trunc } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import ProductCardFace from "../ProductCardFace";
@@ -16,6 +14,7 @@ function FeaturedProductCard({product}: Props) {
         pathname: '/product',
         query: {
           id: product.id,
+          v: product.variant_id,
         }
       }}
       className="border shadow-lg rounded-lg m-auto w-36 sm:w-48 sm:max-h-[17.25rem] py-1">

@@ -49,9 +49,9 @@ export class ProductEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  getCatalogs(): Promise<ApiResponse<Category[]>> {
+  getCatalogs(params: paramsProps<Record<string, any>>): Promise<Catalog[]> {
     const urlPath = `/business/catalogs/`;
-    this.constructUrl(urlPath);
+    this.constructUrl(urlPath, params);
 
     return this.fulfillRequest();
   }
