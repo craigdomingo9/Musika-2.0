@@ -2,20 +2,27 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { searchInputActionLabel, searchInputPlaceHolder } from "@/lib/constants"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchAutoComplete from "./SearchAutoComplete";
 import { useRouter } from "next/navigation";
 
-function SearchInput() {
+
+type Props = {
+  onSearchPage?: boolean,
+}
+
+
+
+function SearchInput({onSearchPage}: Props) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const router = useRouter();
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       goToSearchPage();
+      setSearchQuery("");
     }
   };
-
 
   const goToSearchPage = async () => {
     if (!searchQuery) return;
@@ -34,7 +41,8 @@ function SearchInput() {
           <Input id="search" className="border-0 text-sm shadow-none focus-visible:ring-0" 
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleKeyPress}
-          placeholder={searchInputPlaceHolder}/>
+          placeholder={searchInputPlaceHolder}
+          value={searchQuery}/>
           <Button 
           className="bg-primary hover:bg-primary-hover h-10 rounded-l-none p-2 rounded-r-lg text-white font-semibold transition-colors"
           onClick={() => goToSearchPage()}>

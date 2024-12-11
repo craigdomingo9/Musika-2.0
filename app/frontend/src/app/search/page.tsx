@@ -1,15 +1,25 @@
-"use client";
-import useSearchedProductsStore from "@/store/SearchedProducts";
+import SearchBox from "@/components/marketplace/Search/SearchBox";
+import SearchPageHeader from "@/components/marketplace/Search/Page/SearchPageHeader";
+import SearchedProducts from "@/components/marketplace/Search/Page/SearchedProducts";
 
+type Props = {
+  searchParams: {
+    q: string,
+  }
+}
 
-type Props = {}
+async function Page({searchParams}: Props) {
 
-function Page({}: Props) {
-  const {products} = useSearchedProductsStore();
+  const {q} = await searchParams;
 
-  console.log(products);
   return (
-    <div>Page</div>
+    <div className="flex place-content-center sm:mt-2">
+      <div className="section-width mx-2">
+        <SearchBox />
+        <SearchPageHeader q={q} />
+        <SearchedProducts />
+      </div>
+    </div>
   )
 }
 
