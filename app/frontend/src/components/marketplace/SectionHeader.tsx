@@ -8,7 +8,7 @@ type Props = {
 
 function SectionHeader({sectionTitle, showExplore}: Props) {
   return (
-    <div className='flex justify-between p-2'>
+    <div className='flex justify-between p-2 sm:mx-4'>
       <p className='font-semibold'>{sectionTitle}</p>
       {showExplore && (
         <Link 

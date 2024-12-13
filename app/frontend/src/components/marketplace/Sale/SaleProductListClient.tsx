@@ -14,6 +14,7 @@ function SaleProductListClient({products}: Props) {
 
   return (
       <Carousel
+        className="sm:mx-4"
         opts={{
           align: "start",
           loop: true,

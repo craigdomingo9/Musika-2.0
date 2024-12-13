@@ -128,3 +128,13 @@ interface StandardProduct {
 interface CartProduct extends StandardProduct {
   quantity: number,
 }
+
+
+interface Notification {
+  id: number,
+  user: User,
+  message: string,
+  is_read: boolean,
+  sent_at: string,
+}
+

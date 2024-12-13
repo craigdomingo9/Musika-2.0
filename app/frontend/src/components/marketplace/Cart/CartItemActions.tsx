@@ -7,11 +7,12 @@ type Props = {
 }
 
 function CartItemActions({item}: Props) {
-  const {incrementQuantity, decrementQuantity, resetBag} = UseCartStore();
+  const {incrementQuantity, decrementQuantity} = UseCartStore();
   
 
   return (
-    <>
+    <div className="flex items-center">
+      <p className="text-xs sub-text-opacity font-semibold px-2">Quantity:</p>
       <div className="flex gap-x-2 text-opacity">
         <Button 
           className="h-6 w-2 my-auto bg-primary/90" 
@@ -27,8 +28,8 @@ function CartItemActions({item}: Props) {
             +
         </Button>
       </div>
-      <Button className="h-8">Buy</Button>
-    </>
+      {/* <Button className="h-8">Buy</Button> */}
+    </div>
   )
 }
 

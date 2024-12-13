@@ -9,7 +9,7 @@ from .filters import NotificationFilter
 
 
 class NotificationViewSet(viewsets.ModelViewSet):
-    permission_classes = [AllowAny, IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
     filter_backends = (filters.DjangoFilterBackend,)

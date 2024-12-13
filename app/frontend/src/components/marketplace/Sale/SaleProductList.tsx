@@ -11,7 +11,7 @@ async function SaleProductList() {
     page_size: 10,
   })
   // resolve the products
-  const products = splitVariants(data.results);
+  const products = splitVariants(data.results, {on_sale: true});
 
 
   // console.log(products);

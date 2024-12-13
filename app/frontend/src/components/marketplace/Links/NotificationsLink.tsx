@@ -1,14 +1,36 @@
 "use client";
 import Link from "next/link"
 import IconLink from "../Header/IconLink"
+import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
+import NotificationsEndpoints from "@/services/api/endpoints/marketplace/notifications";
+
 
 function NotificationsLink() {
+  const apiServices = new NotificationsEndpoints();
+  apiServices.isOnClient(window);
+  const [notifications, setNotifications] = useState<Notification[]>([])
+
+  useEffect(() => {
+    const fetchNotifications = async() => {
+      const uuid = Cookies.get('uuid')
+      
+      const data = await apiServices.getNotifications({
+        "user_uuid": uuid,
+      })
+      setNotifications(data.filter(notification => !notification.is_read));
+
+    }
+    fetchNotifications();
+
+  }, [])
+  
   return (
     <IconLink Icon={
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
         <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
       </svg>
-    } count={2} pathName="/notifications" />
+    } count={notifications.length} pathName="/notifications" />
   )
 }
 

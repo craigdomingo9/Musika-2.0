@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 
 class Notification(models.Model):
@@ -11,6 +12,12 @@ class Notification(models.Model):
     
     class Meta:
         ordering = ["-id"]
+        
+    @property
+    def sent_at(self):
+      if timezone.now() > self.created_at:
+        return self.created_at.strftime('%d/%m')
+      return self.created_at.strftime('%H:%M')
     
     def mark_as_read(self):
         """Mark the notification as read"""
