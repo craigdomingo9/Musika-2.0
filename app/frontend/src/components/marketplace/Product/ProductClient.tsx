@@ -1,11 +1,11 @@
 "use client";
-import ProductDetailServices from "@/services/marketplace/productdetail";
 import ProductFace from "./ProductFace";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useProductVariantCarouselStore } from "@/store/ProductVariantCarousel";
 import ProductFaceSelector from "./ProductFaceSelector";
 import ProductBody from "./ProductBody";
 import ProductActions from "./ProductActions";
+import { fixVariantImageUrl } from "@/services/marketplace/product";
 
 type Props = {
   product: Product,
@@ -14,9 +14,8 @@ type Props = {
 
 function ProductClient({product, defaultVariant}: Props) {
 
-  const productServices = new ProductDetailServices(product);
-  productServices.fixImageUrl(window.location.href);
-  const _product = productServices.product();
+  
+  const _product = fixVariantImageUrl(window.location.href, product);
   
   const {setSelectedVariant} = useProductVariantCarouselStore();
 

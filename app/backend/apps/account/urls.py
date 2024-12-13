@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 
-from .views import AccountViewSet,AccountPreferencesViewSet,PasswordChangeView,LoginView,LogoutView
+from .views import AccountViewSet,AccountPreferencesViewSet,PasswordChangeView,LoginView,LogoutView,ExposeUuid
 
 
 router = DefaultRouter()
@@ -13,6 +13,7 @@ router.register(r'preferences', AccountPreferencesViewSet, basename="User Prefer
 urlpatterns = [
     path('auth/password/change/', PasswordChangeView.as_view(),name="change-password"),
     path('auth/login/',LoginView.as_view(),name="login"),
-    path('auth/logout/',LogoutView.as_view(),name="logout")
+    path('auth/logout/',LogoutView.as_view(),name="logout"),
+    path('auth/expose-uuid/',ExposeUuid.as_view(), name='expose-uuid')
     
 ] + router.urls

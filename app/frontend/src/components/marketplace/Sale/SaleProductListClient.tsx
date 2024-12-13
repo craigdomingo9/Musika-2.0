@@ -1,7 +1,7 @@
 "use client";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import SaleProductCard from "./SaleProductCard";
-import { fixProductImageUrl } from "@/services/marketplace/productImageUrl";
+import { fixProductImageUrl } from "@/services/marketplace/product";
 
 
 type Props = {

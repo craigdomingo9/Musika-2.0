@@ -144,3 +144,10 @@ button {
   @apply outline-0;
 }
 
+.category-chip {
+  @apply text-xs border text-nowrap mx-2 min-w-fit font-semibold opacity-70 p-2 rounded-sm;
+}
+
+.category-chip.active {
+  @apply text-white bg-[--baseColor];
+}

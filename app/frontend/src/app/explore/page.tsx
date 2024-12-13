@@ -1,10 +1,17 @@
-import React from 'react'
+"use client";
+import Filters from '@/components/marketplace/Explore/Filters'
+import ProductsList from '@/components/marketplace/Explore/ProductsList'
 
-type Props = {}
 
-function page({}: Props) {
+function page() {
+
   return (
-    <div>page</div>
+    <div className="flex place-content-center sm:mt-2">
+      <div className="section-width">
+        <Filters />
+        <ProductsList />
+      </div>
+    </div>
   )
 }
 

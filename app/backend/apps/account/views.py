@@ -15,7 +15,7 @@ logger = getLogger(__name__)
 from .serializers import AccountSerializer, AccountCreateSerializer, AccountPreferencesSerializer
 from account.utils.account_updater import AccountUpdater
 from .serializers import PasswordChangeSerializer
-from .models import AccountPreferences
+from .models import AccountPreferences, Account
 from .filters import AccountPreferencesFilter, AccountFilter
 from middleware.permissions import IsAccountOwner
 
@@ -77,6 +77,7 @@ class PasswordChangeView(APIView):
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
+    
     def post(self, request: Request) -> Response:
         username = request.data['username']
         password = request.data['password']
@@ -96,7 +97,29 @@ class LoginView(APIView):
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
+    
     def post(self, request: Request) -> Response:
         logout(request)
         request.session.flush()
+        return Response(status=status.HTTP_200_OK)
+
+
+
+class ExposeUuid(APIView):
+    permission_classes = [AllowAny,]
+    
+    def get(self, request: Request) -> Response:
+        uuid_header = request.headers.get('X-Uuid')
+        print(uuid_header)
+
+        if uuid_header is None:
+            try:
+                new_user = Account.objects.create_anonymous_user()
+                ### TODO: Record Acquisition
+                return Response(data={"uuid": new_user.uuid}, status=status.HTTP_200_OK)
+            except Exception as e:
+                # Log the error and return an appropriate error response
+                logger.error(f"Error creating anonymous user: {str(e)}")
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         return Response(status=status.HTTP_200_OK)

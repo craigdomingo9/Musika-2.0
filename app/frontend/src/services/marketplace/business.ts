@@ -1,28 +1,17 @@
 
 
-export default class BusinessServices {
-  private _business: Business;
 
-  constructor(business: Business) {
-    this._business = business;
-  }
 
-  business() {
-    return this._business
-  }
+export function fixLogoImageUrl(url: string, business: Business) {
+  const urlObject = new URL(url);
 
-  fixLogoImageUrl(url: string) {
-    const urlObject = new URL(url);
-
-    const updatedBusiness = {
-      ...this._business,
-      profile: {
-        ...this._business.profile,
-        logo: `${urlObject.origin}${this._business.profile.logo}`
-      }
+  const updatedBusiness = {
+    ...business,
+    profile: {
+      ...business.profile,
+      logo: `${urlObject.origin}${business.profile.logo}`
     }
-
-    this._business = updatedBusiness;
   }
 
+  return updatedBusiness
 }

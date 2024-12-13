@@ -13,6 +13,7 @@ interface Category {
   id: number,
   name: string,
   description: string,
+  has_products: boolean,
 }
 
 interface Catalog {
@@ -120,7 +121,8 @@ interface StandardProduct {
   sale_price: string,
   image: ProductImage,
   attributes: ProductAttribute[],
-  variants?: ProductVariant[]
+  variants: ProductVariant[]
+  reviews: ProductReview[],
 }
 
 interface CartProduct extends StandardProduct {

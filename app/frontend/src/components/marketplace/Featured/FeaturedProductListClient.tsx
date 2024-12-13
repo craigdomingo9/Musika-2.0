@@ -1,5 +1,5 @@
 "use client";
-import { fixProductImageUrl } from "@/services/marketplace/productImageUrl";
+import { fixProductImageUrl } from "@/services/marketplace/product";
 import FeaturedProductCard from "./FeaturedProductCard";
 
 type Props = {
@@ -15,6 +15,7 @@ function FeaturedProductListClient({products}: Props) {
       {products.map(product => (
         <FeaturedProductCard key={product.uuid} product={product} />
       ))}
+      
     </div>
   )
 }

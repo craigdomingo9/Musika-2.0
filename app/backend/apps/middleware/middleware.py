@@ -24,16 +24,11 @@ class AnonymousUserMiddleware(MiddlewareMixin):
     def create_anonymous_user(self, request: Request) -> None:
         """Creates an anonymous user and stores id in session."""
         try:
-            anonymous_user_id = request.session.get('user_uuid')
-            # or request.META['HTTP_X_UUID']
-            if anonymous_user_id:
-                request.user = self.model.objects.get(uuid=anonymous_user_id)
-            else:
-                request.user = self.model.objects.create_anonymous_user()
-                request.session['user_uuid'] = str(request.user.uuid)
+            uuid_header = request.headers.get('X-Uuid')
+            
+            if uuid_header is not (None or ""):
+                request.user = self.model.objects.get(uuid=uuid_header)
 
-            # Create an Acquisition entry for the anonymous user
-            self.record_acquisition(request)
         except ObjectDoesNotExist as e:
             logger.error(f"Account was not found: {e}")
 

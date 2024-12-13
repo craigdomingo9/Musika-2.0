@@ -1,6 +1,5 @@
 "use client";
-import { fixProductImageUrl } from "@/services/marketplace/productImageUrl";
-import { splitVariants } from "@/services/marketplace/productServices";
+import { fixProductImageUrl, splitVariants } from "@/services/marketplace/product";
 import useSearchedProductsStore from "@/store/SearchedProducts"
 import ProductCardFace from "../../ProductCardFace";
 import Link from "next/link";

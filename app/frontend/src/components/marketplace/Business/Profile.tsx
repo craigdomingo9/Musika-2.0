@@ -3,7 +3,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { truncationLength } from "@/lib/constants";
 import { trunc } from "@/lib/utils";
 import { BusinessEndpoints } from "@/services/api/endpoints/marketplace/business";
-import BusinessServices from "@/services/marketplace/business";
+import { fixLogoImageUrl } from "@/services/marketplace/business";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -23,9 +23,7 @@ function Profile() {
 
       const data = await apiServices.getBusiness(code.toString());
 
-      const businessServices = new BusinessServices(data);
-      businessServices.fixLogoImageUrl(window.location.href);
-      const businessData = businessServices.business()
+      const businessData = fixLogoImageUrl(window.location.href, data);
 
       setBusiness(businessData);
     }

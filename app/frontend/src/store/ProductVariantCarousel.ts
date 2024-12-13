@@ -1,13 +1,11 @@
 import { create } from 'zustand';
+import { combine } from 'zustand/middleware';
 
-interface CarouselApiState {
-  selectedVariant: ProductVariant | undefined,
-  setSelectedVariant: (variant: ProductVariant) => void,
-}
 
-export const useProductVariantCarouselStore = create<CarouselApiState>()(
-  (set) => ({
-    selectedVariant: undefined,
-    setSelectedVariant: (variant: ProductVariant) => set({selectedVariant: variant}),
+
+export const useProductVariantCarouselStore = create(
+  combine({selectedVariant: undefined as ProductVariant | undefined}, (set) => ({
+    setSelectedVariant: (variant: ProductVariant) => set({selectedVariant: variant})
   })
+  )
 );

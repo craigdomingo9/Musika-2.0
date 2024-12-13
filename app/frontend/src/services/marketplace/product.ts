@@ -1,52 +1,75 @@
-import { API_CONFIG } from "../api/config";
 
 
 
 
+export function splitVariants(products: Product[], config?: Record<string, any>): any[] {
 
-export default class ProductServices {
-  protected _products: Product[] = [];
-
-  constructor (products: PaginatedData<Product[]>) {
-    this._products = products.results;
-  }
-
-  products() {
-    return this._products;
-  }
-
-  splitVariants() {
-    const uniqueProductUuids = new Set<string>(); // Keep track of processed product UUIDs
-    return this._products.flatMap(product =>
-      product.variants
-        .filter(variant => product.name && product.description && variant.price && variant.image) // Filter on-sale variants with both prices and images availability
-        .map(variant => ({
-          id: product.id,
-          uuid: product.uuid,
-          category: product.category,
-          catalog: product.catalog,
-          business: product.business,
-          name: product.name,
-          description: product.description,
-          is_featured: product.is_featured,
-          created_at: product.created_at,
-          variant_id: variant.id,
-          stock_quantity: variant.stock_quantity,
-          price: variant.price,
-          on_sale: variant.on_sale,
-          sale_price: variant.sale_price,
-          image: variant.image,
-          attributes: variant.attributes,
-        }))
-        .filter(StandardProduct => {
-          if (uniqueProductUuids.has(StandardProduct.uuid)) return false;
-          uniqueProductUuids.add(StandardProduct.uuid);
-          return true;
-        })
-    );
-  }
+  const uniqueProductUuids = new Set<string>(); // Keep track of processed product UUIDs
   
+  return products.flatMap(product =>
+    product.variants
+      .filter(variant => {
+        if (!product.name || !product.description || !variant.price || !variant.image) return false;
+
+        if (config?.on_sale && (!variant.on_sale || !variant.sale_price )) return false;
+
+        return true;
+      }) 
+      .map(variant => ({
+        id: product.id,
+        uuid: product.uuid,
+        category: product.category,
+        catalog: product.catalog,
+        business: product.business,
+        name: product.name,
+        description: product.description,
+        is_featured: product.is_featured,
+        created_at: product.created_at,
+        variant_id: variant.id,
+        stock_quantity: variant.stock_quantity,
+        price: variant.price,
+        on_sale: variant.on_sale,
+        sale_price: variant.sale_price,
+        image: variant.image,
+        attributes: variant.attributes,
+      }))
+      .filter(StandardProduct => {
+        if (uniqueProductUuids.has(StandardProduct.uuid)) return false;
+        uniqueProductUuids.add(StandardProduct.uuid);
+        return true;
+      })
+  );
 }
 
 
 
+export function fixVariantImageUrl(url: string, product: Product) {
+  const urlObject = new URL(url);
+  
+  const updatedVariants = product.variants.map(variant => ({
+    ...variant,
+    image: {
+      ...variant.image,
+      image: `${urlObject.origin}${variant.image.image}`
+    }
+  }));
+
+  product =  {
+    ...product,
+    variants: updatedVariants
+  };
+  return product
+}
+
+export const fixProductImageUrl = (url: string, products: StandardProduct[]) => {
+  const urlObject = new URL(url);
+  return products.map(product => {
+    return {
+      ...product,
+      image: {
+        ...product.image,
+        image: `${urlObject.origin}${product.image.image}`
+      }
+    }
+  })
+}

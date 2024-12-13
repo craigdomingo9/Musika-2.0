@@ -60,6 +60,7 @@ const UseCartStore = create<CartStore>()(
                 return existingItem;
               }).filter((existingItem: CartProduct) => existingItem?.quantity); // Remove null values
               return { items: updatedItems };
+              
             });
           },
           getTotalPrice: () => {

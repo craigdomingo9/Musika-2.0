@@ -19,7 +19,7 @@ class ProductSearchView(APIView):
     
     def get(self, request, **kwargs):
         query = kwargs['query']
-        user = request.user
+        # user = request.user
         
         results = []
 
@@ -27,12 +27,12 @@ class ProductSearchView(APIView):
             results = search_products(query)
             
         # Save the search results
-        search_result = SearchResults.objects.create(
-            query=query,
-            user=user,
-            product_ids=[result.id for result in results],  # Assuming results is a list of dicts
-            total_results=len(results)
-        )
+        # search_result = SearchResults.objects.create(
+        #     query=query,
+        #     user=user,
+        #     product_ids=[result.id for result in results],  # Assuming results is a list of dicts
+        #     total_results=len(results)
+        # )
         
         context = {'request': self.request}
         

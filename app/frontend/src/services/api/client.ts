@@ -1,4 +1,6 @@
 import { API_CONFIG } from './config';
+import Cookies from "js-cookie";
+
 
 type paramsProps<T extends Record<string, any>> = T;
 
@@ -10,13 +12,15 @@ export class ApiClient {
   private options: RequestInit = {
     headers: {
       'Content-Type': 'application/json',
-      'X-UUID': '4cc3793d-d522-4175-945c-b76a49f268eb',
+      'X-UUID': 'f4303fc0-cb09-4f6f-848c-9c1a8a911cd1',
     }
   };
+
   
   isOnClient(window: Window) {
     const url = new URL(window.location.href)
     this.baseURL = url.origin + '/api';
+    this.getUUID()
   }
   
   protected constructUrl<T extends Record<string, any>>(urlPath: string,params?: paramsProps<T>) {
@@ -35,7 +39,7 @@ export class ApiClient {
   
   protected async fulfillRequest() {
     try {
-      // console.log(this.url)
+      // console.log(this.options)
       const response = await fetch(this.url, this.options);
       return await response.json();
     } catch (error) {
@@ -44,7 +48,27 @@ export class ApiClient {
     }
   }
 
+  private async getUUID() {
+    let uuid = Cookies.get('uuid');
 
+    if (!uuid) {
+      try {
+        const response = await fetch(`${this.baseURL}/users/auth/expose-uuid/`, this.options);
+        const data = await response.json();
+        uuid = data.uuid;
+        Cookies.set('uuid', uuid);
+      } catch (error) {
+        console.error('Error fetching UUID:', error);
+        // Handle the error, e.g., log, retry, or notify the user
+      }
+    }
+  
+    this.options.headers = {
+      ...this.options.headers,
+      "X-UUID": uuid,
+    };
+    
+  }
 
   
 }

@@ -1,6 +1,6 @@
 import { ProductEndpoints } from "@/services/api/endpoints/marketplace/product"
-import SaleProductService from "@/services/marketplace/sale";
 import SaleProductListClient from "./SaleProductListClient";
+import { splitVariants } from "@/services/marketplace/product";
 
 async function SaleProductList() {
   // fetch the products
@@ -11,8 +11,7 @@ async function SaleProductList() {
     page_size: 10,
   })
   // resolve the products
-  const productService = new SaleProductService(data);
-  const products = productService.resolveOnSaleProducts();
+  const products = splitVariants(data.results);
 
 
   // console.log(products);

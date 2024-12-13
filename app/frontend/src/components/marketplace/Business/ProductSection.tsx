@@ -1,13 +1,12 @@
 "use client";
 
 import { ProductEndpoints } from "@/services/api/endpoints/marketplace/product";
-import CatalogServices from "@/services/marketplace/catalog";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductCardFace from "../ProductCardFace";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Link from "next/link";
-import { fixProductImageUrl } from "@/services/marketplace/productImageUrl";
+import { fixProductImageUrl, splitVariants } from "@/services/marketplace/product";
 
 
 function ProductSection() {
@@ -23,16 +22,11 @@ function ProductSection() {
       apiServices.isOnClient(window);
 
       const data = await apiServices.getCatalogs({business: code});
-
-      const catalogServices = new CatalogServices(data);
-      let catalogData = catalogServices.splitVariants();
-
-      catalogData = catalogData.map(catalog => {
-        return {
-          ...catalog,
-          products: fixProductImageUrl(window.location.href, catalog.products)
-        }
-      })
+      
+      let catalogData: Catalog[] = data.map(catalog => ({
+        ...catalog,
+          products: fixProductImageUrl(window.location.href, splitVariants(catalog.products)),
+      }));
 
       setCatalogs(catalogData);
     }

@@ -1,21 +1,14 @@
 import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { combine, devtools, persist } from 'zustand/middleware';
 
 
-interface SearchedProducts {
-  products: Product[],
-  setProducts: (products: Product[]) => void,
-}
 
-const useSearchedProductsStore = create<SearchedProducts>()(
+const useSearchedProductsStore = create(
   devtools(
     persist(
-      (set) => ({
-        products: [],
-        setProducts: (products) => set((state) => ({
-          products: products
-        }))
-      }),
+      combine({products: [] as Product[]}, (set) => ({
+        setProducts: (products: Product[]) => set({ products }),
+      })),
       { name: 'SearchedProductsStore'},
     )
   )
