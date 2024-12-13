@@ -21,7 +21,7 @@ function ProductsList() {
       const data = await apiServices.getProducts({...config, page_size: 1000});
 
       let products = splitVariants(data.results, config)
-      console.log(products)
+      // console.log(products)
 
       const url = window.location.href;
       products = fixProductImageUrl(url, products);

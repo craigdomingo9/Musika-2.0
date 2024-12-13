@@ -24,7 +24,7 @@ function Categories() {
     }
     fetchCategories();
 
-    console.log(config)
+    // console.log(config)
   }, [])
 
   const setCategory = (category: string) => {
