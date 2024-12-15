@@ -112,7 +112,7 @@ body {
 }
 
 .section-width {
-  @apply w-full sm:w-[650px] md:w-[800px] lg:w-[900px];
+  @apply w-full sm:w-[650px] md:w-[700px] lg:w-[800px];
 }
 
 /* Hide scrollbar for all elements */
@@ -151,3 +151,17 @@ button {
 .category-chip.active {
   @apply text-white bg-[--baseColor];
 }
+
+
+.file-input {
+  border: 1px solid rgba(8, 8, 8, 0.188);
+  @apply font-semibold text-opacity w-full;
+}
+
+
+
+.file-input::file-selector-button {
+  @apply shadow-sm rounded-lg;
+}
+
+

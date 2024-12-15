@@ -22,6 +22,7 @@ class Account(models.Model):
     email = models.EmailField(unique=True, **get_field_args())
     password = models.CharField(**get_field_args())  # Store hashed passwords
     uuid = models.UUIDField(default=generate_code, editable=False, unique=True)  # Use UUIDField
+    profile_picture = models.ImageField(upload_to='images/accounts/profile')
     
     age = models.IntegerField(null=True, blank=True)
     sex = models.CharField(**get_field_args())

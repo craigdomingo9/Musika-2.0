@@ -1,5 +1,6 @@
 "use client";
 
+import PageContainer from "@/components/marketplace/PageContainer";
 import NotificationsEndpoints from "@/services/api/endpoints/marketplace/notifications";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -33,8 +34,7 @@ function page() {
 
   
   return (
-    <div className="flex place-content-center">
-      <div className="m-4 section-width">
+    <PageContainer>
         <Link href={'/notifications'} className="text-opacity font-semibold underline">Notifications</Link>
         {notification && (
           <>
@@ -46,8 +46,7 @@ function page() {
             </div>
           </>
         )}
-      </div>
-    </div>
+    </PageContainer>
   )
 }
 
