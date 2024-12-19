@@ -11,6 +11,35 @@ from agents.models import Lead, LeadSource, Agent
 
 logger = getLogger(__name__)
 
+
+class SessionAssignmentMiddleware(MiddlewareMixin):
+    model = Account
+    
+    def process_request(self, request: Request) -> None:
+      """
+        Gets the uuid from the request and assigns the user account to the session.
+      """
+      try: 
+        
+        if 'HTTP_X_UUID' in request.META:
+            uuid = request.META['HTTP_X_UUID']
+            del request.META['HTTP_X_UUID']
+
+            try:
+                user = self.model.objects.get(uuid=uuid)
+            except ObjectDoesNotExist as e:
+                logger.error(f"Account was not found: {e}")
+            
+            if user:
+                request.session.user = user
+                request.user = user
+          
+      except Exception as e:
+            logger.error(f"{e}")
+        
+
+
+
 class AnonymousUserMiddleware(MiddlewareMixin):
     model = Account
 

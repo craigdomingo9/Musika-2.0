@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,6 +10,7 @@ from django.contrib.auth import login,logout,authenticate
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from django_filters import rest_framework as filters
 
+    
 logger = getLogger(__name__)
 
 from .serializers import AccountSerializer, AccountCreateSerializer, AccountPreferencesSerializer
@@ -18,6 +19,8 @@ from .serializers import PasswordChangeSerializer
 from .models import AccountPreferences, Account
 from .filters import AccountPreferencesFilter, AccountFilter
 from middleware.permissions import IsAccountOwner
+
+
 
 # views.py
 class AccountViewSet(viewsets.ModelViewSet):
@@ -33,28 +36,36 @@ class AccountViewSet(viewsets.ModelViewSet):
             self.serializer_class = AccountCreateSerializer
         return super().get_serializer_class()
     
+    def update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return super().update(request, *args, **kwargs)
+        
+
+    # def create(self, request: Request) -> Response:
+
+    #     data = dict(request.data.copy())
+    #     del data["csrfmiddlewaretoken"]
+        
+    #     anonymous_user_uuid = request.session.get('anonymous_user_id')
+        
+    #     try:
+    #         with transaction.atomic():
+    #             anonymous_user, _ = get_user_model().objects.get_or_create(uuid=anonymous_user_uuid)
+    #             anonymous_user.is_anonymous = False
+    #             account_updater = AccountUpdater(anonymous_user, data)
+    #             updated_user = account_updater.call()
+    #             updated_user.save(update_fields=account_updater.update_fields)
+    #             serializer = self.serializer_class(updated_user, data=data)
+    #             return Response(serializer.initial_data, status=status.HTTP_201_CREATED)
+    #     except Exception as e:
+    #         # Handle exception
+    #         logger.error(f"Account creation failed: {e}")
+
+    #         return Response({"error": "An unexpected error occurred."}, status=status.HTTP_400_BAD_REQUEST)
     
-    def create(self, request: Request) -> Response:
 
-        data = dict(request.data.copy())
-        del data["csrfmiddlewaretoken"]
-        
-        anonymous_user_uuid = request.session.get('anonymous_user_id')
-        
-        try:
-            with transaction.atomic():
-                anonymous_user, _ = get_user_model().objects.get_or_create(uuid=anonymous_user_uuid)
-                anonymous_user.is_anonymous = False
-                account_updater = AccountUpdater(anonymous_user, data)
-                updated_user = account_updater.call()
-                updated_user.save(update_fields=account_updater.update_fields)
-                serializer = self.serializer_class(updated_user, data=data)
-                return Response(serializer.initial_data, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            # Handle exception
-            logger.error(f"Account creation failed: {e}")
 
-            return Response({"error": "An unexpected error occurred."}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class AccountPreferencesViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsAccountOwner]
@@ -65,7 +76,7 @@ class AccountPreferencesViewSet(viewsets.ModelViewSet):
 
 
 class PasswordChangeView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     
     def post(self, request):
         serializer = PasswordChangeSerializer(data=request.data)
@@ -83,7 +94,7 @@ class LoginView(APIView):
         password = request.data['password']
         
         if not username or not password:
-            return Response({'error': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
 
         user = authenticate(username=username, password=password)
         if user is not None:

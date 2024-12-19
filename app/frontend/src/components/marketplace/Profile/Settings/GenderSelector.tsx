@@ -1,22 +1,22 @@
 import { UseFormReturn } from 'react-hook-form'
-import SelectField from './Elements/SelectField'
 import { genders } from '@/lib/lists'
+import SelectField from '@/components/universal/Form/Elements/SelectField'
 
-type Props<T extends string> = {
+type Props = {
   form: UseFormReturn<any, any, undefined>,
+  defaultValue: string
 }
 
-
-
-function GenderSelector<T extends string>({form}: Props<T>) {
+function GenderSelector({form, defaultValue}: Props) {
   return (
     <SelectField 
-      fieldName="gender"
       form={form}
+      defaultValue={defaultValue}
+      fieldName="gender"
       label="Gender"
       selectionList={genders}
       description=""
-      placeholder="Harare" 
+      placeholder="Male" 
     />
   )
 }

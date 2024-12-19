@@ -16,12 +16,15 @@ class AccountSerializer(serializers.ModelSerializer):
     def get_profile_picture(self, obj):
         # Return relative URL instead of absolute URL
         return obj.profile_picture.url.replace(f'http://{self.context.get("request").get_host()}', '')
+    
+    def validate_empty_values(self, data):
+        return super().validate_empty_values(data)
 
 
 class AccountCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'username', 'email', 'age', 'sex', 'city', 'is_agent', 'is_business']
+        fields = ['first_name', 'last_name', 'username', 'email', 'profile_picture', 'age', 'sex', 'city', 'is_agent', 'is_business']
 
 
 class AccountPreferencesSerializer(serializers.ModelSerializer):
@@ -34,32 +37,10 @@ class PasswordChangeSerializer(serializers.Serializer):
     """
     Serializer for changing user password.
     """
-    user_uuid = serializers.UUIDField(required=True, write_only=True)
-    old_password = serializers.CharField(required=True, write_only=True)
-    new_password = serializers.CharField(required=True, write_only=True, validators=[validate_password])
-    confirm_password = serializers.CharField(required=True, write_only=True)
+    email = serializers.CharField(required=True, write_only=True)
+    password = serializers.CharField(required=True, write_only=True, validators=[validate_password])
 
     def validate(self, data):
-        """
-        Validate user, old password, and confirm new password.
-        """
-        User = get_user_model()
-        user_uuid = data.get('user_uuid')
-        old_password = data.get('old_password')
-        new_password = data.get('new_password')
-        confirm_password = data.get('confirm_password')
-
-        try:
-            user = User.objects.get(uuid=user_uuid)
-        except User.DoesNotExist:
-            raise ValidationError({'user_uuid': 'User not found'})
-
-        if not user.check_password(old_password):
-            raise ValidationError({'old_password': 'Invalid old password'})
-
-        if new_password != confirm_password:
-            raise ValidationError({'confirm_password': 'Passwords do not match'})
-
         return data
 
     def save(self):
@@ -67,9 +48,9 @@ class PasswordChangeSerializer(serializers.Serializer):
         Update user password.
         """
         User = get_user_model()
-        user_uuid = self.validated_data['user_uuid']
-        new_password = self.validated_data['new_password']
-        user = User.objects.get(uuid=user_uuid)
+        email = self.validated_data['email']
+        new_password = self.validated_data['password']
+        user = User.objects.get(email=email)
         user.set_password(new_password)
         user.save()
 

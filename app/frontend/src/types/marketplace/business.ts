@@ -65,11 +65,12 @@ interface ProductVariant {
   attributes: ProductAttribute[]
 }
 
-interface User {
+interface UserProfile {
   id: number,
   first_name: string,
   last_name: string,
   username: string,
+  profile_picture: string,
   email: string,
   age: string,
   sex: string,
@@ -86,7 +87,7 @@ interface ProductReview {
   id: number,
   content: string,
   rating: number,
-  user: User,
+  user: UserProfile,
 }
 
 interface Product {
@@ -132,7 +133,7 @@ interface CartProduct extends StandardProduct {
 
 interface Notification {
   id: number,
-  user: User,
+  user: UserProfile,
   message: string,
   is_read: boolean,
   sent_at: string,

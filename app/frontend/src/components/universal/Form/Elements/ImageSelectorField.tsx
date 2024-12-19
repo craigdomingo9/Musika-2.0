@@ -1,22 +1,37 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 type Props = {
   form: UseFormReturn<any, any, undefined>,
+  defaultImage?: string,
   fieldName: string,
   label: string,
 }
 
-function ImageSelectorField({form, fieldName, label}: Props) {
+function ImageSelectorField({form, defaultImage, fieldName, label}: Props) {
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!defaultImage) return;
+
+    const correctImageUrl = () => {
+      const urlObject = new URL(window.location.href);
+      setImagePreview(urlObject.origin + defaultImage)
+    }
+    correctImageUrl()
+  }, [defaultImage])
+  
+
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
         const file = event.target.files[0];
       if (file) {
         const previewUrl = URL.createObjectURL(file);
-        // setImagePreview(previewUrl);
+        setImagePreview(previewUrl);
       }
     }
   };
@@ -41,16 +56,17 @@ function ImageSelectorField({form, fieldName, label}: Props) {
                       }
                   }}
                 />
-                {/* {imagePreview && (
+                {imagePreview && (
                     <Image
                       src={imagePreview}
                       alt="Image Preview"
                       height={1000}
                       width={1000}
-                      className="mt-4 border rounded-full mx-auto w-80 h-80 object-cover"
+                      className="mt-4 border rounded-full mx-auto p-2 w-80 max-w-80 h-80 max-h-80 object-cover"
+                      unoptimized
                       priority
                     />
-                )} */}
+                )}
               </div>
             </FormControl>
           <FormMessage />
