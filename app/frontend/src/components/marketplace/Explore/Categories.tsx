@@ -1,31 +1,15 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { ProductEndpoints } from "@/services/api/endpoints/marketplace/product"
+import useFetchCategories from "@/services/api/marketplace/hooks/categories/useFetchCategories";
 import usePageConfigStore from "@/store/PageConfigStore";
-import { useEffect, useState } from "react";
 
 
 
 
 function Categories() {
   const {config, setConfig} = usePageConfigStore();
-  const [categories, setCategories] = useState<Category[]>([]);
-  
+  const {data, isLoading, error} = useFetchCategories();
 
-  useEffect(() => {
-    const fetchCategories = async() => {
-      const apiServices = new ProductEndpoints();
-      apiServices.isOnClient(window);
-
-      const data = await apiServices.getCategories();
-      setCategories(
-        data.filter(category => category.has_products)
-      )
-    }
-    fetchCategories();
-
-    // console.log(config)
-  }, [])
 
   const setCategory = (category: string) => {
     setConfig({...config, "category": category})
@@ -37,7 +21,7 @@ function Categories() {
 
       <div className={cn("category-chip", !config.category && "active")} onClick={() => setCategory("")}>All</div>
 
-      {categories.map(category => (
+      {data.map(category => (
         <div
         key={category.id} 
         onClick={() => setCategory(category.name)}

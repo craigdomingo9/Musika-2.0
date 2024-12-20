@@ -1,48 +1,28 @@
 "use client";
-
-import { ProductEndpoints } from "@/services/api/endpoints/marketplace/product";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import ProductCardFace from "../ProductCardFace";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Link from "next/link";
-import { fixProductImageUrl, splitVariants } from "@/services/marketplace/product";
+import useFetchBusinessProducts from "@/services/api/marketplace/hooks/business/useFetchBusinessProducts";
 
 
 function ProductSection() {
   const { code } = useParams();
-  const [catalogs, setCatalogs] = useState<Catalog[]>();
-
-
-  useEffect(() => {
-    const fetchBusinessProducts = async() => {
-      if (!code) return;
-
-      const apiServices = new ProductEndpoints();
-      apiServices.isOnClient(window);
-
-      const data = await apiServices.getCatalogs({business: code});
-      
-      let catalogData: Catalog[] = data.map(catalog => ({
-        ...catalog,
-          products: fixProductImageUrl(window.location.href, splitVariants(catalog.products)),
-      }));
-
-      setCatalogs(catalogData);
-    }
-    fetchBusinessProducts()
-  }, [])
+  
+  const { data, isLoading, error } = useFetchBusinessProducts();
 
 
   return (
     <div className="sm:mt-5 mb-8 lg:my-14 flex">
       <Accordion type="single" defaultValue="catalog-0" collapsible className="w-full">
-      {catalogs && catalogs.map((catalog, index) => (
+      {data && data.map((catalog, index) => (
         <AccordionItem key={catalog.id} value={`catalog-${index}`}>
           <div className="w-full">
+
             <AccordionTrigger className="shadow pr-2">
               <p className="text-opacity text-sm font-semibold px-2">{catalog.name}</p>
             </AccordionTrigger>
+
             <AccordionContent>
               <div className="min-w-full grid grid-cols-2 pb-2 md:grid-cols-3 items-center space-y-2 overflow-x-hidden">
                 {catalog.products.map(product => (
@@ -58,6 +38,7 @@ function ProductSection() {
                 ))}
               </div>
             </AccordionContent>
+            
           </div>
         </AccordionItem>
       ))}

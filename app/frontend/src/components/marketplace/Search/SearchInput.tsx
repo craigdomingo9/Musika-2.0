@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { searchInputActionLabel, searchInputPlaceHolder } from "@/lib/constants"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SearchAutoComplete from "./SearchAutoComplete";
 import { useRouter } from "next/navigation";
 

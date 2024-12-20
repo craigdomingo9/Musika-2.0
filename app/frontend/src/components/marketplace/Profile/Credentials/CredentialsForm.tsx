@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import InputField from "@/components/universal/Form/Elements/InputField";
 import FormContainer from "@/components/universal/Form/FormContainer";
-import useFetchProfile from "@/services/api/hooks/profile/useFetchProfile";
+import useFetchProfile from "@/services/api/marketplace/hooks/profile/useFetchProfile";
 import { createCredentialsForm, CredentialsOnSubmit, setUsername } from "@/services/marketplace/forms/credentials";
 
 

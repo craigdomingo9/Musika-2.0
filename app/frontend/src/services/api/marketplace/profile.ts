@@ -1,9 +1,9 @@
-import ApiClientForms from "../../client/forms";
+import { ApiClient } from "../client";
 
 
 
 
-export default class ProfileEndpoints extends ApiClientForms {
+export default class ProfileEndpoints extends ApiClient {
   
   constructor() {
     super()

@@ -2,6 +2,7 @@
 
 export const brandName = "Musika";
 export const backButtonName = "Back";
+export const homeButtonName = "Home";
 export const searchInputPlaceHolder = "Search Here...";
 export const searchInputActionLabel = "Search";
 export const saleSectionTitle = "Sale";

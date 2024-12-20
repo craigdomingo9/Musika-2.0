@@ -14,20 +14,21 @@ export class ApiClient {
     method: "GET",
     headers: {
       'Accept': `*/*`,
-      'X-UUID': 'f4303fc0-cb09-4f6f-848c-9c1a8a911cd1',
+      // 'X-UUID': 'f4303fc0-cb09-4f6f-848c-9c1a8a911cd1',
     }
   };
 
   setRequestType(type: string, body?: any) {
     this.options.method = type;
-    this.options.body = body;
+    if (body) this.options.body = body;
   }
 
 
-  isOnClient(window: Window) {
+  isOnClient(window: Window, skipGetUUId?: boolean) {
     const url = new URL(window.location.href)
     this.baseURL = url.origin + '/api';
 
+    if (skipGetUUId) return;
     Cookies.set('uuid', 'f4303fc0-cb09-4f6f-848c-9c1a8a911cd1')
     this.getUUID()
   }
@@ -48,7 +49,7 @@ export class ApiClient {
   
   protected async fulfillRequest() {
     try {
-      console.log(this.options)
+      // console.log(this.options)
       // console.log(this.url)
       const response = await fetch(this.url, this.options)
         .then(res => {
@@ -87,6 +88,16 @@ export class ApiClient {
     };
 
     return uuid
+  }
+
+  applyCredentials() {
+    let csrftoken = Cookies.get('csrftoken');
+
+    this.options.credentials = 'include';
+    this.options.headers = {
+      ...this.options.headers,
+      'X-CSRFToken': csrftoken
+    }
   }
 }
 

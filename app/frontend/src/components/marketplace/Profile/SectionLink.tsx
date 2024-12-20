@@ -8,7 +8,7 @@ type Props = {
 
 function SectionLink({title, href}: Props) {
   return (
-    <Link href={href} className='flex justify-between text-opacity font-normal shadow-md p-2 rounded my-2 hover:scale-[1.025]'>
+    <Link href={href} className='flex border justify-between duration-200 text-opacity font-normal shadow-md p-2 rounded my-2 hover:scale-[1.025]'>
       <div>
         <p>{title}</p>
       </div>

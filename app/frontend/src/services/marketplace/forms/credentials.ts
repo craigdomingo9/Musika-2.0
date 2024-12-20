@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import CredentialsEndpoints from "@/services/api/endpoints/marketplace/credentials";
+import CredentialsEndpoints from "@/services/api/marketplace/credentials";
 
 
 

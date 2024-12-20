@@ -1,6 +1,4 @@
-import { truncationMinLength } from "@/lib/constants";
-import { cn, trunc } from "@/lib/utils";
-import Image from "next/image"
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import ProductCardFace from "../ProductCardFace";
 

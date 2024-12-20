@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import ProductCardFace from "../ProductCardFace";
 
@@ -7,7 +6,6 @@ type Props = {
 }
 
 function FeaturedProductCard({product}: Props) {
-  // console.log(product)
   return (
     <Link
       href={{

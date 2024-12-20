@@ -1,8 +1,8 @@
-import { BusinessEndpoints } from "@/services/api/endpoints/marketplace/business";
+import { BusinessEndpoints } from "@/services/api/marketplace/business";
 
 export default async function testBusinessEndpoints() {
   const apiService = new BusinessEndpoints();
-  apiService.isOnClient();
+  apiService.isOnClient(window);
 
   console.log("testing...")
 

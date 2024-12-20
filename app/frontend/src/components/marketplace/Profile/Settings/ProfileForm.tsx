@@ -8,7 +8,7 @@ import ImageSelectorField from "@/components/universal/Form/Elements/ImageSelect
 import InputField from "@/components/universal/Form/Elements/InputField"
 import CitySelector from "./CitySelector"
 import GenderSelector from "./GenderSelector"
-import useFetchProfile from "@/services/api/hooks/profile/useFetchProfile"
+import useFetchProfile from "@/services/api/marketplace/hooks/profile/useFetchProfile"
 import { createProfileForm, ProfileOnSubmit, setProfileId } from "@/services/marketplace/forms/profile"
 import FormContainer from "@/components/universal/Form/FormContainer"
 

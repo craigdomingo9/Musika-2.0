@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
-import ProfileEndpoints from '../../endpoints/marketplace/profile';
 import Cookies from 'js-cookie';
+import ProfileEndpoints from '../../profile';
 
 
 function useFetchProfile() {

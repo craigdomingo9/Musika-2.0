@@ -1,7 +1,9 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import ProfileEndpoints from "@/services/api/endpoints/marketplace/profile"
+import ProfileEndpoints from "@/services/api/marketplace/profile"
+import { successToast } from "../toast";
+import { useToast } from "@/hooks/use-toast";
 
 
 
@@ -50,5 +52,11 @@ export async function ProfileOnSubmit(values: z.infer<typeof profileFormSchema>)
 
   const apiServices = new ProfileEndpoints();
   apiServices.isOnClient(window);
-  console.log(await apiServices.updateProfile(body, profile_id))
+  const res = await apiServices.updateProfile(body, profile_id)
+
+  if (!res.ok) return;
+
+  const { toast } = useToast();
+  console.log("yeah")
+  successToast(toast, "Profile", "updated")
 }

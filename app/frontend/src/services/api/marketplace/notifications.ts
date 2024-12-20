@@ -1,4 +1,4 @@
-import { ApiClient } from "../../client";
+import { ApiClient } from "../client";
 
 export default class NotificationsEndpoints extends ApiClient {
   
@@ -23,7 +23,8 @@ export default class NotificationsEndpoints extends ApiClient {
   
   markNotificationAsRead(id: any) {
     const urlPath = `/notifications/${id}/mark-as-read/`;
-    this.setRequestType("POST", {"is_read": true});
+    this.setRequestType("POST");
+    this.applyCredentials()
     this.constructUrl(urlPath);
 
     return this.fulfillRequest();

@@ -10,7 +10,6 @@ type Props = {
 
 function ProductFaceSelector({product}: Props) {
   const variants = product.variants;
-  // console.log(product)
   const {selectedVariant, setSelectedVariant} = useProductVariantCarouselStore();
 
   useEffect(() => {}, [selectedVariant])
@@ -20,7 +19,7 @@ function ProductFaceSelector({product}: Props) {
         {variants.map(variant => (
           <Image
           key={variant.id}
-          className={cn('w-10 sm:hover:opacity-30 h-10 rounded-full border', variant.id == selectedVariant?.id && "ring-4 ring-[--baseColor]")}
+          className={cn(variant.id != selectedVariant?.id && 'sm:hover:opacity-30 duration-300','w-10 h-10 rounded-full border', variant.id == selectedVariant?.id && "ring-4 ring-[--baseColor]")}
           onClick={() => {
             setSelectedVariant(variant);
           }}

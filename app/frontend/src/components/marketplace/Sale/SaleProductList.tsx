@@ -1,22 +1,12 @@
-import { ProductEndpoints } from "@/services/api/endpoints/marketplace/product"
 import SaleProductListClient from "./SaleProductListClient";
-import { splitVariants } from "@/services/marketplace/product";
+import useFetchProducts from "@/services/api/marketplace/hooks/product/useFetchProducts";
 
 async function SaleProductList() {
-  // fetch the products
-  const apiService = new ProductEndpoints();
-
-  const data = await apiService.getProducts({
-    on_sale: true,
-    page_size: 10,
-  })
-  // resolve the products
-  const products = splitVariants(data.results, {on_sale: true});
+  const data = await useFetchProducts({on_sale: true})
 
 
-  // console.log(products);
   return (
-    <SaleProductListClient products={products} />
+    <SaleProductListClient products={data} />
   )
 }
 
