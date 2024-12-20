@@ -12,11 +12,12 @@ type Props = {
   description?: string,
   type?: string,
   id?: string,
-  disabled?: boolean
+  disabled?: boolean,
+  autoComplete?: string
 };
 
 
-function InputField({ form, defaultValue, fieldName, label, placeholder, description, type, id, disabled }: Props) {
+function InputField({ form, defaultValue, fieldName, label, placeholder, description, type, id, disabled, autoComplete }: Props) {
   const [fieldValue, setFieldValue] = useState<string>("");
 
   useEffect(() => {
@@ -45,6 +46,7 @@ function InputField({ form, defaultValue, fieldName, label, placeholder, descrip
               form.setValue(fieldName, e.target.value)
               setFieldValue(e.target.value)
             }}
+            autoComplete={autoComplete}
             disabled={disabled}
           />
           </FormControl>

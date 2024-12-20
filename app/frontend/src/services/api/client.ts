@@ -14,7 +14,6 @@ export class ApiClient {
     method: "GET",
     headers: {
       'Accept': `*/*`,
-      // 'X-UUID': 'f4303fc0-cb09-4f6f-848c-9c1a8a911cd1',
     }
   };
 

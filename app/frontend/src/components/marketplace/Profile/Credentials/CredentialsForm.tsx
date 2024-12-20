@@ -33,6 +33,7 @@ function CredentialsForm() {
             description="" 
             label="Email"
             placeholder="example@example.com"
+            autoComplete="email"
             disabled
           />
           <InputField
@@ -44,6 +45,7 @@ function CredentialsForm() {
             label="Password"
             type="password"
             placeholder="********"
+            autoComplete="new-password"
           />
           <InputField
             form={form}
@@ -54,6 +56,7 @@ function CredentialsForm() {
             label="Confirm Password"
             type="password"
             placeholder="********"
+            autoComplete="new-password"
           />
           <div className="grid py-2">
             <Button type="submit" className="mx-auto w-full">Submit</Button>

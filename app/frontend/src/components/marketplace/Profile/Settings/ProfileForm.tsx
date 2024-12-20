@@ -46,6 +46,7 @@ function ProfileForm() {
             description="" 
             label="Username"
             placeholder="Enter your username..."
+            autoComplete="username"
           />
           <InputField
             form={form}
@@ -55,6 +56,7 @@ function ProfileForm() {
             description="" 
             label="email"
             placeholder="example@example.com"
+            autoComplete="email"
           />
           <InputField
             form={form}
@@ -64,6 +66,7 @@ function ProfileForm() {
             description="" 
             label="First Name"
             placeholder="Enter your first name..."
+            autoComplete="first-name"
           />
           <InputField
             form={form}
@@ -73,6 +76,7 @@ function ProfileForm() {
             description="" 
             label="Last Name"
             placeholder="Enter your last name..."
+            autoComplete="last-name"
           />
           <InputField
             form={form}
