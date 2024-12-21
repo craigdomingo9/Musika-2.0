@@ -13,7 +13,7 @@ function IconLink({Icon, count, pathName}: Props) {
     <Link href={pathName}>
       <div className='relative'>
         {Icon}
-        <p className='text-xs absolute -top-[0.12rem] text-[--baseColor] -right-1 font-semibold text-opacity'>{count}</p>
+        <p className='text-xs absolute -top-[0.135rem] text-[--baseColor] -right-[0.45rem] font-semibold text-opacity'>{count}</p>
       </div>
     </Link>
   )

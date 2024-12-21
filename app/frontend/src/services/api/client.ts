@@ -1,4 +1,3 @@
-
 import { API_CONFIG } from './config';
 import Cookies from "js-cookie";
 
@@ -15,7 +14,7 @@ export class ApiClient {
     headers: {
       'Accept': `*/*`,
     }
-  };
+  }
 
   setRequestType(type: string, body?: any) {
     this.options.method = type;
@@ -48,8 +47,6 @@ export class ApiClient {
   
   protected async fulfillRequest() {
     try {
-      // console.log(this.options)
-      // console.log(this.url)
       const response = await fetch(this.url, this.options)
         .then(res => {
           return res.json()
@@ -67,12 +64,11 @@ export class ApiClient {
     if (!uuid) {
       try {
         this.constructUrl('/users/auth/expose-uuid/');
-        
         const response = await fetch(this.url, this.options)
           .then(res => res.json())
           
-        uuid = response.uuid; 
-  
+        uuid = response.uuid;
+
         if (uuid) {
           Cookies.set("uuid", uuid);
         }
@@ -96,6 +92,12 @@ export class ApiClient {
     this.options.headers = {
       ...this.options.headers,
       'X-CSRFToken': csrftoken
+    }
+  }
+
+  applyCache(t: number) {
+    this.options.next = {
+      revalidate: t,
     }
   }
 }

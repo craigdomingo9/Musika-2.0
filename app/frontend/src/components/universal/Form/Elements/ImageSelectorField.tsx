@@ -55,18 +55,22 @@ function ImageSelectorField({form, defaultImage, fieldName, label}: Props) {
                           handleImageChange(e);
                       }
                   }}
+                  id="profile_picture"
                 />
-                {imagePreview && (
-                    <Image
-                      src={imagePreview}
-                      alt="Image Preview"
-                      height={1000}
-                      width={1000}
-                      className="mt-4 border rounded-full mx-auto p-2 w-80 max-w-80 h-80 max-h-80 object-cover"
-                      unoptimized
-                      priority
-                    />
-                )}
+                <FormLabel htmlFor="profile_picture" className="cursor-pointer">
+                  {imagePreview && (
+                      <Image
+                        src={imagePreview}
+                        alt="Image Preview"
+                        height={1000}
+                        width={1000}
+                        className="mt-4 border rounded-full mx-auto p-2 w-80 max-w-80 h-80 max-h-80 object-cover"
+                        unoptimized
+                        priority
+                      />
+                  )}
+                </FormLabel>
+
               </div>
             </FormControl>
           <FormMessage />

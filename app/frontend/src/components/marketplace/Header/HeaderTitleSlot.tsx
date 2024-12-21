@@ -6,7 +6,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import HomeButton from '../HomeButton';
 
 const TitlePaths = ['/',]
-const HomeButtonPaths = ['/b/', '/p/']
+const HomeButtonPaths = ['/b/', '/notifications', '/profile', '/cart']
 
 function HeaderTitleSlot() {
   const pathName = usePathname();

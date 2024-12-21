@@ -6,6 +6,7 @@ import CartServices from "@/services/marketplace/cart";
 import { successfulCartAdditionToast } from "@/services/marketplace/toast";
 import UseCartStore from "@/store/CartStore";
 import { useProductVariantCarouselStore } from "@/store/ProductVariantCarousel"
+import { ShoppingCart } from "lucide-react";
 
 
 type Props = {
@@ -30,7 +31,7 @@ function ProductActions({product}: Props) {
   return (
     <div className="fixed sm:relative sm:mt-14 w-full bg-white bottom-2 grid grid-cols-[20%_80%]">
       <Button className="h-14 rounded-xl text-xs font-semibold outline-0 bg-slate-500" onClick={addToCart}>
-        + Cart
+        <ShoppingCart />+
       </Button>
       <Button className={cn("rounded-3xl ml-2 mr-3 sm:mr-0 h-14 font-extrabold outline-0")}>
         {purchaseProductActionLabel}

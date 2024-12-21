@@ -11,7 +11,7 @@ async function useFetchProducts(config?: {}) {
   })
 
   // resolve the products
-  const products = splitVariants(data.results, {on_sale: true});
+  const products = splitVariants(data.results, config);
 
   return products
 }

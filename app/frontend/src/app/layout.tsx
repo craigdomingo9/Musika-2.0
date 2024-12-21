@@ -5,6 +5,7 @@ import Header from "@/components/marketplace/Header/Header";
 import { Toaster } from "@/components/ui/toaster";
 import Middleware from "@/components/Middleware";
 import Favicon from '/favicon.ico';
+import { brandName } from "@/lib/constants";
 
 
 const geistSans = localFont({
@@ -19,7 +20,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Musika",
+  title: brandName,
   description: "Zimbabwe's fastest growing marketplace.",
   icons: [{ rel: 'icon', url: Favicon.src }],
 };
