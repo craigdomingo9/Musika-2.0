@@ -1,9 +1,6 @@
 # services/analytics_service.py
 
 
-
-
-
 class AnalyticsService:
     @staticmethod
     def calculate_conversion_rate(agent_analytics):
