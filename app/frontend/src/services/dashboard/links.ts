@@ -22,7 +22,7 @@ const business: any = [
       },
       {
         title: "Communications",
-        url: "/dashboard/communications/v1",
+        url: "/dashboard/comms/v1",
       },
     ]
   },
@@ -66,7 +66,7 @@ const business: any = [
       },
       {
         title: "Subscriptions",
-        url: "/dashboard/subscription/v1",
+        url: "/dashboard/subscriptions/v1",
       },
       {
         title: "Profile",
@@ -80,15 +80,15 @@ const business: any = [
     items: [
       {
         title: "Contact Support",
-        url: "/dashboard/support/v1",
+        url: "/dashboard/help/support/v1",
       },
       {
         title: "Guides",
-        url: "/dashboard/guides/v1",
+        url: "/dashboard/help/guides/v1",
       },
       {
         title: "FAQs",
-        url: "/dashboard/faqs/v1",
+        url: "/dashboard/help/faqs/v1",
       },
     ]
   },
@@ -117,7 +117,7 @@ const agent: any = [
       },
       {
         title: "Communications",
-        url: "/dashboard/communications/v2",
+        url: "/dashboard/comms/v2",
       },
     ]
   },
@@ -161,7 +161,7 @@ const agent: any = [
       },
       {
         title: "Subscriptions",
-        url: "/dashboard/subscription/v2",
+        url: "/dashboard/subscriptions/v2",
       },
       {
         title: "Profile",

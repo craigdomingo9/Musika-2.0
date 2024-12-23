@@ -1,7 +1,9 @@
 
+
+
 function Page() {
   return (
-    <div>Communications Page</div>
+    <div>page</div>
   )
 }
 

@@ -1,8 +1,9 @@
 
 
+
 function Page() {
   return (
-    <div>Financials Page</div>
+    <div>page</div>
   )
 }
 

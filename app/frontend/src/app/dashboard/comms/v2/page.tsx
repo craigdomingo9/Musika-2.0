@@ -3,7 +3,7 @@
 
 function Page() {
   return (
-    <div>Earnings Page</div>
+    <div>page</div>
   )
 }
 
