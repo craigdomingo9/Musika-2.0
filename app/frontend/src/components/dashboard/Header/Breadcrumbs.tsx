@@ -18,13 +18,17 @@ function Breadcrumbs() {
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden md:block" />
-        {breadcrumbs.children && (
+        {breadcrumbs.children[0]?.title ? (
 
           breadcrumbs.children.map((crumb) => (
             <BreadcrumbItem key={crumb.title}>
               <BreadcrumbPage>{crumb.title}</BreadcrumbPage>
             </BreadcrumbItem>
           ))
+        ): (
+          <BreadcrumbItem>
+            <BreadcrumbPage>{breadcrumbs.base?.title}</BreadcrumbPage>
+          </BreadcrumbItem>
         )}
         
       </BreadcrumbList>

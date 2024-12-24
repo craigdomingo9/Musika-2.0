@@ -112,8 +112,11 @@ body {
 }
 
 .section-width {
-  @apply w-full sm:w-[650px] md:w-[700px] lg:w-[800px];
+  @apply w-full sm:w-[650px] md:w-[700px] lg:w-[950px] xl:w-[1080px];
 }
+
+
+
 
 /* Hide scrollbar for all elements */
 *::-webkit-scrollbar {

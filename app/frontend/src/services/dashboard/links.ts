@@ -6,7 +6,7 @@ const business: any = [
   },
   {
     title: "Workspace",
-    url: "#",
+    url: "",
     items: [
       {
         title: "Earnings",
@@ -28,7 +28,7 @@ const business: any = [
   },
   {
     title: "Analytics",
-    url: "#",
+    url: "",
     items: [
       {
         title: "Sales and Growth",
@@ -37,10 +37,6 @@ const business: any = [
       {
         title: "Customer Insights",
         url: "/dashboard/analytics/insights/v1",
-      },
-      {
-        title: "Agents",
-        url: "/dashboard/analytics/agents",
       },
       {
         title: "Product Performance",
@@ -54,7 +50,7 @@ const business: any = [
   },
   {
     title: "More",
-    url: "#",
+    url: "",
     items: [
       {
         title: "Notifications",
@@ -76,7 +72,7 @@ const business: any = [
   },
   {
     title: "Help",
-    url: "#",
+    url: "",
     items: [
       {
         title: "Contact Support",
@@ -101,7 +97,7 @@ const agent: any = [
   },
   {
     title: "Workspace",
-    url: "#",
+    url: "",
     items: [
       {
         title: "Earnings",
@@ -123,7 +119,7 @@ const agent: any = [
   },
   {
     title: "Analytics",
-    url: "#",
+    url: "",
     items: [
       {
         title: "Performance",
@@ -149,7 +145,7 @@ const agent: any = [
   },
   {
     title: "More",
-    url: "#",
+    url: "",
     items: [
       {
         title: "Notifications",
@@ -171,7 +167,7 @@ const agent: any = [
   },
   {
     title: "Help",
-    url: "#",
+    url: "",
     items: [
       {
         title: "Contact Support",
@@ -206,7 +202,6 @@ const getPathNameTitle = (obj: any[], target: string) => {
   for (const section of obj) {
     if (section.url === target) {
       result.base = { title: section.title, url: section.url };
-      console.log(result)
       return result;
     }
 

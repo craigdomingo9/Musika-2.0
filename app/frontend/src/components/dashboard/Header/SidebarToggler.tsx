@@ -7,7 +7,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 function SidebarToggler() {
   const { toggleSidebar } = useSidebar();
-  const isMobile = useIsMobile();
 
   return (
     <>
