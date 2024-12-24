@@ -3,6 +3,8 @@ import Favicon from '/favicon.ico';
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
 import Header from "@/components/dashboard/Header/Header";
+import PageContainer from "@/components/dashboard/PageContainer";
+import DashboardMiddleware from "@/components/dashboard/DashboardMiddleware";
 
 
 export const metadata: Metadata = {
@@ -28,7 +30,10 @@ export default function RootLayout({
       <AppSidebar />
       <SidebarInset>
         <Header />
-        {children}
+        <DashboardMiddleware />
+        <PageContainer>
+          {children}
+        </PageContainer>
       </SidebarInset>
     </SidebarProvider>
   )

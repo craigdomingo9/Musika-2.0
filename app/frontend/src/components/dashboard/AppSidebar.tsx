@@ -1,6 +1,5 @@
-import * as React from "react"
-import { GalleryVerticalEnd, Minus, Plus } from "lucide-react"
-
+"use client"
+import { Minus, Plus } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -13,43 +12,47 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
+  useSidebar,
 } from "@/components/ui/sidebar"
-import { getLinks } from "@/services/dashboard/links"
+import { getBreadCrumbs, getLinks } from "@/services/dashboard/links"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible"
 import Link from "next/link"
-
+import { usePathname } from "next/navigation"
+import { useIsMobile } from "@/hooks/use-mobile"
+import { ModeSwitcher } from "./ModeSwitcher"
+import useDashboardConfigStore from "@/store/dashboard/DashboardConfig"
+import { useEffect, useState } from "react"
+import { modes } from "@/lib/dashboard/constants"
 
 
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [links, setLinks] = useState<any>([]);
+  const { config } = useDashboardConfigStore();
+  const pathName = usePathname();
 
-  const mode = "business";
+  const { toggleSidebar } = useSidebar();
+  const isMobile = useIsMobile();
+  const crumb = getBreadCrumbs(pathName);
+
+
+  useEffect(() => {
+    if (!config.mode) return;
+
+    setLinks(getLinks(config.mode))
+  }, [config])
 
 
   return (
-    <Sidebar variant="floating" {...props}>
+    <Sidebar variant="inset" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Documentation</span>
-                  <span className="">v1.0.0</span>
-                </div>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <ModeSwitcher modes={modes} defaultMode={config.mode} />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {getLinks(mode).map((item: any, index: number) => (
+            {links.map((item: any, index: number) => (
               <Collapsible
               key={item.title}
               defaultOpen={true}
@@ -74,10 +77,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <CollapsibleContent>
                     <SidebarMenuSub>
                       {item.items.map((item: any) => (
-                        <SidebarMenuSubItem key={item.title}>
+                        <SidebarMenuSubItem 
+                          onClick={() => {
+                            if (isMobile) toggleSidebar();
+                          }} key={item.title}>
                           <SidebarMenuSubButton
                             asChild
-                            isActive={item.isActive}
+                            isActive={(crumb.base?.title == item.title || crumb.children[0]?.title == item.title)}
                           >
                             <Link href={item.url}>{item.title}</Link>
                           </SidebarMenuSubButton>

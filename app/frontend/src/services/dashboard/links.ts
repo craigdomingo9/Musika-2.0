@@ -2,7 +2,7 @@
 const business: any = [
   {
     title: "Overview",
-    url: "/dashboard/overview/v1",
+    url: "/dashboard/overview",
   },
   {
     title: "Workspace",
@@ -10,7 +10,7 @@ const business: any = [
     items: [
       {
         title: "Earnings",
-        url: "/dashboard/earnings/v1",
+        url: "/dashboard/earnings",
       },
       {
         title: "Inventory",
@@ -22,7 +22,7 @@ const business: any = [
       },
       {
         title: "Communications",
-        url: "/dashboard/comms/v1",
+        url: "/dashboard/comms",
       },
     ]
   },
@@ -36,15 +36,15 @@ const business: any = [
       },
       {
         title: "Customer Insights",
-        url: "/dashboard/analytics/insights/v1",
+        url: "/dashboard/analytics/insights",
       },
       {
         title: "Product Performance",
-        url: "/dashboard/analytics/products/v1",
+        url: "/dashboard/analytics/products",
       },
       {
         title: "Reports",
-        url: "/dashboard/analytics/reports/v1",
+        url: "/dashboard/analytics/reports",
       },
     ]
   },
@@ -58,15 +58,15 @@ const business: any = [
       },
       {
         title: "Financials",
-        url: "/dashboard/financials/v1",
+        url: "/dashboard/financials",
       },
       {
         title: "Subscriptions",
-        url: "/dashboard/subscriptions/v1",
+        url: "/dashboard/subscriptions",
       },
       {
         title: "Profile",
-        url: "/dashboard/profile/v1",
+        url: "/dashboard/profile",
       },
     ]
   },
@@ -76,15 +76,15 @@ const business: any = [
     items: [
       {
         title: "Contact Support",
-        url: "/dashboard/help/support/v1",
+        url: "/dashboard/help/support",
       },
       {
         title: "Guides",
-        url: "/dashboard/help/guides/v1",
+        url: "/dashboard/help/guides",
       },
       {
         title: "FAQs",
-        url: "/dashboard/help/faqs/v1",
+        url: "/dashboard/help/faqs",
       },
     ]
   },
@@ -93,7 +93,7 @@ const business: any = [
 const agent: any = [
   {
     title: "Overview",
-    url: "/dashboard/overview/v2",
+    url: "/dashboard/overview",
   },
   {
     title: "Workspace",
@@ -101,7 +101,7 @@ const agent: any = [
     items: [
       {
         title: "Earnings",
-        url: "/dashboard/earnings/v2",
+        url: "/dashboard/earnings",
       },
       {
         title: "Products",
@@ -113,7 +113,7 @@ const agent: any = [
       },
       {
         title: "Communications",
-        url: "/dashboard/comms/v2",
+        url: "/dashboard/comms",
       },
     ]
   },
@@ -127,7 +127,7 @@ const agent: any = [
       },
       {
         title: "Customer Insights",
-        url: "/dashboard/analytics/insights/v2",
+        url: "/dashboard/analytics/insights",
       },
       {
         title: "Leads Insights",
@@ -139,7 +139,7 @@ const agent: any = [
       },
       {
         title: "Reports",
-        url: "/dashboard/analytics/reports/v2",
+        url: "/dashboard/analytics/reports",
       },
     ]
   },
@@ -153,15 +153,15 @@ const agent: any = [
       },
       {
         title: "Financials",
-        url: "/dashboard/financials/v2",
+        url: "/dashboard/financials",
       },
       {
         title: "Subscriptions",
-        url: "/dashboard/subscriptions/v2",
+        url: "/dashboard/subscriptions",
       },
       {
         title: "Profile",
-        url: "/dashboard/profile/v2",
+        url: "/dashboard/profile",
       },
     ]
   },
@@ -171,15 +171,15 @@ const agent: any = [
     items: [
       {
         title: "Contact Support",
-        url: "/dashboard/support/v2",
+        url: "/dashboard/support",
       },
       {
         title: "Guides",
-        url: "/dashboard/guides/v2",
+        url: "/dashboard/guides",
       },
       {
         title: "FAQs",
-        url: "/dashboard/faqs/v2",
+        url: "/dashboard/faqs",
       },
     ]
   },
@@ -188,7 +188,7 @@ const agent: any = [
 
 
 export const getLinks = (mode: "agent" | "business") => {
-  return mode === "agent" ? agent : business;
+  return mode.toLowerCase() === "agent" ? agent : business;
 };
 
 
