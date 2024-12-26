@@ -7,7 +7,8 @@ from .filters import (
     BusinessProfileFilter,
     BusinessLocationFilter,
     ProductReviewFilter,
-    CatalogFilter
+    CatalogFilter,
+    BusinessFilter
 )
 from .models import (
     Business,
@@ -42,6 +43,8 @@ class BusinessViewSet(viewsets.ModelViewSet):
     queryset = Business.objects.all()
     serializer_class = BusinessSerializer
     permission_classes = [AllowAny,]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BusinessFilter
     lookup_field = "code"
     
     def get_serializer_class(self):

@@ -5,6 +5,7 @@ from .models import (
     Location,
     ProductReview,
     Catalog,
+    Business
 )
 
 
@@ -27,6 +28,14 @@ class ProductReviewFilter(django_filters.FilterSet):
     class Meta:
         model = ProductReview
         fields = ['business', 'product']
+
+
+class BusinessFilter(django_filters.FilterSet):
+    uuid = django_filters.UUIDFilter(field_name='profile__business__user__uuid', lookup_expr='exact')
+    
+    class Meta:
+        model = Business
+        fields = ['uuid']
 
 
 class BusinessProfileFilter(django_filters.FilterSet):
