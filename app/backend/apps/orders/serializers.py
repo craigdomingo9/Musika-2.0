@@ -1,13 +1,18 @@
 # serializers.py
 from rest_framework import serializers
 from .models import Order
+from business.serializers import BusinessSerializer
+
 
 class OrderSerializer(serializers.ModelSerializer):
+    business = BusinessSerializer(read_only=True)
     class Meta:
         model = Order
         fields = [
-            'id',  # Include this if you want to expose the ID of the order
+            'id',
+            'customer',
             'agent',
+            'business',
             'product',
             'agent_earning',
             'business_earning',
@@ -15,5 +20,5 @@ class OrderSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
-        depth = 1
+        depth = 2
         

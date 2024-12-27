@@ -23,6 +23,7 @@ class SessionAssignmentMiddleware(MiddlewareMixin):
         
         if 'HTTP_X_UUID' in request.META:
             uuid = request.META['HTTP_X_UUID']
+            print(uuid)
             del request.META['HTTP_X_UUID']
 
             try:

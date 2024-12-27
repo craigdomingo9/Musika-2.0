@@ -15,3 +15,4 @@ export const checkoutActionTitle = "Checkout";
 export const cartIsEmptyLabel = "Your cart is Empty...";
 export const truncationLength = 80;
 
+export const testCookie = 'f4303fc0-cb09-4f6f-848c-9c1a8a911cd1'

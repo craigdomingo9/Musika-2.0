@@ -8,15 +8,15 @@ export class BusinessEndpoints extends ApiClient {
     super();
   }
   
-  getBusinesses() {
+  getBusinesses(params?: Record<string, any>) {
     const urlPath = '/business/businesses/';
-    this.constructUrl(urlPath);
+    this.constructUrl(urlPath, params);
 
     return this.fulfillRequest();
   }
 
   
-  getBusiness(code: string): Promise<Business> {
+  getBusiness(code?: string): Promise<Business> {
     const urlPath = `/business/businesses/${code}/`;
     this.constructUrl(urlPath);
     

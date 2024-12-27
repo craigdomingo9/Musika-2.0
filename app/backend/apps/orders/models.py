@@ -1,18 +1,22 @@
 from django.db import models
 from business.models import ProductVariant, Business
 from agents.models import Agent
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 status_choices = [
-    ('pending', 'Pending'),
-    ('failed', 'Failed'),
-    ('refunded', 'Refunded'),
-    ('completed', 'Completed'),
+  ('pending', 'Pending'),
+  ('refunded', 'Refunded'),
+  ('completed', 'Completed'),
 ]
 
 # Create your models here.
 class Order(models.Model):
+    customer = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=False, blank=False, related_name='orders')
     agent = models.ForeignKey(Agent, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='orders')
+    business = models.ForeignKey(Business, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='orders')
     product = models.ForeignKey(ProductVariant, on_delete=models.DO_NOTHING, related_name='orders')
     agent_earning = models.DecimalField(decimal_places=2, max_digits=10, null=True, blank=True)
     business_earning = models.DecimalField(decimal_places=2, max_digits=10, null=True, blank=True)

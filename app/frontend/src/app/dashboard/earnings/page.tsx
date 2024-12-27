@@ -1,17 +1,19 @@
 "use client";
-import useDashboardConfigStore from "@/store/dashboard/DashboardConfig"
+import Earnings from "@/components/dashboard/Earnings/Earnings";
+import PageContainer from "@/components/dashboard/PageContainer";
+import useDashboardConfigStore from "@/store/dashboard/DashboardConfig";
+import { useEffect } from "react";
 
 
 
 function page() {
-
   const { config } = useDashboardConfigStore();
-
+  useEffect(() => {}, [config])
   
   return (
-    <div>
-      hi {config.mode}
-    </div>
+    <PageContainer>
+      <Earnings />
+    </PageContainer>
   )
 }
 

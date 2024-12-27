@@ -48,9 +48,9 @@ export class ApiClient {
   protected async fulfillRequest() {
     try {
       const response = await fetch(this.url, this.options)
-        .then(res => {
-          return res.json()
-        });
+      .then(res => {
+        return res.json()
+      });
       return await response;
     } catch (error) {
       console.error('Error fetching data:', error);

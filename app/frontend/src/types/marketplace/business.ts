@@ -62,7 +62,8 @@ interface ProductVariant {
   on_sale: boolean,
   sale_price: string,
   image: ProductImage,
-  attributes: ProductAttribute[]
+  attributes: ProductAttribute[],
+  product?: Product
 }
 
 interface UserProfile {

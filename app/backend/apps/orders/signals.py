@@ -30,5 +30,8 @@ def order_placed(sender, instance, created, **kwargs):
                 instance.save() 
         if not instance.agent:
             instance.business_earning = instance.product.price
-            instance.save() 
-          
+            instance.save()
+    
+    if not instance.business:
+        instance.business = instance.product.product.business
+        instance.save()
