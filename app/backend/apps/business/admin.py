@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import (
+from business.models import (
     Business, 
     Profile, 
     Location, 
