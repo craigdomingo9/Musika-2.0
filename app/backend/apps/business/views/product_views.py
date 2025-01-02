@@ -11,6 +11,7 @@ from business.models import (
 )
 from business.serializers import (
     ProductSerializer,
+    ProductCreateSerializer
 )
 
 
@@ -23,6 +24,11 @@ class ProductViewSet(viewsets.ModelViewSet):
     pagination_class = ProductPagination
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ProductFilter
+    
+    def get_serializer_class(self):
+        if self.action in ["create", "update"]:
+            self.serializer_class = ProductCreateSerializer
+        return super().get_serializer_class()
     
     def update(self, request, *args, **kwargs):
         kwargs['partial'] = True

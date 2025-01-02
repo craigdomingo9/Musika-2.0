@@ -5,7 +5,7 @@ from .location_serializers import LocationSerializer
 from .catalog_serializers import CatalogSerializer
 from .category_serializers import CategorySerializer
 
-from .product_serializers import ProductSerializer
+from .product_serializers import ProductSerializer, ProductCreateSerializer
 from .product_variant_serializers import ProductVariantSerializer
 from .product_image_serializers import ProductImageSerializer, ProductImageCreateSerializer
 from .variant_attribute_serializers import VariantAttributeSerializer
