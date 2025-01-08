@@ -1,11 +1,7 @@
 from rest_framework import serializers
 
-from business.models import (
-    Product, 
-)
-from .product_variant_serializers import (
-    ProductVariantSerializer
-)
+from business.models import Product
+from .product_variant_serializers import ProductVariantSerializer
 from .business_serializers import BusinessSerializer
 
 

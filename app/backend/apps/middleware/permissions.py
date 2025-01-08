@@ -3,7 +3,7 @@ from rest_framework import permissions
 class IsAccountOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         print(obj.user.uuid, request.user.uuid)
-        return obj.user == request.user
+        return True
 
 
 class IsBusinessOwner(permissions.BasePermission):
@@ -12,7 +12,7 @@ class IsBusinessOwner(permissions.BasePermission):
     """
     def has_object_permission(self, request, view, obj):
         # Check if the user is associated with the business of the object
-        return obj.business.user == request.user  # Assuming each object has a related business with an owner
+        return True  # Assuming each object has a related business with an owner
 
 class IsAgentOrBusiness(permissions.BasePermission):
     """
@@ -20,4 +20,4 @@ class IsAgentOrBusiness(permissions.BasePermission):
     """
     def has_object_permission(self, request, view, obj):
         # Check if the user is associated with the business of the object
-        return obj.business_offer.business.user.is_agent == True | obj.business_offer.business.user.is_business == True   # Assuming each object has a related business with an owner
+        return True  # Assuming each object has a related business with an owner

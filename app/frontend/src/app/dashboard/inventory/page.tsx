@@ -1,7 +1,11 @@
+import Inventory from "@/components/dashboard/Inventory/Inventory"
+import PageContainer from "@/components/dashboard/PageContainer"
 
 function Page() {
   return (
-    <div>Inventory Page</div>
+    <PageContainer>
+      <Inventory />
+    </PageContainer>
   )
 }
 

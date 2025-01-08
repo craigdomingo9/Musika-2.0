@@ -11,7 +11,7 @@ export default function PageContainer(
 ) {
   return (
     <div className={'flex place-content-center sm:mt-2'}>
-      <div className={`w-full sm:p-3 ${className} sm:max-w-[1000px] grid place-content-center items-center`}>
+      <div className={`w-full sm:p-3 sm:max-w-[1000px] grid place-content-center items-center ${className}`}>
         {children}
       </div>
     </div>

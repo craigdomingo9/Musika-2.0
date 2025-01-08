@@ -1,0 +1,2 @@
+from .product_search_views import ProductSearchView
+from .search_results_views import SearchHistoryViewSet

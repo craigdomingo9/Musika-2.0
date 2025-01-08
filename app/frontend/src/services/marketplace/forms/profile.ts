@@ -5,10 +5,10 @@ import ProfileEndpoints from "@/services/api/marketplace/profile"
 
 
 
-let profile_id = 0;
+let profileId = 0;
 
 export const setProfileId = (id: number) => {
-  profile_id = id;
+  profileId = id;
 }
 
 export const profileFormSchema = z.object({
@@ -50,6 +50,6 @@ export async function ProfileOnSubmit(values: z.infer<typeof profileFormSchema>)
 
   const apiServices = new ProfileEndpoints();
   apiServices.isOnClient(window);
-  apiServices.updateProfile(body, profile_id)
+  apiServices.updateProfile(body, profileId)
   
 }

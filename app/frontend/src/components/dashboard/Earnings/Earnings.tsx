@@ -10,7 +10,7 @@ import createEntityStore from "@/store/dashboard/EntityStore";
 
 
 
-export const useOrderStore = createEntityStore<Order>();
+export const useOrderStore = createEntityStore<Order[]>([]);
 
 
 function Earnings() {
@@ -19,6 +19,7 @@ function Earnings() {
   const { data, isLoading, error} = useFetchOrders({
     status: "completed",
   });
+
 
   const totalAmount = roundNumber(entities.reduce((acc, order) => acc + parseInt(config.mode == businessMode() ? order.business_earning || "0" : order.agent_earning || "0"), 0),2)
 

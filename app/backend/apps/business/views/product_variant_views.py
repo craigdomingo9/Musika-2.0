@@ -10,6 +10,7 @@ from business.models import (
 )
 from business.serializers import (
     ProductVariantSerializer,
+    ProductVariantCreateSerializer
 )
 
 
@@ -19,6 +20,11 @@ class ProductVariantViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny,]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ProductVariantFilter
+    
+    def get_serializer_class(self):
+        if self.action in ["create", "update"]:
+            self.serializer_class = ProductVariantCreateSerializer
+        return super().get_serializer_class()
 
     def update(self, request, *args, **kwargs):
         kwargs['partial'] = True

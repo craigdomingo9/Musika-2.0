@@ -21,3 +21,11 @@ class ProductVariantSerializer(serializers.ModelSerializer):
         model = ProductVariant
         fields = ['id', 'product', 'stock_quantity', 'price', 'on_sale', 'sale_price', 'image', 'attributes']
         read_only_fields = ['id', 'attributes']
+
+class ProductVariantCreateSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all()) 
+
+    class Meta:
+        model = ProductVariant
+        fields = ['id', 'product', 'stock_quantity', 'price', 'on_sale', 'sale_price']
+        read_only_fields = ['id']

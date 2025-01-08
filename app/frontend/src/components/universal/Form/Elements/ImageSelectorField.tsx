@@ -4,14 +4,19 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-type Props = {
+function ImageSelectorField({
+  form, 
+  defaultImage, 
+  fieldName, 
+  label, 
+  showPreview = true
+}: {
   form: UseFormReturn<any, any, undefined>,
   defaultImage?: string,
   fieldName: string,
   label: string,
-}
-
-function ImageSelectorField({form, defaultImage, fieldName, label}: Props) {
+  showPreview?: boolean
+}) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
@@ -48,7 +53,7 @@ function ImageSelectorField({form, defaultImage, fieldName, label}: Props) {
                 <Input
                   type="file" 
                   accept="image/*" 
-                  className="file-input text-xs"
+                  className="file:mr-4 file:py-1 file:px-1 file:rounded-full file:border-0 text-sm file:text-xs file:font-semibold file:text-[--baseColor] cursor-pointer hover:file:"
                   onChange={(e) => {
                       if (e.target.files && e.target.files.length > 0) {
                           onChange(e.target.files[0]); // Set the first file
@@ -58,7 +63,7 @@ function ImageSelectorField({form, defaultImage, fieldName, label}: Props) {
                   id="profile_picture"
                 />
                 <FormLabel htmlFor="profile_picture" className="cursor-pointer">
-                  {imagePreview && (
+                  {imagePreview && showPreview && (
                       <Image
                         src={imagePreview}
                         alt="Image Preview"
@@ -81,3 +86,5 @@ function ImageSelectorField({form, defaultImage, fieldName, label}: Props) {
 }
 
 export default ImageSelectorField
+
+

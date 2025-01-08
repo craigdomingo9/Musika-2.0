@@ -16,7 +16,7 @@ export class ApiClient {
     }
   }
 
-  setRequestType(type: string, body?: any) {
+  protected setRequestType(type: string, body?: any) {
     this.options.method = type;
     if (body) this.options.body = body;
   }
@@ -44,12 +44,31 @@ export class ApiClient {
       this.url += `?${queryParams.toString()}`;
     }
   }
-  
+
+  protected handleResponse(res: Response): any {
+    let response = {
+      data: {},
+      status: res.status,
+      ok: res.ok,
+    }
+    
+    if (this.options.method == "DELETE") {
+      response.data = {} as any
+      return response
+    }
+
+    response.data = res.json()
+    return response
+  }
+
+
   protected async fulfillRequest() {
     try {
       const response = await fetch(this.url, this.options)
       .then(res => {
-        return res.json()
+        if (this.options.method == "GET") return res.json();
+
+        return this.handleResponse(res);
       });
       return await response;
     } catch (error) {
@@ -85,7 +104,7 @@ export class ApiClient {
     return uuid
   }
 
-  applyCredentials() {
+  protected applyCredentials() {
     let csrftoken = Cookies.get('csrftoken');
 
     this.options.credentials = 'include';
@@ -95,7 +114,7 @@ export class ApiClient {
     }
   }
 
-  applyCache(t: number) {
+  protected applyCache(t: number) {
     this.options.next = {
       revalidate: t,
     }

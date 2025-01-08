@@ -50,6 +50,8 @@ const DrawerContent = React.forwardRef<
     >
       <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
       {children}
+      <DrawerTitle />
+      <DrawerDescription />
     </DrawerPrimitive.Content>
   </DrawerPortal>
 ))

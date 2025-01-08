@@ -1,0 +1,1 @@
+from .search_results_models import SearchResults

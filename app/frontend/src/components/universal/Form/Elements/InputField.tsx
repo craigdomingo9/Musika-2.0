@@ -3,21 +3,37 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-type Props = {
-  form: UseFormReturn<any, any, undefined>,
-  defaultValue: string,
-  fieldName: string,
-  label: string,
-  placeholder?: string,
-  description?: string,
-  type?: string,
-  id?: string,
-  disabled?: boolean,
-  autoComplete?: string
-};
 
 
-function InputField({ form, defaultValue, fieldName, label, placeholder, description, type, id, disabled, autoComplete }: Props) {
+function InputField({ 
+  form, 
+  defaultValue, 
+  fieldName, 
+  label, 
+  placeholder, 
+  description, 
+  type, 
+  id, 
+  disabled, 
+  autoComplete,
+  reRenderState,
+  callbackfn
+  } : {
+    form: UseFormReturn<any, any, undefined>,
+    defaultValue: any,
+    fieldName: string,
+    label: string,
+    placeholder?: string,
+    description?: string,
+    type?: string,
+    id?: string,
+    disabled?: boolean,
+    autoComplete?: string,
+    reRenderState?: any,
+    callbackfn?: (value: any) => void,
+  })
+  {
+
   const [fieldValue, setFieldValue] = useState<string>("");
 
   useEffect(() => {
@@ -26,7 +42,7 @@ function InputField({ form, defaultValue, fieldName, label, placeholder, descrip
 
     setFieldValue(defaultValue.toString())
     form.setValue(fieldName, defaultValue.toString())
-  }, [defaultValue])
+  }, [defaultValue, reRenderState])
 
   return (
     <FormField
@@ -37,18 +53,21 @@ function InputField({ form, defaultValue, fieldName, label, placeholder, descrip
           <FormLabel className="text-opacity font-semibold">{label}</FormLabel>
           <FormControl>
             <Input 
-            id={id ? id : ""}
-            type={type ? type : "text"}
-            className="text-sm" 
-            placeholder={placeholder}
-            value={fieldValue}
-            onChange={(e) => {
-              form.setValue(fieldName, e.target.value)
-              setFieldValue(e.target.value)
-            }}
-            autoComplete={autoComplete}
-            disabled={disabled}
-          />
+              type={type ? type : "text"}
+              className="text-sm" 
+              placeholder={placeholder}
+              value={fieldValue}
+              onChange={(e) => {
+                const value = e.target.value;
+                form.setValue(fieldName, value);
+                setFieldValue(value);
+
+                if (!callbackfn) return;
+                callbackfn(value);
+              }}
+              autoComplete={autoComplete}
+              disabled={disabled}
+            />
           </FormControl>
           {description && (
             <FormDescription className="text-xs">{description}</FormDescription>

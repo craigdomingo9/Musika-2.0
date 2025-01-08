@@ -7,8 +7,6 @@ import useFetchBusinessProducts from "@/services/api/marketplace/hooks/business/
 
 
 function ProductSection() {
-  const { code } = useParams();
-  
   const { data, isLoading, error } = useFetchBusinessProducts();
 
 

@@ -15,3 +15,9 @@ interface ApiError {
 }
 
 type paramsProps<T extends Record<string, any>> = T;
+
+type GenericApiResponse<T> = {
+  data: Promise<T>,
+  status: number,
+  ok: boolean
+}

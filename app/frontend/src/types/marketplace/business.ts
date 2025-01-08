@@ -94,8 +94,8 @@ interface ProductReview {
 interface Product {
   id: number,
   uuid: string,
-  category: Category,
-  catalog: Catalog,
+  category: number,
+  catalog: number,
   business: Business,
   name: string,
   description: string,

@@ -1,8 +1,14 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-
-from .views import AccountViewSet,AccountPreferencesViewSet,PasswordChangeView,LoginView,LogoutView,ExposeUuid
+from .views import (
+  AccountViewSet,
+  AccountPreferencesViewSet,
+  PasswordChangeView,
+  LoginView,
+  LogoutView,
+  ExposeUuid
+)
 
 
 router = DefaultRouter()

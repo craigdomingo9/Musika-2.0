@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
-import AgentEndpoints from '../../agent';
 import Cookies from 'js-cookie';
+import AgentEndpoints from '../../agents';
 
 
 

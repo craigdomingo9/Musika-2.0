@@ -1,7 +1,11 @@
+import Agents from "@/components/dashboard/Agents/Agents"
+import PageContainer from "@/components/dashboard/PageContainer"
 
 function Page() {
   return (
-    <div>Agents Page</div>
+    <PageContainer>
+      <Agents />
+    </PageContainer>
   )
 }
 

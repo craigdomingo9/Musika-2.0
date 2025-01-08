@@ -130,7 +130,7 @@ body {
 }
 
 .text-opacity {
-  @apply opacity-75;
+  @apply opacity-80;
 }
 
 .sub-text-opacity {
@@ -156,15 +156,11 @@ button {
 }
 
 
-.file-input {
-  border: 1px solid rgba(8, 8, 8, 0.188);
-  @apply font-semibold text-opacity w-full;
+.li-item {
+  @apply flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]>svg]:rotate-180;
 }
 
-
-
-.file-input::file-selector-button {
-  @apply shadow-sm rounded-lg;
+.tab-list {
+  @apply m-auto mt-8 p-0 [&>*]:h-9 [&>*]:py-0 [&>.first]:rounded-r-none [&>.mid]:rounded-none [&>.last]:rounded-l-none;
 }
-
 

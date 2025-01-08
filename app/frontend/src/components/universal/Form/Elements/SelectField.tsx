@@ -5,7 +5,7 @@ import { UseFormReturn } from "react-hook-form";
 
 type Props = {
   form: UseFormReturn<any, any, undefined>,
-  defaultValue: string,
+  defaultValue: any,
   fieldName: string,
   label: string,
   placeholder?: string,
