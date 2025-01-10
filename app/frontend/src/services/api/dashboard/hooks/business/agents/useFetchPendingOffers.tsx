@@ -10,7 +10,8 @@ apiServices.isOnClient(window);
 
 
 function transformAgentData(data: BusinessOffer[], baseUrl: string): BusinessOffer[] {
-  return data.map((offer) => ({
+  return data.filter((offer) => offer.agent.profile)
+  .map((offer) => ({
     ...offer,
     agent: {
       ...offer.agent,

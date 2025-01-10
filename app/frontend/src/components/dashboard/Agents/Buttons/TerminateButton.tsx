@@ -24,7 +24,7 @@ function TerminateButton({relationship}: {relationship: Relationship}) {
     setIsTerminating(true);
     setAgentMutation(
       processingEntityAction<any>(
-        "Accept Application", 
+        "Terminate Relationship", 
         relationship.agent
       )
     )

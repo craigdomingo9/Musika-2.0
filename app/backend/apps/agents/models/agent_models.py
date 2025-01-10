@@ -12,7 +12,7 @@ def generate_code():
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agent_profile')
-    code = models.CharField(max_length=8)
+    code = models.CharField(max_length=8, default=generate_code)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)

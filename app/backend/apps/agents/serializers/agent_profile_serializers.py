@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from agents.models import AgentProfile
+from agents.models import AgentProfile, Agent
 
 
 
@@ -19,5 +19,6 @@ class AgentProfileSerializer(serializers.ModelSerializer):
         
 
 class AgentProfileCreateSerializer(serializers.ModelSerializer):
+    agent = serializers.PrimaryKeyRelatedField(queryset=Agent.objects.all())
     class Meta(AgentProfileSerializer.Meta):
         fields = ['agent', 'bio', 'profile_picture', 'minimum_commission_rate', 'social_links']  # Exclude related fields

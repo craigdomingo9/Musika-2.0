@@ -1,13 +1,10 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from .agent_models import Agent
+from agents.models import Agent
 from business.models import Product
 
 User = get_user_model()
-
-
-
 
 
 class AssignedProduct(models.Model):

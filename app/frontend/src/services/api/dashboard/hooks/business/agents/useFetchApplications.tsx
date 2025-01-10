@@ -9,7 +9,8 @@ const apiServices = new AgentEndpoints();
 apiServices.isOnClient(window);
 
 function transformAgentData(data: AgentApplication[], baseUrl: string): AgentApplication[] {
-  return data.map((application) => ({
+  return data.filter((application) => application.agent.profile)
+  .map((application) => ({
     ...application,
     agent: {
       ...application.agent,
@@ -34,6 +35,7 @@ function useFetchApplications(reRenderState: any) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        if (!business.code) return;
 
         const rawData = await apiServices.getApplications({
           business: business?.code,

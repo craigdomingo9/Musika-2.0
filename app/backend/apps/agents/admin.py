@@ -3,7 +3,6 @@ from .models import (
     Agent,
     AgentProfile,
     Preferences,
-    AssignedProduct,
     Lead,
     LeadSource
 )
@@ -13,6 +12,5 @@ from .models import (
 admin.site.register(Agent)
 admin.site.register(AgentProfile)
 admin.site.register(Preferences)
-admin.site.register(AssignedProduct)
 admin.site.register(Lead)
 admin.site.register(LeadSource)

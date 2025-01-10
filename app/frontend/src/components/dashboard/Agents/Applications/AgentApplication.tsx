@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button"
 import AgentCard from "../AgentCard"
-import { roundNumber } from "@/lib/utils"
+import { roundNumber, trunc } from "@/lib/utils"
 import RejectApplicationButton from "../Buttons/RejectApplicationButton"
 import AcceptApplicationButton from "../Buttons/AcceptApplicationButton"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 
 type Props = {
@@ -10,10 +11,13 @@ type Props = {
 }
 
 export function LeftHalfContent(agent: Agent) {
+  const isMobile = useIsMobile()
   return (
-    <div className="grid">
-      <p className="font-semibold text-opacity place-self-start pb-1">{agent.first_name} {agent.last_name}</p>
-      <p className="sub-text">{agent.profile.bio}</p>
+    <div className="grid text-start">
+      <p className="font-semibold text-opacity pb-1">{agent.first_name} {agent.last_name}</p>
+      <p className="sub-text">
+        {isMobile ? trunc(agent.profile.bio, 40) : agent.profile.bio}
+      </p>
     </div>
   )
 }
@@ -49,6 +53,7 @@ function AgentApplication({application}: Props) {
       LeftHalf={LeftHalfContent(application.agent)} 
       RightHalf={RightHalfContent(application)} 
       Footer={FooterContent(application)}
+      defaultOpen
     />
   )
 }

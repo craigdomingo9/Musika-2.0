@@ -1,30 +1,6 @@
 
 
 
-export function successfulCartAdditionToast(toast: any) {
-  toast({
-    variant: "success",
-    description: "Product has been added to Cart",
-    duration: 2500,
-  })
-}
-
-export function successToast(toast: any, source: string, action: string) {
-  toast({
-    variant: "success",
-    description: `${source} has been ${action} successfully`,
-    duration: 2500,
-  })
-}
-
-export function dangerToast(toast: any, source: string, action: string) {
-  toast({
-    variant: "destructive",
-    description: `${source} was not ${action} successfully`,
-    duration: 2500,
-  })
-}
-
 export function successToastFactory(toast: any, message: string) {
   toast({
     variant: "success",
@@ -39,6 +15,18 @@ export function dangerToastFactory(toast: any, message: string) {
     description: message,
     duration: 2500,
   })
+}
+
+export function successfulCartAdditionToast(toast: any) {
+  successToastFactory(toast, "Product has been added to Cart")
+}
+
+export function successToast(toast: any, source: string, action: string) {
+  successToastFactory(toast, `${source} has been ${action} successfully`)
+}
+
+export function dangerToast(toast: any, source: string, action: string) {
+  dangerToastFactory(toast, `${source} was not ${action} successfully`)
 }
 
 

@@ -1,24 +1,32 @@
 import { cn } from "@/lib/utils"
 import Image from "next/image"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+
+
 
 type Props = {
   agent: Agent,
   LeftHalf: JSX.Element,
   RightHalf: JSX.Element,
   Footer?: JSX.Element,
+  defaultOpen?: boolean
 }
 
 function AgentCard({
   agent, 
   LeftHalf, 
   RightHalf, 
-  Footer
+  Footer,
+  defaultOpen
 }: Props) {
   
   return (
-    <>
-      <div className={cn("mt-2 w-full cursor-pointer hover:scale-[1.01] duration-300 shadow h-24 rounded-tl-lg", !Footer && "rounded-bl-lg")}>
-        {/* <hr /> */}
+    <Collapsible defaultOpen={defaultOpen} className="sm:mx-2 my-1">
+      <CollapsibleTrigger className={cn("w-full cursor-pointer hover:scale-[1.01] duration-300 shadow h-24 rounded-tl-lg", !Footer && "rounded-bl-lg")}>
         <div className="flex items-start border-t rounded-l-lg">
           <div>
             <Image
@@ -31,21 +39,22 @@ function AgentCard({
               priority
             />
           </div>
-          <div className="w-full flex justify-between text-opacity mx-2">
+          <div className="w-full flex items-start justify-between text-opacity mx-2">
             <div className="py-2 h-full">
               {LeftHalf}
             </div>
             {RightHalf}
           </div>
         </div>
-        {/* <hr /> */}
-      </div>
-      {Footer && (
-        <div className="h-12 flex w-full justify-between shadow-lg p-2 hover:scale-[1.01] duration-300">
-          {Footer}
-        </div>
-      )}
-    </>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        {Footer && (
+          <div className="h-12 flex w-full justify-between shadow-lg p-2 hover:scale-[1.01] duration-300">
+            {Footer}
+          </div>
+        )}
+      </CollapsibleContent>
+    </Collapsible>
   )
 }
 

@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
 from agents.filters import AgentProfileFilter

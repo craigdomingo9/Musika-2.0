@@ -4,7 +4,7 @@ import { BusinessEndpoints } from "@/services/api/marketplace/business";
 
 
 function useFetchBusiness() {
-  const [data, setData] = useState<Business>();
+  const [data, setData] = useState<Business>({} as Business);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
 

@@ -14,7 +14,8 @@ export default class RelationshipEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  cancelPendingOffer(id?: number) {
+
+  cancelPendingOffer(id: number) {
     const urlPath = `/relationships/business-offers/${id}/cancel-offer/`;
     this.setRequestType("POST");
     this.constructUrl(urlPath);
@@ -23,7 +24,7 @@ export default class RelationshipEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  terminateRelationship(id?: number) {
+  terminateRelationship(id: number) {
     const urlPath = `/relationships/business-agent-relationships/${id}/revoke-relationship/`;
     this.setRequestType("POST");
     this.constructUrl(urlPath);
@@ -41,6 +42,24 @@ export default class RelationshipEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
+  makeApplication(body: FormData): Promise<GenericApiResponse<AgentApplication>> {
+    const urlPath = `/relationships/agent-applications/`;
+    this.setRequestType("POST", body);
+    this.constructUrl(urlPath);
+    this.applyCredentials()
+    
+    return this.fulfillRequest();
+  }
+
+  cancelPendingApplication(id: number) {
+    const urlPath = `/relationships/agent-applications/${id}/cancel-application/`;
+    this.setRequestType("POST");
+    this.constructUrl(urlPath);
+    this.applyCredentials()
+    
+    return this.fulfillRequest();
+  }
+
   acceptApplication(id: number): Promise<GenericApiResponse<AgentApplication>> {
     const urlPath = `/relationships/agent-applications/${id}/approve-application/`;
     this.setRequestType("POST");
@@ -52,6 +71,24 @@ export default class RelationshipEndpoints extends ApiClient {
 
   rejectApplication(id: number): Promise<GenericApiResponse<AgentApplication>> {
     const urlPath = `/relationships/agent-applications/${id}/reject-application/`;
+    this.setRequestType("POST");
+    this.constructUrl(urlPath);
+    this.applyCredentials()
+    
+    return this.fulfillRequest();
+  }
+
+  acceptBusinessOffer(id: number): Promise<GenericApiResponse<BusinessOffer>> {
+    const urlPath = `/relationships/business-offers/${id}/accept-offer/`;
+    this.setRequestType("POST");
+    this.constructUrl(urlPath);
+    this.applyCredentials()
+    
+    return this.fulfillRequest();
+  }
+
+  rejectBusinessOffer(id: number): Promise<GenericApiResponse<BusinessOffer>> {
+    const urlPath = `/relationships/business-offers/${id}/reject-offer/`;
     this.setRequestType("POST");
     this.constructUrl(urlPath);
     this.applyCredentials()

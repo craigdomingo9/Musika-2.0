@@ -34,7 +34,7 @@ function EarningsTable() {
 
 
   return (
-    <Table className="sm:w-[600px] min-w-[325px] border shadow-xl rounded-lg">
+    <Table className="min-w-[350px] sm:w-[550px] md:w-[650px] border shadow-xl rounded-lg">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">

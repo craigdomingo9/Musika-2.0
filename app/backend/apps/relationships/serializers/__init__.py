@@ -2,3 +2,4 @@ from .relationship_serializers import BusinessAgentRelationshipSerializer, Busin
 from .agent_application_serializers import AgentApplicationSerializer, AgentApplicationCreateSerializer
 from .business_offer_serializers import BusinessOfferSerializer, BusinessOfferCreateSerializer
 from .accepted_offer_serializers import AcceptedOfferSerializer, AcceptedOfferCreateSerializer
+from .assigned_products_serializers import AssignedProductSerializer, AssignedProductCreateSerializer

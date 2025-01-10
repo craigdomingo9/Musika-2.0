@@ -11,6 +11,9 @@ class BusinessAgentRelationship(models.Model):
     status = models.CharField(max_length=50, default='active', choices=[('active', 'Active'), ('revoked', 'Revoked')])
     created_at = models.DateTimeField(auto_now_add=True)
     
+    class Meta:
+        ordering = ["-created_at"]
+    
     def revoke_relationship(self):
         if self.status != 'revoked':
             self.status = 'revoked'

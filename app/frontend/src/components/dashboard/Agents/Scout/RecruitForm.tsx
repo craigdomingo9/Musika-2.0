@@ -6,7 +6,7 @@ import InputField from "@/components/universal/Form/Elements/InputField";
 import { Button } from "@/components/ui/button";
 import { roundNumber } from "@/lib/utils";
 import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness";
-import { completeEntityAction, processingEntityAction } from "@/types/dashboard/factory";
+import { processingEntityAction } from "@/types/dashboard/factory";
 import RelationshipEndpoints from "@/services/api/dashboard/relationships";
 import { dangerToastFactory, successToast } from "@/services/marketplace/toast";
 import { useToast } from "@/hooks/use-toast";

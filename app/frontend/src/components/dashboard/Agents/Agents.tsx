@@ -14,7 +14,7 @@ function Agents() {
   const { entities: value, setEntities: setTabValue } = useTabsValue();
 
   return (
-    <Tabs value={value} className="mb-8 grid mx-3 min-w-[350px] sm:min-w-[600px] md:min-w-[700px]">
+    <Tabs value={value} className="mb-8 grid mx-3">
       <TabsList className="tab-list">
         <TabsTrigger className="first" onClick={() => setTabValue("recruited")} value="recruited">Recruited</TabsTrigger>
         <TabsTrigger className="mid" onClick={() => setTabValue("applications")} value="applications">Applications</TabsTrigger>

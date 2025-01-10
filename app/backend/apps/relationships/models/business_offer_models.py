@@ -15,13 +15,26 @@ class BusinessOffer(models.Model):
     offered_commission = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
     expiration_date = models.DateTimeField(null=True, blank=True)
     available_slots = models.IntegerField(default=1, null=True)
-    status = models.CharField(max_length=50, default='pending', choices=[('pending', 'Pending'), ('cancelled', 'Cancelled'), ('active', 'Active')])
+    status = models.CharField(max_length=50, default='pending', choices=[('pending', 'Pending'), ('cancelled', 'Cancelled'), ('rejected', 'Rejected'), ('accepted', 'Accepted')])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    class Meta:
+        ordering = ["-created_at"]
+        
     def cancel_offer(self):
         if self.status == 'pending':
             self.status = 'cancelled';
+            self.save(update_fields=['status'])
+            
+    def reject_offer(self):
+        if self.status == 'pending':
+            self.status = 'rejected';
+            self.save(update_fields=['status'])
+            
+    def accept_offer(self):
+        if self.status == 'pending':
+            self.status = 'accepted';
             self.save(update_fields=['status'])
         
 

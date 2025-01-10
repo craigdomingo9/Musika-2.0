@@ -164,3 +164,7 @@ button {
   @apply m-auto mt-8 p-0 [&>*]:h-9 [&>*]:py-0 [&>.first]:rounded-r-none [&>.mid]:rounded-none [&>.last]:rounded-l-none;
 }
 
+.text-md {
+  @apply text-[1rem];
+}
+

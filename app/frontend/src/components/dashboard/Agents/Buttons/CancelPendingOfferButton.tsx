@@ -48,8 +48,10 @@ function CancelPendingOfferButton({offer}: Props) {
 
   return (
     <Button
-      onClick={cancelPendingOffer}>
-        {isCancelling ? "Cancelling..." : "Cancel"} {!isMobile && "Request"}</Button>
+      onClick={cancelPendingOffer}
+    >
+      {isCancelling ? "Cancelling..." : "Cancel"} {!isMobile && "Request"}
+    </Button>
   )
 }
 

@@ -34,3 +34,25 @@ class BusinessOfferViewSet(viewsets.ModelViewSet):
             return Response({'error': 'Offer not found'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    @action(detail=True, methods=['post'], url_path='reject-offer')
+    def reject_offer(self, request, pk=None):
+        try:
+            application = self.get_object()
+            application.reject_offer()
+            return Response({'status': 'Offer was rejected.'}, status=status.HTTP_200_OK)
+        except BusinessOffer.DoesNotExist:
+            return Response({'error': 'Offer not found'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    @action(detail=True, methods=['post'], url_path='accept-offer')
+    def accept_offer(self, request, pk=None):
+        try:
+            application = self.get_object()
+            application.accept_offer()
+            return Response({'status': 'Offer was accepted.'}, status=status.HTTP_200_OK)
+        except BusinessOffer.DoesNotExist:
+            return Response({'error': 'Offer not found'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

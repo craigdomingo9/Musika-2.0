@@ -7,6 +7,7 @@ import { roundNumber } from "@/lib/utils";
 import useDashboardConfigStore from "@/store/dashboard/DashboardConfig";
 import { businessMode } from "@/lib/dashboard/constants";
 import createEntityStore from "@/store/dashboard/EntityStore";
+import SectionHeader from "../SectionHeader";
 
 
 
@@ -29,9 +30,12 @@ function Earnings() {
   
   return (
     <>
-      <div className="flex justify-between my-4 text-lg font-semibold">
-        <h1>Total Earnings</h1>
-        <p className="text-[--baseColor]">+${totalAmount}</p>
+      <div className="flex justify-between my-4 text-lg font-semibold w-full">
+        <SectionHeader 
+          HeaderTitle="Earnings"
+          SubText="Assess your earnings."
+          Action={<p className="text-[--baseColor]">+${totalAmount}</p>}
+        />
       </div>
       <DateFilter data={data} />
       <EarningsTable />

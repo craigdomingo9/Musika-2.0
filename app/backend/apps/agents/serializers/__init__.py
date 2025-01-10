@@ -1,5 +1,4 @@
 from .agent_serializers import AgentSerializer, AgentCreateSerializer
 from .agent_profile_serializers import AgentProfileSerializer, AgentProfileCreateSerializer
 from .agent_preferences_serializers import PreferencesSerializer, PreferencesCreateSerializer
-from .assigned_products import AssignedProductSerializer, AssignedProductCreateSerializer
 from .lead_serializers import LeadSerializer, LeadCreateSerializer, LeadSourceSerializer, LeadSourceCreateSerializer

@@ -10,7 +10,8 @@ apiServices.isOnClient(window);
 
 
 function transformAgentData(data: Relationship[], baseUrl: string): Relationship[] {
-  return data.map((relationship) => ({
+  return data.filter((rel) => rel.agent.profile)
+  .map((relationship) => ({
     ...relationship,
     agent: {
       ...relationship.agent,
@@ -35,10 +36,10 @@ function useFetchRelationships(reRenderState: any) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        if (!business?.code) return;
+        if (!business.code) return;
 
         const rawData = await apiServices.getRelationships({
-          business: business?.code,
+          business: business.code,
           status: "active",
         });
         const transformedData = transformAgentData(rawData, window.location.href); 

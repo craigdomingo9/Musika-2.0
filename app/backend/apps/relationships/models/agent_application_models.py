@@ -8,10 +8,13 @@ class AgentApplication(models.Model):
     agent = models.ForeignKey(Agent, on_delete=models.CASCADE, related_name='applications')
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='agent_applications')
     commission_rate = models.DecimalField(max_digits=5, decimal_places=3, default=0.00)
-    status = models.CharField(max_length=50, default='pending', choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')])
+    status = models.CharField(max_length=50, default='pending', choices=[('pending', 'Pending'), ('cancelled', 'Cancelled'), ('approved', 'Approved'), ('rejected', 'Rejected')])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    class Meta:
+        ordering = ["-created_at"]
+        
     def approve_application(self):
         if self.status != 'approved':
             self.status = 'approved'
@@ -20,6 +23,11 @@ class AgentApplication(models.Model):
     def reject_application(self):
         if self.status != 'rejected':
             self.status = 'rejected'
+            self.save(update_fields=['status'])
+    
+    def cancel_application(self):
+        if self.status != 'cancelled':
+            self.status = 'cancelled'
             self.save(update_fields=['status'])
 
     def __str__(self):

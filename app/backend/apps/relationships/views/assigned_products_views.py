@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
 
-from agents.filters import AssignedProductsFilter
-from agents.models import AssignedProduct
-from agents.serializers import (
+from relationships.filters import AssignedProductsFilter
+from relationships.models import AssignedProduct
+from relationships.serializers import (
     AssignedProductSerializer, 
     AssignedProductCreateSerializer,
 )
@@ -14,6 +14,6 @@ class AssignedProductViewSet(viewsets.ModelViewSet):
     filterset_class = AssignedProductsFilter
 
     def get_serializer_class(self):
-        if self.request.method in ['POST', 'PUT']:
+        if self.action in ['create', 'update']:
             return AssignedProductCreateSerializer
         return AssignedProductSerializer

@@ -1,7 +1,11 @@
+import PageContainer from "@/components/dashboard/PageContainer"
+import Portfolio from "@/components/dashboard/Portfolio/Portfolio"
 
 function Page() {
   return (
-    <div>Portfolio Page</div>
+    <PageContainer>
+      <Portfolio />
+    </PageContainer>
   )
 }
 

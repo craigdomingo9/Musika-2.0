@@ -9,7 +9,8 @@ const apiServices = new AgentEndpoints();
 apiServices.isOnClient(window);
 
 function transformAgentData(data: Agent[], baseUrl: string): Agent[] {
-  return data.map((agent) => ({
+  return data.filter((agent) => agent.profile)
+  .map((agent) => ({
     ...agent,
       profile: {
         ...agent.profile,
@@ -33,7 +34,9 @@ function useFetchScoutAgents(config?: {}) {
       setIsLoading(true);
       try {
 
-        const rawData = await apiServices.getAgents();
+        const rawData = await apiServices.getAgents({
+          exclude_business_code: business.code,
+        });
         const transformedData = transformAgentData(rawData, window.location.href)
         setData(transformedData);
         

@@ -3,19 +3,22 @@ import AgentCard from "../AgentCard"
 import { format } from "date-fns"
 import { useIsMobile } from "@/hooks/use-mobile"
 import RecruitButton from "../Buttons/RecruitButton"
-import { roundNumber } from "@/lib/utils"
+import { roundNumber, trunc } from "@/lib/utils"
 
 type Props = {
   agent: Agent,
 }
 
 export function LeftHalfContent(agent: Agent) {
+  const isMobile = useIsMobile()
   const joinedAt = format(new Date(agent.created_at), "PP")
   return (
-    <div className="grid">
-      <p className="font-semibold text-opacity place-self-start pb-1">{agent.first_name} {agent.last_name}</p>
-      <p className="sub-text">{agent.profile.bio}</p>
-      <p className="sub-text py-1">Joined at {joinedAt}</p>
+    <div className="grid text-start">
+      <p className="font-semibold text-opacity pb-1">{agent.first_name} {agent.last_name}</p>
+      <p className="sub-text">
+        {isMobile ? trunc(agent.profile.bio, 40) : agent.profile.bio}
+      </p>
+      <p className="sub-text py-2">Joined at {joinedAt}</p>
     </div>
   )
 }
@@ -53,6 +56,7 @@ function ScoutAgent({agent}: Props) {
       LeftHalf={LeftHalfContent(agent)} 
       RightHalf={RightHalfContent(agent)} 
       Footer={FooterContent(agent)}
+      defaultOpen
     />
   )
 }

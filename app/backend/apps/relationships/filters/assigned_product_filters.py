@@ -1,6 +1,6 @@
 import django_filters
 
-from agents.models import AssignedProduct
+from relationships.models import AssignedProduct
 
 
 class AssignedProductsFilter(django_filters.FilterSet):

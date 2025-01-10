@@ -17,7 +17,7 @@ function Header() {
 
   return (
     <div className={cn("h-[--headerHeight] shadow flex justify-center sticky top-0 z-20 bg-white", condition && "hidden")}>
-      <div className="section-width flex justify-between items-center">
+      <div className="min-w-[350px] sm:w-[600px] md:w-[700px] flex justify-between items-center">
         <HeaderTitleSlot />
         <HeaderLinksSlot />
       </div>

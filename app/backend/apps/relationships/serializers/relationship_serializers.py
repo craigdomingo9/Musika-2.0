@@ -2,10 +2,13 @@ from rest_framework import serializers
 
 from relationships.models import BusinessAgentRelationship
 from agents.serializers import AgentSerializer
+from business.serializers import BusinessSerializer
 
 
 class BusinessAgentRelationshipSerializer(serializers.ModelSerializer):
     agent = AgentSerializer(read_only=True)
+    business = BusinessSerializer(read_only=True)
+    
     class Meta:
         model = BusinessAgentRelationship
         fields = ['id', 'commission_rate', 'status', 'business', 'agent', 'created_at']  # or specify the fields you want to include
