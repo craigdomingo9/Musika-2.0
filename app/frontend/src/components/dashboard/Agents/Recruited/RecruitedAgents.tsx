@@ -16,7 +16,7 @@ function RecruitedAgents() {
   const { data: relationships, isLoading, error } = useFetchRelationships(action);
 
   return (
-    <div>
+    <div className="page-width">
       <SectionHeader 
         HeaderTitle="Recruited Agents"
         SubText="Manage your relationships"

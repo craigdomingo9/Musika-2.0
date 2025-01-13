@@ -12,7 +12,7 @@ function Portfolio() {
   const { entities: value, setEntities: setTabValue } = useTabsValue();
 
   return (
-    <Tabs value={value} className="mb-8 grid mx-3 min-w-[350px] sm:w-[600px] md:w-[700px]">
+    <Tabs value={value} className="mb-8 grid page-width">
       <TabsList className="tab-list">
         <TabsTrigger className="first" onClick={() => setTabValue("relationships")} value="relationships">Relationships</TabsTrigger>
         <TabsTrigger className="last" onClick={() => setTabValue("applications")} value="applications">Applications</TabsTrigger>

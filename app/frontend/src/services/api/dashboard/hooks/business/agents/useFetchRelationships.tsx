@@ -26,7 +26,7 @@ function transformAgentData(data: Relationship[], baseUrl: string): Relationship
   }));
 }
 
-function useFetchRelationships(reRenderState: any) {
+function useFetchRelationships(reRenderState?: any) {
   const [data, setData] = useState<Relationship[]>([]);
   const { data: business } = useFetchBusiness();
   const [isLoading, setIsLoading] = useState(false);

@@ -115,6 +115,9 @@ body {
   @apply w-full sm:w-[650px] md:w-[700px] lg:w-[950px] xl:w-[1080px];
 }
 
+.page-width {
+  @apply min-w-[350px] sm:w-[600px] md:w-[700px];
+}
 
 
 

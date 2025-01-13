@@ -1,8 +1,7 @@
 import django_filters
 from django.db.models import Q
-from business.models import (
-    Business,
-)
+
+from business.models import Business
 
 
 class BusinessFilter(django_filters.FilterSet):

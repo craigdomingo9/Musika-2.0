@@ -1,7 +1,6 @@
 import django_filters
-from business.models import (
-  ProductReview,
-)
+
+from business.models import ProductReview
 
 
 class ProductReviewFilter(django_filters.FilterSet):

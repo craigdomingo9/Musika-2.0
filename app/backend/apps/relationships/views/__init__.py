@@ -2,4 +2,4 @@ from .relationship_views import BusinessAgentRelationshipViewSet
 from .agent_application_views import AgentApplicationViewSet
 from .business_offer_views import BusinessOfferViewSet
 from .accepted_offer_views import AcceptedOfferViewSet
-from .assigned_products_views import AssignedProductViewSet
+from .assignment_views import AssignmentsViewSet

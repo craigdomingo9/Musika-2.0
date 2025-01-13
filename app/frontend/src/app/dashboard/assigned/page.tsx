@@ -1,7 +1,11 @@
+import Assigned from "@/components/dashboard/Assigned/Assigned"
+import PageContainer from "@/components/dashboard/PageContainer"
 
 function Page() {
   return (
-    <div>Assigned Products Page</div>
+    <PageContainer>
+      <Assigned />
+    </PageContainer>
   )
 }
 

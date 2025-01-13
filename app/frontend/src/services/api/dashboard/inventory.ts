@@ -7,8 +7,16 @@ export default class InventoryEndpoints extends ApiClient {
     super()
   }
 
+
   getCatalogs(params: paramsProps<Record<string, any>>): Promise<EditableCatalog[]> {
     const urlPath = `/business/catalogs/`;
+    this.constructUrl(urlPath, params);
+
+    return this.fulfillRequest();
+  }
+
+  getProducts(params: paramsProps<Record<string, any>>): Promise<PaginatedData<Product[]>> {
+    const urlPath = `/business/products/`;
     this.constructUrl(urlPath, params);
 
     return this.fulfillRequest();

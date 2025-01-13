@@ -2,4 +2,4 @@ from .relationship_signals import relationship_post_save
 from .agent_application_signals import agent_application_post_save
 from .business_offer_signals import business_offer_post_save
 from .accepted_offer_signals import accepted_offer_post_save
-from .assigned_product_signals import assigned_product_post_save
+from .assignment_signals import assignment_post_save

@@ -17,7 +17,7 @@ function Inventory() {
   const { data: business } = useFetchBusiness();
   
   return (
-    <div>
+    <div className="page-width">
       <div className="flex justify-between my-4">
         <SectionHeader 
           HeaderTitle="Inventory"

@@ -2,4 +2,4 @@ from .relationship_filters import BusinessAgentRelationshipFilter
 from .agent_application_filters import AgentApplicationFilter
 from .business_offer_filters import BusinessOfferFilter
 from .accepted_offer_filters import AcceptedOfferFilter
-from .assigned_product_filters import AssignedProductsFilter
+from .assignment_filters import AssignmentsFilter

@@ -6,11 +6,11 @@ from relationships.models import (
   AgentApplication,
   BusinessAgentRelationship,
   BusinessOffer,
-  AssignedProduct
+  Assignment
 )
 
 admin.site.register(AcceptedOffer)
 admin.site.register(AgentApplication)
 admin.site.register(BusinessAgentRelationship)
 admin.site.register(BusinessOffer)
-admin.site.register(AssignedProduct)
+admin.site.register(Assignment)

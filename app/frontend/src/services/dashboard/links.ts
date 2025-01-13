@@ -21,6 +21,10 @@ const business: any = [
         url: "/dashboard/agents",
       },
       {
+        title: "Assignments",
+        url: "/dashboard/assignments",
+      },
+      {
         title: "Communications",
         url: "/dashboard/comms",
       },

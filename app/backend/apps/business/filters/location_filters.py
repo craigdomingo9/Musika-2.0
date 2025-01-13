@@ -1,7 +1,6 @@
 import django_filters
-from business.models import (
-    Location,
-)
+
+from business.models import Location
 
 
 

@@ -95,6 +95,33 @@ export default class RelationshipEndpoints extends ApiClient {
     
     return this.fulfillRequest();
   }
+
+  getAssignments(params?: Record<string, any>): Promise<Assignment[]> {
+    const urlPath = `/relationships/assignments/`;
+    this.constructUrl(urlPath, params);
+
+    return this.fulfillRequest();
+  }
+
+  deassignAssigment(id: number): Promise<GenericApiResponse<Assignment>> {
+    const urlPath = `/relationships/assignments/${id}/deassign/`;
+    this.setRequestType("POST");
+    this.constructUrl(urlPath);
+    this.applyCredentials()
+    
+    return this.fulfillRequest();
+  }
+
+  giveAssignment(body: FormData): Promise<GenericApiResponse<Assignment>> {
+    const urlPath = `/relationships/assignments/`;
+    this.setRequestType("POST", body);
+    this.constructUrl(urlPath);
+    this.applyCredentials()
+    
+    return this.fulfillRequest();
+  }
+
+
 }
 
 

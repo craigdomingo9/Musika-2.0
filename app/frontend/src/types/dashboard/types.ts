@@ -6,6 +6,7 @@
 interface Agent {
   id: number
   code: string
+  full_name: string
   first_name: string
   last_name: string
   email: string
@@ -86,3 +87,16 @@ type BusinessOffer = {
   updated_at: string,
 }
 
+type Assignment = {
+  id: number,
+  agent: Agent,
+  product: Product,
+  assigned_at: string,
+  status: "active" | "inactive"
+}
+
+type LeadSource = {
+  short_name: string,
+  name: string,
+  description: string,
+}

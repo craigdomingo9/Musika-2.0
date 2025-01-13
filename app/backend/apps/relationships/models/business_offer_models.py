@@ -24,17 +24,17 @@ class BusinessOffer(models.Model):
         
     def cancel_offer(self):
         if self.status == 'pending':
-            self.status = 'cancelled';
+            self.status = 'cancelled'
             self.save(update_fields=['status'])
             
     def reject_offer(self):
         if self.status == 'pending':
-            self.status = 'rejected';
+            self.status = 'rejected'
             self.save(update_fields=['status'])
             
     def accept_offer(self):
         if self.status == 'pending':
-            self.status = 'accepted';
+            self.status = 'accepted'
             self.save(update_fields=['status'])
         
 

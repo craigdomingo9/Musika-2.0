@@ -5,9 +5,6 @@ from rest_framework.request import Request
 from user_agents import parse  # Ensure this package is installed
 from logging import getLogger
 from account.models import Account
-from analytics.models import Acquisition
-from business.models import Product
-from agents.models import Lead, LeadSource, Agent
 
 logger = getLogger(__name__)
 
@@ -61,58 +58,3 @@ class AnonymousUserMiddleware(MiddlewareMixin):
 
         except ObjectDoesNotExist as e:
             logger.error(f"Account was not found: {e}")
-
-    def record_acquisition(self, request: Request) -> None:
-        """Records the acquisition of an anonymous user."""
-        source = request.GET.get('source', 'organic')  # Default to 'organic' if no source is provided
-        medium = request.GET.get('medium', '')
-        referring_agent_code = request.GET.get('referrer', '')  # Referring agent's code
-        product_id = request.GET.get('product_id')  # Assuming product_id is passed in the URL
-        lead_source_name = request.GET.get('lead_source')  # Assuming lead source name is passed in the URL
-
-        # Get the user from the request
-        user = self.model.objects.get(uuid=request.user.uuid)
-
-        # Capture user agent
-        user_agent_string = request.META.get('HTTP_USER_AGENT', '')
-        user_agent = parse(user_agent_string)
-
-        # Create the Acquisition object
-        Acquisition.objects.create(
-            user=user,
-            source=source,
-            medium=medium,
-            referring_agent_code=referring_agent_code,
-            device=user_agent.device.family,
-            browser=user_agent.browser.family,
-            os=user_agent.os.family
-        )
-
-        # Check if referring agent code is provided
-        if referring_agent_code:
-            # Get the agent associated with the referring agent code
-            try:
-                agent = Agent.objects.get(referral_code=referring_agent_code)  # Adjust field name as needed
-            except Agent.DoesNotExist:
-                agent = None
-
-            # Get or create the lead source
-            lead_source, created = LeadSource.objects.get_or_create(name=lead_source_name)
-
-            # Get the product if product_id is provided
-            product = None
-            if product_id:
-                try:
-                    product = Product.objects.get(id=product_id)
-                except Product.DoesNotExist:
-                    product = None
-
-            # Create a lead if the agent is found
-            if agent:
-                Lead.objects.create(
-                    agent=agent,
-                    source=lead_source,
-                    user=user,
-                    product=product,
-                    status='new'
-                )

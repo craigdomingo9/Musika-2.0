@@ -37,7 +37,6 @@ function useFetchBusinesses(reRenderState?: any) {
           exclude_agent_code: agent.code,
         });
         const transformedData = transformData(rawData, window.location.href)
-        console.log(transformedData)
         setData(transformedData);
         
       } catch (error: any) {

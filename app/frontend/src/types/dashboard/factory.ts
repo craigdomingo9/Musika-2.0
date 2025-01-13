@@ -24,10 +24,10 @@ export function processingEntityAction<T> (
   }
 }
 
-export function completeEntityAction<T> (): EntityAction<T> {
+export function completeEntityAction<T> (object?: T): EntityAction<T> {
   return {
     action: "",
-    object: {} as T,
+    object: object,
     state: completedState
   }
 }
