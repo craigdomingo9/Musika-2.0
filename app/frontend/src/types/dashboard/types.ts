@@ -100,3 +100,33 @@ type LeadSource = {
   name: string,
   description: string,
 }
+
+
+type Conversation = {
+  id: number,
+  uuid: string,
+  participants: Participant[],
+  conversation_type: "business_agent" | "customer_business" | "customer_platform" | "business_agent_platform",
+  title: "Chat",
+  created_at: string,
+}
+
+type Participant = {
+  id: number,
+  joined_at: string,
+  conversation: Conversation,
+  user: UserProfile,
+  role: "customer" | "business" | "platform" | "agent"
+}
+
+
+type Message = {
+  id: number,
+  content: string,
+  sent_at: string,
+  was_read: boolean,
+  was_read_at: string,
+  conversation: number,
+  sender: Participant,
+}
+

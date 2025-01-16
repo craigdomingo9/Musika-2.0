@@ -18,9 +18,9 @@ function DialogContainer({
     <Dialog open={state} onOpenChange={onChange}>
       <DialogContent>
         <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
+            <DialogTitle className="text-center">{title}</DialogTitle>
         </DialogHeader>
-        <DialogDescription>{description}</DialogDescription>
+        <DialogDescription className="text-xs text-center">{description}</DialogDescription>
         {children}
       </DialogContent>
     </Dialog>

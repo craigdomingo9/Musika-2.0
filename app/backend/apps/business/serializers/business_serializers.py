@@ -13,12 +13,15 @@ User = get_user_model()
 
 class BusinessSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(read_only=True)
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     
     class Meta:
         model = Business
         fields = ['id', 'user', 'code', 'created_at', 'updated_at', 'profile']
-        read_only_fields = ['code']
         depth = 1
 
+class BusinessCreateSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    
+    class Meta(BusinessSerializer.Meta):
+        fields = ['user']
 

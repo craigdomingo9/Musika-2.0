@@ -14,6 +14,13 @@ export default class RelationshipEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
+  getRelationships(params?: Record<string, any>): Promise<Relationship[]> {
+    const urlPath = `/relationships/business-agent-relationships/`;
+    this.constructUrl(urlPath, params);
+
+    return this.fulfillRequest();
+  }
+
 
   cancelPendingOffer(id: number) {
     const urlPath = `/relationships/business-offers/${id}/cancel-offer/`;

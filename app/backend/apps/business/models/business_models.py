@@ -15,7 +15,7 @@ def generate_code():
 
 """   Business   """
 class Business(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='business_profile')
     code = models.CharField(max_length=8,default=generate_code)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

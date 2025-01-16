@@ -3,18 +3,20 @@ from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
-from .filters import ConversationFilter, MessageFilter
-from .models import (
+
+from communications.filters import ConversationFilter, MessageFilter
+from communications.models import (
     Conversation, 
     Participant, 
     Message, 
-    Role
 )
-from .serializers import (
+from communications.serializers import (
     ConversationSerializer, 
+    ConversationCreateSerializer,
     ParticipantSerializer, 
+    ParticipantCreateSerializer,
     MessageSerializer, 
-    RoleSerializer
+    MessageCreateSerializer,
 )
 
 class ConversationViewSet(viewsets.ModelViewSet):
@@ -23,6 +25,12 @@ class ConversationViewSet(viewsets.ModelViewSet):
     serializer_class = ConversationSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ConversationFilter
+    lookup_field = 'uuid'
+    
+    def get_serializer_class(self):
+        if self.action in ["create", "update"]:
+            self.serializer_class = ConversationCreateSerializer
+        return super().get_serializer_class()
     
 
 
@@ -30,12 +38,11 @@ class ParticipantViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Participant.objects.all()
     serializer_class = ParticipantSerializer
-
-
-class RoleViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    queryset = Role.objects.all()
-    serializer_class = RoleSerializer
+    
+    def get_serializer_class(self):
+        if self.action in ["create", "update"]:
+            self.serializer_class = ParticipantCreateSerializer
+        return super().get_serializer_class()
 
 
 class MessageViewSet(viewsets.ModelViewSet):
@@ -44,6 +51,11 @@ class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = MessageFilter
+    
+    def get_serializer_class(self):
+        if self.action in ["create", "update"]:
+            self.serializer_class = MessageCreateSerializer
+        return super().get_serializer_class()
     
     @action(detail=True, methods=['post'], url_path='mark-as-read')
     def mark_as_read(self):

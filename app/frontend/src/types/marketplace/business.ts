@@ -38,6 +38,7 @@ interface BusinessProfile {
 
 interface Business {
   id: number,
+  user: UserProfile,
   code: string,
   created_at: string,
   profile: BusinessProfile,
@@ -71,6 +72,9 @@ interface UserProfile {
   first_name: string,
   last_name: string,
   username: string,
+  business_profile?: Business,
+  agent_profile?: Agent,
+  uuid: string,
   profile_picture: string,
   email: string,
   age: string,

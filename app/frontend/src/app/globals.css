@@ -140,6 +140,11 @@ body {
   @apply opacity-35;
 }
 
+.text-opacity-mid {
+  @apply opacity-50;
+
+}
+
 .sub-text {
   @apply sub-text-opacity;
   @apply text-[0.65rem];

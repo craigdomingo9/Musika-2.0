@@ -18,3 +18,5 @@ pandas==2.2.0
 django-filter
 pyyaml 
 user-agents
+channels-redis
+channels[daphne]

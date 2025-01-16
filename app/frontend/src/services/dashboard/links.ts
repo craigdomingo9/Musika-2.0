@@ -26,7 +26,7 @@ const business: any = [
       },
       {
         title: "Communications",
-        url: "/dashboard/comms",
+        url: "/dashboard/comms/business",
       },
     ]
   },
@@ -35,21 +35,21 @@ const business: any = [
     url: "",
     items: [
       {
-        title: "Sales and Growth",
+        title: "Sales Analytics",
         url: "/dashboard/analytics/sales",
       },
-      {
-        title: "Customer Insights",
-        url: "/dashboard/analytics/insights",
-      },
+      // {
+      //   title: "Customer Insights",
+      //   url: "/dashboard/analytics/insights",
+      // },
       {
         title: "Product Performance",
         url: "/dashboard/analytics/products",
       },
-      {
-        title: "Reports",
-        url: "/dashboard/analytics/reports",
-      },
+      // {
+      //   title: "Reports",
+      //   url: "/dashboard/analytics/reports",
+      // },
     ]
   },
   {
@@ -60,14 +60,14 @@ const business: any = [
         title: "Notifications",
         url: "/dashboard/notifications",
       },
-      {
-        title: "Financials",
-        url: "/dashboard/financials",
-      },
-      {
-        title: "Subscriptions",
-        url: "/dashboard/subscriptions",
-      },
+      // {
+      //   title: "Financials",
+      //   url: "/dashboard/financials",
+      // },
+      // {
+      //   title: "Subscriptions",
+      //   url: "/dashboard/subscriptions",
+      // },
       {
         title: "Profile",
         url: "/dashboard/profile",
@@ -82,14 +82,14 @@ const business: any = [
         title: "Contact Support",
         url: "/dashboard/help/support",
       },
-      {
-        title: "Guides",
-        url: "/dashboard/help/guides",
-      },
-      {
-        title: "FAQs",
-        url: "/dashboard/help/faqs",
-      },
+      // {
+      //   title: "Guides",
+      //   url: "/dashboard/help/guides",
+      // },
+      // {
+      //   title: "FAQs",
+      //   url: "/dashboard/help/faqs",
+      // },
     ]
   },
 ]
@@ -117,7 +117,7 @@ const agent: any = [
       },
       {
         title: "Communications",
-        url: "/dashboard/comms",
+        url: "/dashboard/comms/agent",
       },
     ]
   },
@@ -129,22 +129,22 @@ const agent: any = [
         title: "Performance",
         url: "/dashboard/analytics/performance",
       },
-      {
-        title: "Customer Insights",
-        url: "/dashboard/analytics/insights",
-      },
+      // {
+      //   title: "Customer Insights",
+      //   url: "/dashboard/analytics/insights",
+      // },
       {
         title: "Leads Insights",
         url: "/dashboard/analytics/leads",
       },
-      {
-        title: "Growth Metrics",
-        url: "/dashboard/analytics/growth",
-      },
-      {
-        title: "Reports",
-        url: "/dashboard/analytics/reports",
-      },
+      // {
+      //   title: "Growth Metrics",
+      //   url: "/dashboard/analytics/growth",
+      // },
+      // {
+      //   title: "Reports",
+      //   url: "/dashboard/analytics/reports",
+      // },
     ]
   },
   {
@@ -155,14 +155,14 @@ const agent: any = [
         title: "Notifications",
         url: "/dashboard/notifications",
       },
-      {
-        title: "Financials",
-        url: "/dashboard/financials",
-      },
-      {
-        title: "Subscriptions",
-        url: "/dashboard/subscriptions",
-      },
+      // {
+      //   title: "Financials",
+      //   url: "/dashboard/financials",
+      // },
+      // {
+      //   title: "Subscriptions",
+      //   url: "/dashboard/subscriptions",
+      // },
       {
         title: "Profile",
         url: "/dashboard/profile",
@@ -177,14 +177,14 @@ const agent: any = [
         title: "Contact Support",
         url: "/dashboard/support",
       },
-      {
-        title: "Guides",
-        url: "/dashboard/guides",
-      },
-      {
-        title: "FAQs",
-        url: "/dashboard/faqs",
-      },
+      // {
+      //   title: "Guides",
+      //   url: "/dashboard/guides",
+      // },
+      // {
+      //   title: "FAQs",
+      //   url: "/dashboard/faqs",
+      // },
     ]
   },
 ]
