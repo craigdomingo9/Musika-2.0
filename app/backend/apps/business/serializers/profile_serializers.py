@@ -19,7 +19,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class ProfileCreateSerializer(serializers.ModelSerializer):
+    logo = serializers.ImageField()
     class Meta:
         model = Profile
-        fields = ['id', 'business', 'name', 'description', 'categories', 'logo', 'cover_photo', 'phone_number', 'email', 'website', 'business_type']
+        fields = ['id', 'name', 'description', 'categories', 'logo', 'cover_photo', 'phone_number', 'email', 'website', 'business_type']
 

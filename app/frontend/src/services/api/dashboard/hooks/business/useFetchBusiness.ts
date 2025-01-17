@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { BusinessEndpoints } from "@/services/api/marketplace/business";
 
 
-function useFetchBusiness() {
+function useFetchBusiness(reRenderState?: any) {
   const [data, setData] = useState<Business>({} as Business);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
@@ -32,7 +32,7 @@ function useFetchBusiness() {
       }
     }
     fetchBusiness();
-  }, [])
+  }, [reRenderState])
 
   return { data, isLoading, error };
 

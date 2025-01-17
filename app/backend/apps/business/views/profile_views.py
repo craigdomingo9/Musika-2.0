@@ -26,6 +26,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return {'request': self.request}
     
     def get_serializer_class(self):
-        if self.action in ["create"]:
+        if self.action in ["create", "update"]:
             self.serializer_class = ProfileCreateSerializer
         return super().get_serializer_class()
+    
+    def update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return super().update(request, *args, **kwargs)
+

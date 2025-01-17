@@ -18,3 +18,8 @@ export const genders: string[] = [
   "Male",
   "Female",
 ]
+
+export const business_types = [
+  "retail",
+  "service",
+]

@@ -26,6 +26,23 @@ export default class ProfileEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
+  updateBusinessProfile(body: any, id?: number): Promise<GenericApiResponse<BusinessProfile>> {
+    const urlPath = `/business/profiles/${id}/`;
+    this.applyCredentials();
+    this.setRequestType("PUT", body);
+    this.constructUrl(urlPath);
+
+    return this.fulfillRequest();
+  }
+
+  updateAgentProfile(body: any, userUUID?: any): Promise<GenericApiResponse<AgentProfile>> {
+    const urlPath = `/agents/agents/${userUUID}/`;
+    this.applyCredentials();
+    this.setRequestType("PUT", body);
+    this.constructUrl(urlPath);
+
+    return this.fulfillRequest();
+  }
 
 }
 

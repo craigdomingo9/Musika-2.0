@@ -6,7 +6,7 @@ import { testAgentUuid } from '@/lib/constants';
 
 
 
-function useFetchAgent(config?: {}) {
+function useFetchAgent(config?: {}, reRenderState?: any) {
   const [data, setData] = useState<Agent>({} as Agent);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -30,7 +30,7 @@ function useFetchAgent(config?: {}) {
     };
 
     fetchData();
-  }, []);
+  }, [reRenderState]);
 
   return { data, isLoading, error };
 }
