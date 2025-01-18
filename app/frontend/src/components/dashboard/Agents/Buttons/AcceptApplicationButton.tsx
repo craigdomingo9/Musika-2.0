@@ -11,15 +11,13 @@ type Props = {
   application: AgentApplication,
 }
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
 
 
 function AcceptApplicationButton({application}: Props) {
   const { entities: action, setEntities: setApplicationAction } = useApplicationAction();
   const { setEntities: setAgentMutation } = useAgentMutation();
   const { toast } = useToast();
-
+  
 
   async function acceptApplication() {
     setAgentMutation(
@@ -29,9 +27,11 @@ function AcceptApplicationButton({application}: Props) {
       )
     )
     try {
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
       
       const response = await apiServices.acceptApplication(application.id)
-  
+      
       if (!response.ok) {
         return dangerToastFactory(toast, "Request failed to execute. Please try again later.")
       }

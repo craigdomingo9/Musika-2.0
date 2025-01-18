@@ -12,9 +12,6 @@ type Props = {
   application: AgentApplication,
 }
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
-
 
 function CancelPendingApplicationButton({application}: Props) {
   const isMobile = useIsMobile();
@@ -26,7 +23,9 @@ function CancelPendingApplicationButton({application}: Props) {
   async function cancelPendingApplication() {
     setIsCancelling(true);
     try {
-
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
+      
       const response = await apiServices.cancelPendingApplication(application.id)
   
       if (!response.ok) {

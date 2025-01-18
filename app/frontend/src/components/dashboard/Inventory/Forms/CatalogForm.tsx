@@ -14,8 +14,6 @@ import { completeEntityAction } from "@/types/dashboard/factory";
 import { useInventoryAction } from "../InventoryProducts";
 
 
-const apiServices = new InventoryEndpoints();
-apiServices.isOnClient(window);
 
 function CatalogForm() {
   const form = createCatalogForm();
@@ -25,8 +23,11 @@ function CatalogForm() {
   const { toast } = useToast();
   const { setEntities: setDialog } = useCatalogDialogState();
   const { entities: inventoryState, setEntities: setInventoryAction } = useInventoryAction();
-
+  
   async function CatalogOnSubmit(values: any) {
+    const apiServices = new InventoryEndpoints();
+    apiServices.isOnClient(window);
+    
     values = {...values, business: testBusinessId}
   
     const body = constructBody(values)

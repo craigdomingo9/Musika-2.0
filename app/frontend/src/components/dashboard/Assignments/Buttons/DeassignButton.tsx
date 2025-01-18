@@ -7,8 +7,6 @@ import { useToast } from "@/hooks/use-toast";
 import { completeEntityAction, processingEntityAction } from "@/types/dashboard/factory";
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
 
 
 function DeassignButton() {
@@ -25,8 +23,11 @@ function DeassignButton() {
 			processingEntityAction<any>("Deassign", assignment)
 		)
     try {
-			if (!assignment) return;
-
+      if (!assignment) return;
+      
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
+      
 			const response = await apiServices.deassignAssigment(assignment?.id);
 
 			if (!response.ok) {

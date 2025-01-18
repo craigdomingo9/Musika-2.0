@@ -13,8 +13,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
 
 
 
@@ -40,6 +38,8 @@ function RecruitForm() {
     )
     setIsRecruiting(true);
     try {
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
 
       values = {
         ...values,

@@ -4,20 +4,19 @@ import CommunicationEndpoints from '../../../communications';
 import useFetchAgent from '../useFetchAgent';
 
 
-const apiServices = new CommunicationEndpoints();
-apiServices.isOnClient(window);
-
 
 function useFetchAgentConversations(reRenderState?: any) {
   const [data, setData] = useState<Conversation[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { data: agent } = useFetchAgent();
-
+  
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new CommunicationEndpoints();
+        apiServices.isOnClient(window);
         
         const data = await apiServices.getConversations({
           agent_code: agent.code,

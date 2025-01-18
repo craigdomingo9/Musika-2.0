@@ -14,8 +14,6 @@ import { useCreateConversationDialogState } from "../Buttons/CreateConversationB
 import { useConversationAction } from "../AgentConversations";
 
 
-const apiServices = new CommunicationEndpoints();
-apiServices.isOnClient(window);
 
 
 function CreateConversationDialog() {
@@ -24,7 +22,7 @@ function CreateConversationDialog() {
   const { entities: open, setEntities: setOpen } = useCreateConversationDialogState();
   const { data: agent } = useFetchAgent();
   const { toast } = useToast();
-
+  
   async function createConversation(partner: Business) {
     
     try {
@@ -33,7 +31,9 @@ function CreateConversationDialog() {
         conversation_type: "business_agent",
         title: conversationTitle,
       });
-
+      
+      const apiServices = new CommunicationEndpoints();
+      apiServices.isOnClient(window);
       const response = await apiServices.createConversation(body)
   
       if (!response.ok) {

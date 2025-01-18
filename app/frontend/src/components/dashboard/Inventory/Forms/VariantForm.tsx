@@ -16,9 +16,6 @@ import { useInventoryAction } from "../InventoryProducts";
 import { createVariantfn, createVariantForm, updateVariantfn, uploadImage } from "@/services/dashboard/forms/variantForm";
 
 
-const apiServices = new InventoryEndpoints();
-apiServices.isOnClient(window);
-
 
 function VariantForm() {
   const form = createVariantForm()
@@ -41,11 +38,14 @@ function VariantForm() {
       processingEntityAction<any>(action,variant)
     )
     try {
-
+      
       if (!product) return dangerToastFactory(toast, "Error. Please create product first.");
-
+      
       values.product = product?.id
       let response;
+      
+      const apiServices = new InventoryEndpoints();
+      apiServices.isOnClient(window);
       
       switch (action) {
         case "Create":

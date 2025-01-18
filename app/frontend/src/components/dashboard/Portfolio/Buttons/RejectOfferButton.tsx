@@ -17,8 +17,6 @@ type Props = {
 }
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
 
 
 function RejectOfferButton({offer}: Props) {
@@ -34,6 +32,9 @@ function RejectOfferButton({offer}: Props) {
       processingEntityAction("Reject Offer", offer)
     )
     try {
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
+      
       console.log("rejecting...", offer.business.profile.name)
 
       const response = await apiServices.rejectBusinessOffer(offer.id)

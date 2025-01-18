@@ -14,9 +14,6 @@ import { dangerToastFactory, successToast } from "@/services/marketplace/toast";
 import { useApplicationAction } from "./Applications";
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
-
 
 
 function ApplyForm() {
@@ -46,7 +43,10 @@ function ApplyForm() {
         business: business?.id,
         agent: agent?.id
       }
-
+      
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
+      
       const body = constructBody(values);
       const response = await apiServices.makeApplication(body)
 

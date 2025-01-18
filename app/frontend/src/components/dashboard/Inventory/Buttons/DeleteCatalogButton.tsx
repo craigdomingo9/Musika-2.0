@@ -19,22 +19,23 @@ import { useInventoryAction } from "../InventoryProducts";
 
 
 
-const apiServices = new InventoryEndpoints();
-apiServices.isOnClient(window);
 
 
 function DeleteCatalogButton() {
   const { entities: {object: catalog}, setEntities: setCatalogMutation } = useCatalogMutation();
   const { entities: inventoryState, setEntities: setInventoryAction } = useInventoryAction();
   const { toast } = useToast();
-
+  
   async function deleteCatalog() {
     if (!catalog) return;
 
     setCatalogMutation(processingEntityAction("Delete", catalog));
 
+    const apiServices = new InventoryEndpoints();
+    apiServices.isOnClient(window);
+    
     const response: GenericApiResponse<Product> = await apiServices.deleteCatalog(catalog?.id);
-
+    
     if (!response.ok) return dangerToastFactory(toast ,"Product delete failed. Try again later")
 
     successToast(toast, "Catalog", `deleted`);

@@ -8,9 +8,6 @@ import useFetchAgent from './agent/useFetchAgent';
 import useDashboardConfigStore from '@/store/dashboard/DashboardConfig';
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
-
 
 function transformAgentData(data: Relationship[], baseUrl: string): Relationship[] {
   return data.filter((rel) => rel.agent.profile)
@@ -51,6 +48,9 @@ function useFetchActiveRelationships(mode: "agent" | "business", reRenderState?:
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new RelationshipEndpoints();
+        apiServices.isOnClient(window);
+        
         if (!business.code) return;
 
         const rawData = await apiServices.getRelationships({

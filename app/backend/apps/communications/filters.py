@@ -9,6 +9,7 @@ from communications.models import (
 
 class ConversationFilter(django_filters.FilterSet):
     user_uuid = django_filters.UUIDFilter(field_name='participants__user__uuid', lookup_expr='exact')
+    type = django_filters.ChoiceFilter(field_name='conversation_type', choices=Conversation.TYPE_CHOICES)
     role = django_filters.ChoiceFilter(field_name='participants__role', choices=Participant.ROLE_CHOICES)
     uuid = django_filters.CharFilter(field_name='uuid', lookup_expr='exact')
     business_code = django_filters.CharFilter(field_name='participants__user__business_profile__code', lookup_expr='exact')
@@ -16,7 +17,7 @@ class ConversationFilter(django_filters.FilterSet):
     
     class Meta:
         model = Conversation
-        fields = ['user_uuid', 'role', 'uuid', 'business_code', 'agent_code']
+        fields = ['user_uuid', 'role', 'uuid', 'business_code', 'agent_code', 'type']
     
 
 

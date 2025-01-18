@@ -5,20 +5,19 @@ import useFetchBusiness from '../useFetchBusiness';
 import { testBusiness } from '@/lib/constants';
 
 
-const apiServices = new CommunicationEndpoints();
-apiServices.isOnClient(window);
-
 
 function useFetchBusinessConversations(reRenderState?: any) {
   const [data, setData] = useState<Conversation[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { data: business } = useFetchBusiness();
-
+  
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new CommunicationEndpoints();
+        apiServices.isOnClient(window);
         
         const data = await apiServices.getConversations({
           business_code: testBusiness,

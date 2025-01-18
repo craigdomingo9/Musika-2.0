@@ -8,8 +8,6 @@ import { useChatAction, useChatScope } from "./ChatHeader";
 
 
 
-const apiServices = new CommunicationEndpoints();
-apiServices.isOnClient(window);
 
 
 function ChatInput() {
@@ -28,6 +26,9 @@ function ChatInput() {
   async function sendMessage() {
     setIsSending(true)
     try {
+      const apiServices = new CommunicationEndpoints();
+      apiServices.isOnClient(window);
+      
       const values = {
         content: message,
         conversation: chatScope.conversation.id,

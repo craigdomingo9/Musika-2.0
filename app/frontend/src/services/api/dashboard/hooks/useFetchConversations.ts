@@ -1,29 +1,22 @@
 "use client";
 import { useState, useEffect } from 'react';
 import CommunicationEndpoints from '../communications';
-import useFetchAgent from './agent/useFetchAgent';
-import useFetchBusiness from './business/useFetchBusiness';
-
-const apiServices = new CommunicationEndpoints();
-apiServices.isOnClient(window);
 
 
-function useFetchConversations(mode: "agent" | "business") {
+
+function useFetchConversations(config?: {}, reRenderState?: any) {
   const [data, setData] = useState<Conversation[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { data: agent } = useFetchAgent();
-  const { data: business } = useFetchBusiness();
-
+  
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         
-        const data = await apiServices.getConversations({
-          // user_uuid: mode == "agent" ? agent.user.uuid : business.user.uuid,
-          role: "agent",
-        });
+        const apiServices = new CommunicationEndpoints();
+        apiServices.isOnClient(window);
+        const data = await apiServices.getConversations(config);
         console.log(data)
 
         setData(data);
@@ -35,7 +28,7 @@ function useFetchConversations(mode: "agent" | "business") {
     };
 
     fetchData();
-  }, []);
+  }, [reRenderState]);
 
   return { data, isLoading, error };
 }

@@ -15,9 +15,6 @@ import createEntityStore from "@/store/dashboard/EntityStore";
 import { useEffect } from "react";
 
 
-const apiServices = new ProfileEndpoints();
-apiServices.isOnClient(window);
-
 
 export const useAgentProfileAction = createEntityStore(false);
 
@@ -30,13 +27,16 @@ function AgentProfileForm() {
 
   async function ProfileOnSubmit(values: any) {
     try {
+      const apiServices = new ProfileEndpoints();
+      apiServices.isOnClient(window);
+      
       const agentData: any = {
         first_name: values.first_name,
         last_name: values.last_name,
         email: values.email,
         phone_number: values.phone_number,
       };
-  
+      
       const agentProfileData: any = {
         bio: values.bio,
         minimum_commission_rate: values.minimum_commission_rate,

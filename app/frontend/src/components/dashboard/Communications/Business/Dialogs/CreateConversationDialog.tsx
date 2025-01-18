@@ -10,8 +10,6 @@ import { dangerToastFactory, successToastFactory } from '@/services/marketplace/
 import { useConversationAction } from '../BusinessConversations';
 
 
-const apiServices = new CommunicationEndpoints();
-apiServices.isOnClient(window);
 
 
 function CreateConversationDialog() {
@@ -20,8 +18,8 @@ function CreateConversationDialog() {
   const { entities: open, setEntities: setOpen } = useCreateConversationDialogState();
   const { data: business } = useFetchBusiness();
   const { toast } = useToast();
-
-
+  
+  
   async function createConversation(partner: Agent) {
     try {
       const conversationTitle = `${business.profile.name} and ${partner.full_name}`;
@@ -29,7 +27,10 @@ function CreateConversationDialog() {
         conversation_type: "business_agent",
         title: conversationTitle,
       });
-
+      
+      const apiServices = new CommunicationEndpoints();
+      apiServices.isOnClient(window);
+      
       const response = await apiServices.createConversation(body);
 
       if (!response.ok) {

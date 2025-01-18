@@ -18,6 +18,7 @@ function useFetchNotification() {
       try {
         const apiServices = new NotificationsEndpoints();
         apiServices.isOnClient(window);
+        
         const data = await apiServices.getNotification(params.id);
   
         setData(data);

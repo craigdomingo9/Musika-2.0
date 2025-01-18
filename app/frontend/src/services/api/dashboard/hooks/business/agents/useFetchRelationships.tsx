@@ -5,9 +5,6 @@ import AgentEndpoints from '../../../agents';
 import { correctImageUrl } from '@/services/utils';
 
 
-const apiServices = new AgentEndpoints();
-apiServices.isOnClient(window);
-
 
 function transformAgentData(data: Relationship[], baseUrl: string): Relationship[] {
   return data.filter((rel) => rel.agent.profile)
@@ -36,6 +33,9 @@ function useFetchRelationships(reRenderState?: any) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new AgentEndpoints();
+        apiServices.isOnClient(window);
+        
         if (!business.code) return;
 
         const rawData = await apiServices.getRelationships({

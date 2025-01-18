@@ -11,8 +11,6 @@ type Props = {
   offer: BusinessOffer
 }
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
 
 
 function CancelPendingOfferButton({offer}: Props) {
@@ -25,6 +23,8 @@ function CancelPendingOfferButton({offer}: Props) {
   async function cancelPendingOffer() {
     setIsCancelling(true);
     try {
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
 
       const response = await apiServices.cancelPendingOffer(offer.id)
   

@@ -5,24 +5,24 @@ import { testBusiness } from "@/lib/constants";
 import InventoryEndpoints from "../../../inventory";
 import { fixCatalogVariantImageUrl } from "@/services/dashboard/product";
 
-const apiServices = new InventoryEndpoints();
-apiServices.isOnClient(window);
-
 
 function useFetchInventory(reRenderState?: any) {
   const [data, setData] = useState<EditableCatalog[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
   const { data: business } = useFetchBusiness();
-
+  
   let code = business?.code
   code = testBusiness
 
-
+  
   useEffect(() => {
     const fetchBusinessProducts = async() => {
       setIsLoading(true);
       try {
+        const apiServices = new InventoryEndpoints();
+        apiServices.isOnClient(window);
+        
         if (!code) return;
 
         const data = await apiServices.getCatalogs({business: code});

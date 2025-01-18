@@ -10,8 +10,6 @@ import { useRelationshipAction } from "../Recruited/RecruitedAgents";
 
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
 
 
 function TerminateButton({relationship}: {relationship: Relationship}) {
@@ -29,6 +27,8 @@ function TerminateButton({relationship}: {relationship: Relationship}) {
       )
     )
     try {
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
       
       const response = await apiServices.terminateRelationship(relationship.id)
   

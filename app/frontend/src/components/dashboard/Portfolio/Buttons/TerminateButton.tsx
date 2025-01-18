@@ -12,16 +12,13 @@ type Props = {
   relationship: Relationship,
 }
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
-
 
 function TerminateButton({relationship}: Props) {
   const [isTerminating, setIsTerminating] = useState(false);
   const { setEntities: setBusinessMutation } = useBusinessMutation();
   const { entities: action, setEntities: setRelationshipAction } = useRelationshipAction();
   const { toast } = useToast();
-
+  
   async function terminateRelationship() {
     setIsTerminating(true);
     setBusinessMutation(
@@ -31,6 +28,9 @@ function TerminateButton({relationship}: Props) {
       )
     )
     try {
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
+      
       const response = await apiServices.terminateRelationship(relationship.id)
   
       if (!response.ok) {

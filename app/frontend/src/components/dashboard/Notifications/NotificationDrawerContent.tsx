@@ -4,8 +4,6 @@ import NotificationsEndpoints from "@/services/api/marketplace/notifications";
 import { completeEntityAction } from "@/types/dashboard/factory";
 
 
-const apiServices = new NotificationsEndpoints();
-apiServices.isOnClient(window);
 
 
 function NotificationDrawerContent() {
@@ -13,8 +11,12 @@ function NotificationDrawerContent() {
   
   useEffect(() => {
     if (!notification || notification.is_read) return;
-
+    
+    
     const markAsRead = async() => {
+      const apiServices = new NotificationsEndpoints();
+      apiServices.isOnClient(window);
+      
       const response = await apiServices.markNotificationAsRead(notification.id);
 
       if (response.ok) {

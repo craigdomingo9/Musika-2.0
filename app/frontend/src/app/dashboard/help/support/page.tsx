@@ -1,17 +1,13 @@
-"use client";
-import useDashboardConfigStore from "@/store/dashboard/DashboardConfig"
+import PageContainer from "@/components/dashboard/PageContainer";
+import Support from "@/components/dashboard/Support/Support";
 
 
 
 function page() {
-
-  const { config } = useDashboardConfigStore();
-
-  
   return (
-    <div>
-      hi {config.mode}
-    </div>
+    <PageContainer>
+      <Support />
+    </PageContainer>
   )
 }
 

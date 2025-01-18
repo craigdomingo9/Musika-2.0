@@ -2,11 +2,8 @@ import { useEffect, useState } from "react"
 import { correctImageUrl } from "@/services/utils";
 import InventoryEndpoints from "../../../inventory";
 import useFetchBusiness from "../useFetchBusiness";
-import { testBusiness, testCookie } from "@/lib/constants";
+import { testBusiness, testUuid } from "@/lib/constants";
 
-
-const apiServices = new InventoryEndpoints();
-apiServices.isOnClient(window);
 
 
 
@@ -35,6 +32,9 @@ function useFetchProducts(agentCode: string, reRenderState?: any) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new InventoryEndpoints();
+        apiServices.isOnClient(window);
+        
         const rawData = await apiServices.getProducts({
           exclude_agent_assigned: agentCode,
           business: testBusiness,

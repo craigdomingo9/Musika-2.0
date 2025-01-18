@@ -17,9 +17,6 @@ import createEntityStore from "@/store/dashboard/EntityStore";
 import { useEffect } from "react";
 
 
-const apiServices = new ProfileEndpoints();
-apiServices.isOnClient(window);
-
 export const useBusinessProfileAction = createEntityStore(false);
 
 
@@ -32,6 +29,9 @@ function BusinessProfileForm() {
 
   async function ProfileOnSubmit(values: any) {
     try {
+      const apiServices = new ProfileEndpoints();
+      apiServices.isOnClient(window);
+      
       values = {
         ...values,
         categories: business.profile.categories,

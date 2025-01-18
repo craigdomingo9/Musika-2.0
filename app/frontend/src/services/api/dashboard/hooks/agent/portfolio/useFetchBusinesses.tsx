@@ -5,9 +5,6 @@ import useFetchAgent from '../useFetchAgent';
 import { BusinessEndpoints } from '@/services/api/marketplace/business';
 
 
-const apiServices = new BusinessEndpoints();
-apiServices.isOnClient(window);
-
 function transformData(data: Business[], baseUrl: string): Business[] {
   return data
   .filter((business) => business.profile.logo)
@@ -31,6 +28,9 @@ function useFetchBusinesses(reRenderState?: any) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new BusinessEndpoints();
+        apiServices.isOnClient(window);
+        
         if (!agent) return;
 
         const rawData = await apiServices.getBusinesses({

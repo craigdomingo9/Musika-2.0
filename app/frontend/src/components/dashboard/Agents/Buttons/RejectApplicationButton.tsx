@@ -10,8 +10,6 @@ type Props = {
   application: AgentApplication,
 }
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
 
 
 function RejectApplicationButton({application}: Props) {
@@ -29,6 +27,8 @@ function RejectApplicationButton({application}: Props) {
       )
     )
     try {
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
       
       const response = await apiServices.rejectApplication(application.id)
   

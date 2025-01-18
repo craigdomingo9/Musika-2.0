@@ -18,6 +18,7 @@ function useFetchNotifications(config: {}, reRenderState?: any) {
   
         const apiServices = new NotificationsEndpoints();
         apiServices.isOnClient(window);
+        
         const data = await apiServices.getNotifications({
           "user_uuid": uuid,
           ...config

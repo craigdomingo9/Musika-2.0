@@ -13,7 +13,7 @@ function useFetchVariants(config: Record<string, any>, reRenderState?: any) {
   const { data: business } = useFetchBusiness();
 
   let code = business?.code
-  code = testBusiness
+  code = testBusiness // testing
 
 
   useEffect(() => {

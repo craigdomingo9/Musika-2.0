@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import AgentEndpoints from '../../agents';
-import { testAgentUuid } from '@/lib/constants';
+import { testUuid } from '@/lib/constants';
 
 
 
@@ -19,7 +19,7 @@ function useFetchAgent(config?: {}, reRenderState?: any) {
         const apiServices = new AgentEndpoints();
         apiServices.isOnClient(window);
         
-        const data = await apiServices.getAgent(testAgentUuid, config);
+        const data = await apiServices.getAgent(testUuid, config);
 
         setData(data);
       } catch (error: any) {

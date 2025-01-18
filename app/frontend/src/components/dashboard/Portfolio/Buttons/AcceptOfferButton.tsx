@@ -12,9 +12,6 @@ type Props = {
 }
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
-
 
 function AcceptOfferButton({offer}: Props) {
   const [isAccepting, setIsAccepting] = useState(false);
@@ -28,7 +25,10 @@ function AcceptOfferButton({offer}: Props) {
       processingEntityAction("Accept Offer", offer)
     )
     try {
-
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
+      
+      
       const response = await apiServices.acceptBusinessOffer(offer.id)
   
       if (!response.ok) {

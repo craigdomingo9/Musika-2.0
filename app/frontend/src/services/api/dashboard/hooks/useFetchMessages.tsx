@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react'
 import CommunicationEndpoints from '../communications';
 
-const apiServices = new CommunicationEndpoints();
-apiServices.isOnClient(window);
-
 function transformData(data: Message[]) {
   return data
 }
@@ -18,6 +15,9 @@ function useFetchMessages(conversation_uuid: string, reRenderState?: any) {
     const fetchData = async() => {
       setIsLoading(true);
       try {
+        const apiServices = new CommunicationEndpoints();
+        apiServices.isOnClient(window);
+        
         const rawData = await apiServices.getMessages({conversation: conversation_uuid});
         const transformedData = transformData(rawData);
 

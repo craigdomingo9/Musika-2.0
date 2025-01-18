@@ -5,9 +5,6 @@ import { correctImageUrl } from '@/services/utils';
 import useFetchAgent from '../useFetchAgent';
 
 
-const apiServices = new AgentEndpoints();
-apiServices.isOnClient(window);
-
 function transformData(data: AgentApplication[], baseUrl: string): AgentApplication[] {
   return data.filter((application) => application.business.profile && application.agent.profile)
   .map((application) => ({
@@ -35,6 +32,9 @@ function useFetchPendingApplications(reRenderState?: any) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new AgentEndpoints();
+        apiServices.isOnClient(window);
+        
         if (!agent) return;
 
         const rawData = await apiServices.getApplications({

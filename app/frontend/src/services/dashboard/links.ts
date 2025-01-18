@@ -175,15 +175,15 @@ const agent: any = [
     items: [
       {
         title: "Contact Support",
-        url: "/dashboard/support",
+        url: "/dashboard/help/support",
       },
       // {
       //   title: "Guides",
-      //   url: "/dashboard/guides",
+      //   url: "/dashboard/help/guides",
       // },
       // {
       //   title: "FAQs",
-      //   url: "/dashboard/faqs",
+      //   url: "/dashboard/help/faqs",
       // },
     ]
   },

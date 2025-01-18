@@ -5,9 +5,6 @@ import AgentEndpoints from '../../../agents';
 import { correctImageUrl } from '@/services/utils';
 
 
-const apiServices = new AgentEndpoints();
-apiServices.isOnClient(window);
-
 function transformAgentData(data: Agent[], baseUrl: string): Agent[] {
   return data.filter((agent) => agent.profile)
   .map((agent) => ({
@@ -33,7 +30,9 @@ function useFetchScoutAgents(config?: {}) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-
+        const apiServices = new AgentEndpoints();
+        apiServices.isOnClient(window);
+        
         const rawData = await apiServices.getAgents({
           exclude_business_code: business.code,
         });

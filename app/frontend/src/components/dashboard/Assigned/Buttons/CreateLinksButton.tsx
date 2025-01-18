@@ -20,9 +20,6 @@ import { successToast } from "@/services/marketplace/toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 
-const apiServices = new AnalyticsEndpoints();
-apiServices.isOnClient(window);
-
 
 function CreateLinksButton() {
   const { data: sources, isLoading} = useFetchLeadSources();

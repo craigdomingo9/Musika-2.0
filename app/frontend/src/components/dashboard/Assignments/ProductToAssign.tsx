@@ -11,8 +11,6 @@ type Props = {
   agent: Agent,
 }
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
 
 
 function ProductToAssign({product, agent}: Props) {
@@ -23,6 +21,8 @@ function ProductToAssign({product, agent}: Props) {
   async function addToAssignments(product: Product) {
     setIsAssigning(true);
     try {
+      const apiServices = new RelationshipEndpoints();
+      apiServices.isOnClient(window);
       
       const body = new FormData();
       body.set("product", product.id.toString())

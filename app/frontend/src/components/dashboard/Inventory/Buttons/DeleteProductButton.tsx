@@ -19,8 +19,6 @@ import { useEffect } from "react";
 
 
 
-const apiServices = new InventoryEndpoints();
-apiServices.isOnClient(window);
 
 function DeleteProductButton() {
   const { setEntities: setDialog } = useProductDialogState();
@@ -29,8 +27,12 @@ function DeleteProductButton() {
 
   async function deleteProduct() {
     if (!product) return;
-
+    
     setProductMutation(processingEntityAction("Delete", product));
+    
+    const apiServices = new InventoryEndpoints();
+    apiServices.isOnClient(window);
+
     const response: GenericApiResponse<Product> = await apiServices.deleteProduct(product?.id);
 
     if (!response.ok) return dangerToastFactory(toast ,"Product delete failed. Try again later")

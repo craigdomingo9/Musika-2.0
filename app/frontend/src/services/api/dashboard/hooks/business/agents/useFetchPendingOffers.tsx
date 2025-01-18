@@ -5,9 +5,6 @@ import { correctImageUrl } from '@/services/utils';
 import RelationshipEndpoints from '../../../relationships';
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
-
 
 function transformAgentData(data: BusinessOffer[], baseUrl: string): BusinessOffer[] {
   return data.filter((offer) => offer.agent.profile)
@@ -36,6 +33,9 @@ function useFetchPendingOffers(reRenderState: any) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new RelationshipEndpoints();
+        apiServices.isOnClient(window);
+        
         if (!business?.code) return;
 
         const rawData = await apiServices.getPendingOffers({

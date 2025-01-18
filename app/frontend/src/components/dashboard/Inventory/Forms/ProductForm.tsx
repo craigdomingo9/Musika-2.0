@@ -18,8 +18,6 @@ import { useInventoryAction } from "../InventoryProducts"
 import { useCatalogMutation } from "../Dialogs/CatalogFormDialog"
 
 
-const apiServices = new InventoryEndpoints();
-apiServices.isOnClient(window);
 
 
 function ProductForm() {
@@ -46,6 +44,8 @@ function ProductForm() {
       )
     )
     try {
+      const apiServices = new InventoryEndpoints();
+      apiServices.isOnClient(window);
 
       values = {
         ...values,

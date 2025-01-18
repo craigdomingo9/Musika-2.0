@@ -22,9 +22,6 @@ type Props = {
   variant: ProductVariant,
 }
 
-const apiServices = new InventoryEndpoints();
-apiServices.isOnClient(window);
-
 
 function DeleteVariantButton({variant}: Props) {
   const { entities: inventoryState, setEntities: setInventoryAction } = useInventoryAction();
@@ -36,7 +33,10 @@ function DeleteVariantButton({variant}: Props) {
       processingEntityAction<any>("Delete",variant)
     )
     try {
-
+      const apiServices = new InventoryEndpoints();
+      apiServices.isOnClient(window);
+      
+      
       const response: GenericApiResponse<Product> = await apiServices.deleteVariant(variant.id);
       
       if (!response.ok) return dangerToastFactory(toast ,"Variant delete failed. Try again later")

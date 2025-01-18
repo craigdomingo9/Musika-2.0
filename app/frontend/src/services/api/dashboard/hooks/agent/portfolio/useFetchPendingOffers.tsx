@@ -5,9 +5,6 @@ import RelationshipEndpoints from '../../../relationships';
 import useFetchAgent from '../useFetchAgent';
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
-
 
 function transformAgentData(data: BusinessOffer[], baseUrl: string): BusinessOffer[] {
   return data.filter((offer) => offer.agent.profile && offer.business.profile)
@@ -36,6 +33,9 @@ function useFetchPendingOffers(reRenderState?: any) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new RelationshipEndpoints();
+        apiServices.isOnClient(window);
+        
         if (!agent.code) return;
 
         const rawData = await apiServices.getPendingOffers({

@@ -3,9 +3,6 @@ import RelationshipEndpoints from "../../../relationships";
 import { correctImageUrl } from "@/services/utils";
 
 
-const apiServices = new RelationshipEndpoints();
-apiServices.isOnClient(window);
-
 
 
 function transformData(data: Assignment[], baseUrl: string) {
@@ -31,10 +28,13 @@ function useFetchAssignments(agentCode: string, reRenderState?: any) {
   const [error, setError] = useState();
 
   useEffect(() => {
-
+    
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiServices = new RelationshipEndpoints();
+        apiServices.isOnClient(window);
+        
         const rawData = await apiServices.getAssignments({
           agent_code: agentCode,
           status: "active",

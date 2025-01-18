@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form"
 import InventoryEndpoints from "@/services/api/dashboard/inventory";
 
 const apiServices = new InventoryEndpoints();
-apiServices.isOnClient(window);
 
 
 
@@ -28,7 +27,7 @@ export const variantSchema = z.object({
 
     return z.NEVER;
   }
-
+  
   if (val.sale_price && !val.on_sale) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
@@ -36,7 +35,7 @@ export const variantSchema = z.object({
       fatal: true,
       path: ['sale_price'],
     });
-
+    
     return z.NEVER;
   }
 
@@ -60,7 +59,7 @@ export const createVariantForm = () => {
 
 export function constructBody(values: Record<string, any>) {
   const formData = new FormData();
-
+  
   for (const [key, value] of Object.entries(values)) {
     if (!value) continue;
     
@@ -75,7 +74,8 @@ export async function createVariantfn(
 ): Promise<GenericApiResponse<ProductVariant>> {
 
   const body = constructBody(values);
-
+  apiServices.isOnClient(window);
+  
   const createResponse = await apiServices.createVariant(body);
   
   if (!createResponse.ok) {
@@ -106,21 +106,22 @@ export async function updateVariantfn(
   variant: ProductVariant | undefined, 
   attribute: ProductAttribute | undefined
 ): Promise<GenericApiResponse<ProductVariant>> {
-
+  
   const body = constructBody(values);
-
+  
+  apiServices.isOnClient(window);
   const updateResponse = await apiServices.updateVariant(
     body, 
     variant?.id
   );
-
+  
   if (!updateResponse.ok) {
     throw new Error(`Update variant failed with status: ${updateResponse.status}`);
   }
 
   const updatedVariant = await updateResponse.data;
   values.variant = updatedVariant.id;
-
+  
   // Create attributes for the new variant
   const attributeBody = constructBody({ 
     ...values, 
@@ -146,7 +147,7 @@ export async function uploadImage(
   variant: ProductVariant | undefined,
   createdVariant: ProductVariant
 ): Promise<GenericApiResponse<ProductImage>> {
-
+  
   values.id = variant?.image?.id
   values.variant = createdVariant.id
 
@@ -155,7 +156,8 @@ export async function uploadImage(
     image: values.image, 
     variant: createdVariant.id 
   });
-
+  
+  apiServices.isOnClient(window);
   const imageResponse = await apiServices.postVariantImage(
     imageBody, 
     values.id ? "update" : "create"

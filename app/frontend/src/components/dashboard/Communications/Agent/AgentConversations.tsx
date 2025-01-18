@@ -1,5 +1,4 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SectionHeader from "../../SectionHeader"
 import CreateConversationButton from "./Buttons/CreateConversationButton"
 import Loading from "@/app/dashboard/loading";
