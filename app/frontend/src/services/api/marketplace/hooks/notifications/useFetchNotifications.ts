@@ -4,7 +4,7 @@ import NotificationsEndpoints from "../../notifications";
 
 
 
-function useFetchNotifications() {
+function useFetchNotifications(config: {}, reRenderState?: any) {
   const [data, setData] = useState<Notification[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
@@ -20,6 +20,7 @@ function useFetchNotifications() {
         apiServices.isOnClient(window);
         const data = await apiServices.getNotifications({
           "user_uuid": uuid,
+          ...config
         })
   
         setData(data);
@@ -31,7 +32,7 @@ function useFetchNotifications() {
     }
     
     fetchNotifications();
-  }, [])
+  }, [reRenderState])
 
 
   return { data, isLoading, error };

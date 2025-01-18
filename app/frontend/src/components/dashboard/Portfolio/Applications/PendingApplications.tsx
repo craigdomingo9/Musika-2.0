@@ -1,6 +1,6 @@
 import useFetchPendingApplications from "@/services/api/dashboard/hooks/agent/portfolio/useFetchPendingApplications"
 import Ribbon from "../../Ribbon";
-import DrawerContainer from "../../Agents/Scout/DrawerContainer";
+import DrawerContainer from "../../../universal/Drawer/DrawerContainer";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import PendingApplicationsDrawerContent from "./PendingApplicationsDrawerContent";
 import { useApplicationAction } from "./Applications";

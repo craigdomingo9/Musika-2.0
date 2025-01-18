@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import createEntityStore from "@/store/dashboard/EntityStore";
 import { createEntityAction } from "@/types/dashboard/factory";
-import DrawerContainer from "../../Agents/Scout/DrawerContainer";
+import DrawerContainer from "../../../universal/Drawer/DrawerContainer";
 import ApplyDrawerContent from "../Applications/ApplyDrawerContent";
 
 

@@ -1,5 +1,5 @@
 import createEntityStore from "@/store/dashboard/EntityStore";
-import DrawerContainer from "../Agents/Scout/DrawerContainer";
+import DrawerContainer from "../../universal/Drawer/DrawerContainer";
 import AssignedProductDrawerContent from "./AssignedProductDrawerContent";
 import { createEntityAction } from "@/types/dashboard/factory";
 

@@ -21,7 +21,7 @@ export default class NotificationsEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
   
-  markNotificationAsRead(id: any) {
+  markNotificationAsRead(id: any): Promise<GenericApiResponse<Notification>> {
     const urlPath = `/notifications/${id}/mark-as-read/`;
     this.setRequestType("POST");
     this.applyCredentials()

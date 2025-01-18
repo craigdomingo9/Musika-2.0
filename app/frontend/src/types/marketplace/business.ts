@@ -139,8 +139,11 @@ interface CartProduct extends StandardProduct {
 interface Notification {
   id: number,
   user: UserProfile,
+  topic: string,
+  priority: "low" | "medium" | "high",
   message: string,
   is_read: boolean,
   sent_at: string,
+  created_at: string,
 }
 

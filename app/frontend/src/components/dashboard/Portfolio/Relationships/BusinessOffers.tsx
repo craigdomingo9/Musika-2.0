@@ -1,6 +1,6 @@
 import useFetchPendingOffers from "@/services/api/dashboard/hooks/agent/portfolio/useFetchPendingOffers";
 import { useRelationshipAction } from "./Relationships";
-import DrawerContainer from "../../Agents/Scout/DrawerContainer";
+import DrawerContainer from "../../../universal/Drawer/DrawerContainer";
 import Ribbon from "../../Ribbon";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import BusinessOffersDrawerContent from "./BusinessOffersDrawerContent";

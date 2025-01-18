@@ -6,17 +6,19 @@ type Props = {
   HeaderTitle: string,
   SubText?: string,
   Action?: JSX.Element,
-  noPadding?: boolean
+  noPadding?: boolean,
+  className?: string,
 }
 
 function SectionHeader({
   HeaderTitle,
   SubText,
   Action,
-  noPadding
+  noPadding,
+  className,
 }: Props) {
   return (
-    <div className={cn("flex items-center justify-between w-full", !noPadding && "my-4")}>
+    <div className={cn("flex items-center justify-between w-full", !noPadding && "my-4", className)}>
 
       <div>
         <header className="text-opacity text-xl font-semibold">

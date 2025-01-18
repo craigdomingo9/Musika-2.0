@@ -4,9 +4,16 @@ from django.utils import timezone
 
 
 class Notification(models.Model):
+    PRIORITY_CHOICES = [
+      ('low', 'Low'), 
+      ('medium', 'Medium'), 
+      ('high', 'High'), 
+    ]
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    topic = models.CharField(max_length=100, default="General", blank=True, null=True)
     message = models.CharField(max_length=1000)
     is_read = models.BooleanField(default=False)
+    priority = models.CharField(max_length=50, default='medium', choices=PRIORITY_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

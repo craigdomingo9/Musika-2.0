@@ -1,5 +1,5 @@
 import createEntityStore from "@/store/dashboard/EntityStore";
-import DrawerContainer from "../Scout/DrawerContainer"
+import DrawerContainer from "../../../universal/Drawer/DrawerContainer"
 import useFetchPendingOffers from "@/services/api/dashboard/hooks/business/agents/useFetchPendingOffers";
 import PendingOffersDrawerContent, { useOfferAction } from "./PendingOffersDrawerContent";
 import Ribbon from "../../Ribbon";

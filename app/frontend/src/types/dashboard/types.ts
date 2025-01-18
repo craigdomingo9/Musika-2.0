@@ -130,3 +130,5 @@ type Message = {
   sender: Participant,
 }
 
+type modesType = "Business" | "Agent"
+

@@ -1,5 +1,5 @@
 import createEntityStore from "@/store/dashboard/EntityStore"
-import DrawerContainer from "../../Agents/Scout/DrawerContainer"
+import DrawerContainer from "../../../universal/Drawer/DrawerContainer"
 import AddAssignmentDrawer from "../AddAssignmentDrawer";
 import { useAgentMutation } from "../../Agents/Buttons/RecruitButton";
 import { createEntityAction } from "@/types/dashboard/factory";
