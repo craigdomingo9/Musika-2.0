@@ -28,7 +28,7 @@ export default class CommunicationEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  createConversation(body: FormData): Promise<GenericApiResponse<Conversation>> {
+  createConversation(body: any): Promise<GenericApiResponse<Conversation>> {
     const urlPath = `/communications/conversations/`;
     this.setRequestType("POST", body);
     this.constructUrl(urlPath);
@@ -37,7 +37,7 @@ export default class CommunicationEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  addParticipants(body: FormData): Promise<GenericApiResponse<Participant>> {
+  addParticipants(body: any): Promise<GenericApiResponse<Participant>> {
     const urlPath = `/communications/participants/`;
     this.setRequestType("POST", body);
     this.constructUrl(urlPath);
@@ -46,7 +46,16 @@ export default class CommunicationEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  sendMessage(body: FormData): Promise<GenericApiResponse<Message>> {
+  addAdminsToConversation(uuid: any): Promise<GenericApiResponse<Participant>> {
+    const urlPath = `/communications/conversations/${uuid}/add-admins/`;
+    this.setRequestType("POST");
+    this.constructUrl(urlPath);
+    this.applyCredentials()
+    
+    return this.fulfillRequest();
+  }
+
+  sendMessage(body: any): Promise<GenericApiResponse<Message>> {
     const urlPath = `/communications/messages/`;
     this.setRequestType("POST", body);
     this.constructUrl(urlPath);

@@ -4,45 +4,15 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
-from communications.filters import ConversationFilter, MessageFilter
+from communications.filters import MessageFilter
 from communications.models import (
-    Conversation, 
-    Participant, 
     Message, 
 )
 from communications.serializers import (
-    ConversationSerializer, 
-    ConversationCreateSerializer,
-    ParticipantSerializer, 
-    ParticipantCreateSerializer,
     MessageSerializer, 
     MessageCreateSerializer,
 )
 
-class ConversationViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    queryset = Conversation.objects.all()
-    serializer_class = ConversationSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = ConversationFilter
-    lookup_field = 'uuid'
-    
-    def get_serializer_class(self):
-        if self.action in ["create", "update"]:
-            self.serializer_class = ConversationCreateSerializer
-        return super().get_serializer_class()
-    
-
-
-class ParticipantViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    queryset = Participant.objects.all()
-    serializer_class = ParticipantSerializer
-    
-    def get_serializer_class(self):
-        if self.action in ["create", "update"]:
-            self.serializer_class = ParticipantCreateSerializer
-        return super().get_serializer_class()
 
 
 class MessageViewSet(viewsets.ModelViewSet):
@@ -65,3 +35,6 @@ class MessageViewSet(viewsets.ModelViewSet):
             return Response({'status': 'message marked as read'}, status=status.HTTP_200_OK)
         except Message.DoesNotExist:
             return Response({'error': 'Message not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+

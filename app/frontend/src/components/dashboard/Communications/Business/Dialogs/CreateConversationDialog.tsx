@@ -10,6 +10,7 @@ import { dangerToastFactory, successToastFactory } from '@/services/marketplace/
 import { useConversationAction } from '../BusinessConversations';
 
 
+const apiServices = new CommunicationEndpoints();
 
 
 function CreateConversationDialog() {
@@ -28,15 +29,14 @@ function CreateConversationDialog() {
         title: conversationTitle,
       });
       
-      const apiServices = new CommunicationEndpoints();
       apiServices.isOnClient(window);
       
       const response = await apiServices.createConversation(body);
-
+      
       if (!response.ok) {
         return dangerToastFactory(toast, "Failed to create conversation. Try again later.");
       }
-
+      
       const conversationId = (await response.data).id;
       
       const addParticipantPromises = [
@@ -57,6 +57,7 @@ function CreateConversationDialog() {
 
   async function addParticipant(user: number, role: "business" | "agent", conversation: number) {
     const body = constructBody({ conversation, role, user });
+    apiServices.isOnClient(window);
     const response = await apiServices.addParticipants(body);
 
     if (!response.ok) {

@@ -19,4 +19,4 @@ class ConversationSerializer(serializers.ModelSerializer):
 class ConversationCreateSerializer(serializers.ModelSerializer):
     
     class Meta(ConversationSerializer.Meta):
-        fields = ['id', 'conversation_type', 'title']
+        fields = ['id', 'uuid', 'conversation_type', 'title']
