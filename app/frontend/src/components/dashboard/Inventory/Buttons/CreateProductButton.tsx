@@ -1,4 +1,3 @@
-import { PlusIcon } from "lucide-react"
 import { useProductDialogState, useProductMutation } from "../Dialogs/ProductDialog";
 import { createEntityAction } from "@/types/dashboard/factory";
 
@@ -12,9 +11,10 @@ function CreateProductButton() {
         setProductMutation(createEntityAction("Create"))
         setDialog(true);
       }} 
-      className="h-36 my-2 shadow-lg rounded-lg m-auto w-36 sm:w-48 sm:max-h-[17.25rem] py-1 cursor-pointer flex justify-center items-center bg-green-50 hover:scale-[1.01] duration-300"
     >
-      <PlusIcon />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+        <path className="text-[--baseColor]" strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>
     </div>
   )
 }

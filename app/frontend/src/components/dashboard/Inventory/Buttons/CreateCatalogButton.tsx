@@ -8,7 +8,7 @@ function CreateCatalogButton() {
 
   return (
     <div 
-    onClick={() => {
+      onClick={() => {
       setCatalogMutation(createEntityAction("Create"))
       setDialog(true);
     }}

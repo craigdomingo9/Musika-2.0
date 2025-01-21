@@ -12,6 +12,7 @@ import { successToast } from "@/services/marketplace/toast";
 import { useToast } from "@/hooks/use-toast";
 import { completeEntityAction } from "@/types/dashboard/factory";
 import { useInventoryAction } from "../InventoryProducts";
+import { useEffect } from "react";
 
 
 
@@ -19,10 +20,10 @@ function CatalogForm() {
   const form = createCatalogForm();
   
   const { entities: {action, object: catalog}, setEntities: setCatalogMutation } = useCatalogMutation();
+  const { entities: inventoryState, setEntities: setInventoryAction } = useInventoryAction();
+  const { setEntities: setDialog } = useCatalogDialogState();
   const { data: business } = useFetchBusiness();
   const { toast } = useToast();
-  const { setEntities: setDialog } = useCatalogDialogState();
-  const { entities: inventoryState, setEntities: setInventoryAction } = useInventoryAction();
   
   async function CatalogOnSubmit(values: any) {
     const apiServices = new InventoryEndpoints();
@@ -32,20 +33,25 @@ function CatalogForm() {
   
     const body = constructBody(values)
     
-    let response;
-    
-    if (action == "Create") response = await apiServices.createCatalog(body)
-    if (action == "Update") response = await apiServices.updateCatalog(body, catalog?.id)
+    if (action == "Create") {
+      const response = await apiServices.createCatalog(body)
+      handleResponse(response);
+    };
+    if (action == "Update") {
+      const response = await apiServices.updateCatalog(body, catalog?.id);
+      handleResponse(response);
+    }
+  }
 
+
+  const handleResponse = (response: GenericApiResponse<any>) => {
     if (response.ok) {
       successToast(toast, "Catalog", `${action.toLowerCase()}d`);
       setCatalogMutation(completeEntityAction());
       setDialog(false);
       setInventoryAction(!inventoryState);
     }
-    
   }
-
 
 
   return (

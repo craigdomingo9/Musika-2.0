@@ -16,13 +16,16 @@ import InventoryEndpoints from "@/services/api/dashboard/inventory";
 import { completeEntityAction, processingEntityAction } from "@/types/dashboard/factory";
 import { dangerToastFactory, successToast } from "@/services/marketplace/toast";
 import { useInventoryAction } from "../InventoryProducts";
+import AlertDialogContainer from "@/components/universal/Dialog/AlertDialogContainer";
 
 
 
+type Props = {
+  catalog: EditableCatalog
+}
 
-
-function DeleteCatalogButton() {
-  const { entities: {object: catalog}, setEntities: setCatalogMutation } = useCatalogMutation();
+function DeleteCatalogButton({catalog}: Props) {
+  const { setEntities: setCatalogMutation } = useCatalogMutation();
   const { entities: inventoryState, setEntities: setInventoryAction } = useInventoryAction();
   const { toast } = useToast();
   
@@ -45,29 +48,20 @@ function DeleteCatalogButton() {
   
 
   return (
-    <AlertDialog>
-    <AlertDialogTrigger asChild>
-      <div
-        className="h-18 my-2 shadow-lg rounded-lg m-auto w-36 sm:w-48 sm:max-h-[17.25rem] py-1 cursor-pointer flex justify-center items-center bg-red-50 hover:scale-[1.01] duration-300"
-      >
-        <TrashIcon />
-      </div>
-    </AlertDialogTrigger>
-    <AlertDialogContent>
-      <AlertDialogHeader>
-        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-        <AlertDialogDescription>
-          This will permanently delete the <span className="font-semibold">{catalog?.name}</span> catalog
-        </AlertDialogDescription>
-      </AlertDialogHeader>
-      <AlertDialogFooter>
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction 
-          onClick={deleteCatalog}
-          >Continue</AlertDialogAction>
-      </AlertDialogFooter>
-    </AlertDialogContent>
-  </AlertDialog>
+    <AlertDialogContainer 
+      Trigger={
+        <div
+          className="h-18 my-2 shadow-lg rounded-lg m-auto w-36 sm:w-48 sm:max-h-[17.25rem] py-1 cursor-pointer flex justify-center items-center bg-red-50 hover:scale-[1.01] duration-300"
+        >
+          <TrashIcon />
+        </div>
+      }
+      actionFunction={deleteCatalog}
+      cancelText="Cancel"
+      description={<>This will permanently delete the <span className="font-semibold">{catalog?.name}</span> catalog</>}
+      proceedText="Continue"
+      title="Are you absolutely sure?"
+    />
   )
 }
 

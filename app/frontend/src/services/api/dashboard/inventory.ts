@@ -29,7 +29,7 @@ export default class InventoryEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  createCatalog(body: FormData) {
+  createCatalog(body: FormData): Promise<GenericApiResponse<Catalog>> {
     const urlPath = `/business/catalogs/`;
     this.setRequestType("POST", body);
     this.constructUrl(urlPath);

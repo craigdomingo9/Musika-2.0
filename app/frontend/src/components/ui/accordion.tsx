@@ -39,9 +39,9 @@ const AccordionTrigger = React.forwardRef<
     >
       {children}
 
-      <div className="flex items-center space-x-1">
-        {actionElements?.map(element => (
-          <div key={element.key}>{element}</div>
+      <div className="flex items-center space-x-3">
+        {actionElements?.map((element, index) => (
+          <div key={`${element.key}${index}`}>{element}</div>
         ))}
         <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
       </div>

@@ -20,7 +20,7 @@ export const useInventoryAction = createEntityStore<boolean>(false);
 
 function InventoryProducts() {
 
-  const { entities: catalogState, setEntities: setCatalogMutation} = useCatalogMutation();
+  const { setEntities: setCatalogMutation} = useCatalogMutation();
   const { entities: inventoryState } = useInventoryAction();
 
   const { data, isLoading, error } = useFetchInventory(inventoryState);
@@ -31,21 +31,26 @@ function InventoryProducts() {
 
 
   return (
-    <div className="mb-8 flex page-width">
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <Accordion type="single" collapsible className="w-full">
+    <div className="mb-8 flex page-width items-center">
+      <Accordion type="single" collapsible className="w-full">
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
           {data && data.map((catalog, index) => (
             <AccordionItem key={catalog.id} value={`catalog-${index}`}>
               <div className="w-full">
                 <div 
-                  onClick={() => {
-                    setCatalogMutation(createEntityAction("", catalog))
-                  }}
                   className="my-1"
                 >
-                  <AccordionTrigger className="shadow rounded-lg pr-2 flex justify-between min-w-full">
+                  <AccordionTrigger 
+                    className="shadow rounded-lg pr-2 flex justify-between min-w-full"
+                    actionElements=
+                    {[
+                      <EditCatalogButton catalog={catalog} />, 
+                      <CreateProductButton />
+                    ]}
+                  >
                     <p className="px-2">{catalog.name}</p>
                   </AccordionTrigger>
                   <hr />
@@ -61,11 +66,10 @@ function InventoryProducts() {
                         <ProductCardFace product={product} />
                       </div>
                     ))}
-                    <CreateProductButton />
 
                     <div className="grid my-4 shadow-lg border rounded-lg h-36">
-                      <EditCatalogButton />
-                      <DeleteCatalogButton />
+                      
+                      <DeleteCatalogButton catalog={catalog}  />
                     </div>
                   </div>
 
@@ -74,9 +78,10 @@ function InventoryProducts() {
               </div>
             </AccordionItem>
           ))}
-          <CreateCatalogButton />
-        </Accordion>
-      )}
+          </>
+        )}
+        <CreateCatalogButton />
+      </Accordion>
       
     </div>
   )

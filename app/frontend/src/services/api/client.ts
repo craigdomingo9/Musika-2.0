@@ -47,11 +47,18 @@ export class ApiClient {
   }
 
   protected async handleResponse(res: Response) {
-    return { 
-      data: res.json(), 
-      status: res.status, 
-      ok: res.ok 
-    };
+    let response = {
+      data: {},
+      status: res.status,
+      ok: res.ok,
+    }
+    
+    if (this.options.method == "DELETE") {
+      response.data = {} as any
+      return response
+    }
+    response.data = res.json()
+    return response
   }
 
   protected async fulfillRequest() {

@@ -10,15 +10,15 @@ export const useCatalogMutation = createEntityStore<EntityAction<EditableCatalog
 
 function CatalogFormDialog() {
   const { entities: dialog, setEntities: setDialog } = useCatalogDialogState();
-  const { entities: {action}} = useCatalogMutation();
+  const { entities: catalogMutation} = useCatalogMutation();
 
-  useEffect(() => {}, [dialog])
+  useEffect(() => {}, [catalogMutation])
 
 
   return (
     <DialogContainer 
       state={dialog} 
-      title={`${action} Catalog`} 
+      title={`${catalogMutation.action} Catalog`} 
       onChange={() => setDialog(!dialog)}
       >
       <CatalogForm />
