@@ -3,7 +3,7 @@ import Portfolio from "@/components/dashboard/Portfolio/Portfolio"
 
 function Page() {
   return (
-    <PageContainer>
+    <PageContainer className="mx-2">
       <Portfolio />
     </PageContainer>
   )

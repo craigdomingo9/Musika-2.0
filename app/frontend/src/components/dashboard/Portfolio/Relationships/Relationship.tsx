@@ -4,6 +4,8 @@ import { roundNumber } from "@/lib/utils";
 import { format } from "date-fns";
 import TerminateButton from "../Buttons/TerminateButton";
 import BusinessCard from "../BusinessCard";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 
 type Props = {
@@ -41,9 +43,13 @@ export function FooterContent(relationship: Relationship){
   return (
     <>
       <div className="flex">
-        <Button variant={"link"} className="underline underline-offset-2 text-[--baseColor]">Discuss</Button>
-        {/* <Separator orientation="vertical" />
-        <Button variant={"link"} className="underline underline-offset-2 text-[--baseColor]">Assign</Button> */}
+        <Link href="/dashboard/comms/agent">
+          <Button variant={"link"} className="underline underline-offset-2 text-[--baseColor]">Discuss</Button>
+        </Link>
+        <Separator orientation="vertical" />
+        <Link href="/dashboard/assigned">
+          <Button variant={"link"} className="underline underline-offset-2 text-[--baseColor]">Assignments</Button>
+        </Link>
       </div>
       <TerminateButton relationship={relationship} />
     </>
