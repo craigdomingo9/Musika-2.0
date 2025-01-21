@@ -5,9 +5,11 @@ import DateFilter from "./DateFilter";
 import EarningsTable from "./EarningsTable";
 import { roundNumber } from "@/lib/utils";
 import useDashboardConfigStore from "@/store/dashboard/DashboardConfig";
-import { businessMode } from "@/lib/dashboard/constants";
+import { agentMode, businessMode } from "@/lib/dashboard/constants";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import SectionHeader from "../SectionHeader";
+import useFetchAgent from "@/services/api/dashboard/hooks/agent/useFetchAgent";
+import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness";
 
 
 
@@ -15,14 +17,18 @@ export const useOrderStore = createEntityStore<Order[]>([]);
 
 
 function Earnings() {
-  const { config } = useDashboardConfigStore();
+  const { data: agent } = useFetchAgent();
+  const { data: business} = useFetchBusiness();
+  const { config: settings } = useDashboardConfigStore();
   const { entities, setEntities } = useOrderStore();
   const { data, isLoading, error} = useFetchOrders({
     status: "completed",
-  });
+    agent: settings.mode == agentMode() ? agent.code : "",
+    business: settings.mode == businessMode() ? business.code : "",
+  }, `${agent.code}${business.code}`);
 
 
-  const totalAmount = roundNumber(entities.reduce((acc, order) => acc + parseInt(config.mode == businessMode() ? order.business_earning || "0" : order.agent_earning || "0"), 0),2)
+  const totalAmount = roundNumber(entities.reduce((acc, order) => acc + parseInt(settings.mode == businessMode() ? order.business_earning || "0" : order.agent_earning || "0"), 0),2)
 
   useEffect(() => {
     setEntities(data)

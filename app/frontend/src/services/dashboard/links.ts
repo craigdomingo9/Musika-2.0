@@ -25,33 +25,37 @@ const business: any = [
         url: "/dashboard/assignments",
       },
       {
+        title: "Orders",
+        url: "/dashboard/orders",
+      },
+      {
         title: "Communications",
         url: "/dashboard/comms/business",
       },
     ]
   },
-  {
-    title: "Analytics",
-    url: "",
-    items: [
-      {
-        title: "Sales Analytics",
-        url: "/dashboard/analytics/sales",
-      },
-      // {
-      //   title: "Customer Insights",
-      //   url: "/dashboard/analytics/insights",
-      // },
-      {
-        title: "Product Performance",
-        url: "/dashboard/analytics/products",
-      },
-      // {
-      //   title: "Reports",
-      //   url: "/dashboard/analytics/reports",
-      // },
-    ]
-  },
+  // {
+  //   title: "Analytics",
+  //   url: "",
+  //   items: [
+  //     {
+  //       title: "Sales Analytics",
+  //       url: "/dashboard/analytics/sales",
+  //     },
+  //     {
+  //       title: "Customer Insights",
+  //       url: "/dashboard/analytics/insights",
+  //     },
+  //     {
+  //       title: "Product Performance",
+  //       url: "/dashboard/analytics/products",
+  //     },
+  //     {
+  //       title: "Reports",
+  //       url: "/dashboard/analytics/reports",
+  //     },
+  //   ]
+  // },
   {
     title: "More",
     url: "",
@@ -121,32 +125,32 @@ const agent: any = [
       },
     ]
   },
-  {
-    title: "Analytics",
-    url: "",
-    items: [
-      {
-        title: "Performance",
-        url: "/dashboard/analytics/performance",
-      },
-      // {
-      //   title: "Customer Insights",
-      //   url: "/dashboard/analytics/insights",
-      // },
-      {
-        title: "Leads Insights",
-        url: "/dashboard/analytics/leads",
-      },
-      // {
-      //   title: "Growth Metrics",
-      //   url: "/dashboard/analytics/growth",
-      // },
-      // {
-      //   title: "Reports",
-      //   url: "/dashboard/analytics/reports",
-      // },
-    ]
-  },
+  // {
+  //   title: "Analytics",
+  //   url: "",
+  //   items: [
+  //     {
+  //       title: "Performance",
+  //       url: "/dashboard/analytics/performance",
+  //     },
+  //     {
+  //       title: "Customer Insights",
+  //       url: "/dashboard/analytics/insights",
+  //     },
+  //     {
+  //       title: "Leads Insights",
+  //       url: "/dashboard/analytics/leads",
+  //     },
+  //     {
+  //       title: "Growth Metrics",
+  //       url: "/dashboard/analytics/growth",
+  //     },
+  //     {
+  //       title: "Reports",
+  //       url: "/dashboard/analytics/reports",
+  //     },
+  //   ]
+  // },
   {
     title: "More",
     url: "",

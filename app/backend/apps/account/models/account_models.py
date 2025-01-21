@@ -49,6 +49,10 @@ class Account(models.Model):
     def get_username(self):
         return self.username
 
+    def get_full_name(self):
+        if (self.first_name is None or self.last_name is None): return None
+        
+        return f"{self.first_name} {self.last_name}"
     
     def set_password(self, raw_password):
         password = make_password(raw_password)

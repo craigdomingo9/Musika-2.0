@@ -71,6 +71,7 @@ interface UserProfile {
   id: number,
   first_name: string,
   last_name: string,
+  full_name: string,
   username: string,
   business_profile?: Business,
   agent_profile?: Agent,

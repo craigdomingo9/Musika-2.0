@@ -5,6 +5,7 @@ import TerminateButton from "../Buttons/TerminateButton"
 import { roundNumber, trunc } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
 import { useIsMobile } from "@/hooks/use-mobile"
+import Link from "next/link"
 
 
 
@@ -39,9 +40,13 @@ export function FooterContent(relationship: Relationship){
   return (
     <>
       <div className="flex">
-        <Button variant={"link"} className="underline underline-offset-2 text-[--baseColor]">Assign</Button>
+        <Link href="/dashboard/assignments">
+          <Button variant={"link"} className="underline underline-offset-2 text-[--baseColor]">Assign</Button>
+        </Link>
         <Separator orientation="vertical" />
-        <Button variant={"link"} className="underline underline-offset-2 text-[--baseColor]">Discuss</Button>
+        <Link href="/dashboard/comms/business">
+          <Button variant={"link"} className="underline underline-offset-2 text-[--baseColor]">Discuss</Button>
+        </Link>
       </div>
       <TerminateButton relationship={relationship} />
     </>

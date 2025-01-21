@@ -12,6 +12,7 @@ import DeleteCatalogButton from "./Buttons/DeleteCatalogButton";
 import { useCatalogMutation } from "./Dialogs/CatalogFormDialog";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import EditCatalogButton from "./Buttons/EditCatalogButton";
+import Loading from "@/app/dashboard/loading";
 
 export const useInventoryAction = createEntityStore<boolean>(false);
 
@@ -30,49 +31,52 @@ function InventoryProducts() {
 
 
   return (
-    <div className="mb-8 flex min-w-[350px] sm:min-w-[600px] md:min-w-[700px]">
-      <Accordion type="single" collapsible className="w-full">
-      {data && data.map((catalog, index) => (
-        <AccordionItem key={catalog.id} value={`catalog-${index}`}>
-          <div className="w-full">
-
-            <div 
-              onClick={() => {
-                setCatalogMutation(createEntityAction("", catalog))
-              }}>
-              <AccordionTrigger className="shadow pr-2 flex justify-between min-w-full">
-                <p className="px-2">{catalog.name}</p>
-              </AccordionTrigger>
-            </div>
-
-            <AccordionContent>
-              <div className="min-w-full grid grid-cols-2 pb-2 md:grid-cols-3 items-center space-y-2 overflow-x-hidden">
-                {catalog.products.map(product => (
-                  <div 
-                    key={product.uuid} 
-                    className="shadow-lg rounded-lg m-auto w-36 sm:w-48 sm:max-h-[17.25rem] py-1 cursor-pointer"
-                    
-                    >
-                    <ProductCardFace product={product} />
-                  </div>
-                ))}
-                <CreateProductButton />
-
-                <div className="grid my-4 shadow-lg border rounded-lg h-36">
-                  <EditCatalogButton />
-                  <DeleteCatalogButton />
+    <div className="mb-8 flex page-width">
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Accordion type="single" collapsible className="w-full">
+          {data && data.map((catalog, index) => (
+            <AccordionItem key={catalog.id} value={`catalog-${index}`}>
+              <div className="w-full">
+                <div 
+                  onClick={() => {
+                    setCatalogMutation(createEntityAction("", catalog))
+                  }}
+                  className="my-1"
+                >
+                  <AccordionTrigger className="shadow rounded-lg pr-2 flex justify-between min-w-full">
+                    <p className="px-2">{catalog.name}</p>
+                  </AccordionTrigger>
+                  <hr />
                 </div>
-              </div>
 
-            </AccordionContent>
-            
-          </div>
-        </AccordionItem>
-      ))}
-      <CreateCatalogButton />
-          
-          
-      </Accordion>
+                <AccordionContent>
+                  <div className="min-w-full grid grid-cols-2 pb-2 md:grid-cols-3 items-center space-y-2 overflow-x-hidden">
+                    {catalog.products.map(product => (
+                      <div 
+                        key={product.uuid} 
+                        className="shadow-lg rounded-lg m-auto w-36 sm:w-48 sm:max-h-[17.25rem] py-1 cursor-pointer"
+                      >
+                        <ProductCardFace product={product} />
+                      </div>
+                    ))}
+                    <CreateProductButton />
+
+                    <div className="grid my-4 shadow-lg border rounded-lg h-36">
+                      <EditCatalogButton />
+                      <DeleteCatalogButton />
+                    </div>
+                  </div>
+
+                </AccordionContent>
+                
+              </div>
+            </AccordionItem>
+          ))}
+          <CreateCatalogButton />
+        </Accordion>
+      )}
       
     </div>
   )

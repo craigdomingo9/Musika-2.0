@@ -8,10 +8,8 @@ import OrderEndpoints from '../../orders';
 
 
 
-function useFetchOrders(config: any) {
+function useFetchOrders(config: any, reRenderState?: any) {
   const { config: settings } = useDashboardConfigStore();
-  const { data: agent } = useFetchAgent();
-  const { data: business} = useFetchBusiness();
   const [data, setData] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,10 +20,7 @@ function useFetchOrders(config: any) {
       try {
         const apiServices = new OrderEndpoints();
         apiServices.isOnClient(window);
-        
-        if (settings.mode == agentMode()) config.agent = agent.code
-        if (settings.mode == businessMode()) config.business = business?.code
-        
+
         const data = await apiServices.getOrders(config);
 
         setData(data);
@@ -37,7 +32,7 @@ function useFetchOrders(config: any) {
     };
 
     fetchData();
-  }, [agent, business]);
+  }, [reRenderState]);
 
   return { data, isLoading, error };
 }

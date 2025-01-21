@@ -1,3 +1,4 @@
+import { testUuid } from '@/lib/constants';
 import { API_CONFIG } from './config';
 import Cookies from "js-cookie";
 
@@ -27,7 +28,7 @@ export class ApiClient {
     this.baseURL = url.origin + '/api';
 
     if (skipGetUUId) return;
-    Cookies.set('uuid', 'f4303fc0-cb09-4f6f-848c-9c1a8a911cd1')
+    Cookies.set('uuid', testUuid)
     this.getUUID()
   }
   
@@ -45,37 +46,30 @@ export class ApiClient {
     }
   }
 
-  protected handleResponse(res: Response): any {
-    let response = {
-      data: {},
-      status: res.status,
-      ok: res.ok,
-    }
-    
-    if (this.options.method == "DELETE") {
-      response.data = {} as any
-      return response
-    }
-
-    response.data = res.json()
-    return response
+  protected async handleResponse(res: Response) {
+    return { 
+      data: res.json(), 
+      status: res.status, 
+      ok: res.ok 
+    };
   }
-
 
   protected async fulfillRequest() {
     try {
-      const response = await fetch(this.url, this.options)
-      .then(res => {
-        if (this.options.method == "GET") return res.json();
+      const response = await fetch(this.url, this.options);
 
-        return this.handleResponse(res);
-      });
-      return await response;
+      // Handle different response types based on HTTP method
+      if (this.options.method === 'GET') {
+        return await response.json(); 
+      } else {
+        return await this.handleResponse(response); 
+      }
+
     } catch (error) {
       console.error('Error fetching data:', error);
-      throw error;
+      throw error; 
     }
-  }
+}
 
   public async getUUID() {
     let uuid = Cookies.get('uuid');

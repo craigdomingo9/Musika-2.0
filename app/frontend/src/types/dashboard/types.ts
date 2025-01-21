@@ -30,11 +30,14 @@ type AgentProfile = {
 interface Order {
   id: number
   agent: Agent
+  customer: UserProfile
   business: Business
   product: ProductVariant
   agent_earning: string
   business_earning: string
   status: string
+  quantity: number
+  fulfillment_code: string
   created_at: string
 }
 
