@@ -7,6 +7,8 @@ import { successfulCartAdditionToast } from "@/services/marketplace/toast";
 import UseCartStore from "@/store/CartStore";
 import { useProductVariantCarouselStore } from "@/store/ProductVariantCarousel"
 import { ShoppingCart } from "lucide-react";
+import { useReferrerAgent } from "./ProductClient";
+import Link from "next/link";
 
 
 type Props = {
@@ -19,11 +21,17 @@ function ProductActions({product}: Props) {
   const {selectedVariant} = useProductVariantCarouselStore();
   const {addItemToStore} = UseCartStore();
   const { toast } = useToast();
+  const { entities: agent } = useReferrerAgent();
 
   const addToCart = () => {
     if (!selectedVariant) return;
     
-    cartServices.addProductToCart(product, selectedVariant, addItemToStore);
+    cartServices.addProductToCart(
+      product, 
+      agent,
+      selectedVariant, 
+      addItemToStore
+    );
     successfulCartAdditionToast(toast);
   }
 
@@ -33,9 +41,16 @@ function ProductActions({product}: Props) {
       <Button className="h-14 rounded-xl text-xs font-semibold outline-0 bg-slate-500" onClick={addToCart}>
         <ShoppingCart />+
       </Button>
-      <Button className={cn("rounded-3xl ml-2 mr-3 sm:mr-0 h-14 font-extrabold outline-0")}>
-        {purchaseProductActionLabel}
-      </Button>
+      <Link 
+        href={'/checkout'}
+      >
+        <Button 
+          onClick={addToCart} 
+          className={cn("rounded-3xl ml-2 mr-3 sm:mr-0 h-14 w-[17rem] sm:w-full font-extrabold outline-0")}
+        >
+          {purchaseProductActionLabel}
+        </Button>
+      </Link>
     </div>
   )
 }

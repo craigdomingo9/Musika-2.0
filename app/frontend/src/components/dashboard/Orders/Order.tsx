@@ -1,6 +1,7 @@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import FulfillButton from "./Buttons/FulfillButton"
 import { cn } from "@/lib/utils"
+import ListItem from "../ListItem"
 
 
 type Props = {
@@ -17,13 +18,13 @@ function Order({order, open, collapse, status}: Props) {
       key={order.id}
     >
       <CollapsibleTrigger asChild>
-        <div className="h-14 flex justify-between items-center text-sm shadow px-2 mt-1 rounded-lg hover:scale-[1.01] duration-300 cursor-pointer">
+        <ListItem className="px-2">
           <p className="text-opacity">
             {order.customer.full_name || "New customer"} ordered {order.quantity} {order.product.product?.name}
             &nbsp;{order?.agent?.code && `through ${order.agent.full_name}`}
           </p>
           <p className={cn("text-xs text-opacity", status == "Pending" && "text-orange-300", status == "Completed" && "text-green-500")}>{status}</p>
-        </div>
+        </ListItem>
       </CollapsibleTrigger>
       
       {collapse && (
@@ -33,7 +34,7 @@ function Order({order, open, collapse, status}: Props) {
           />
         </CollapsibleContent>
       )}
-      <hr className="my-2" />
+      <hr className="my-1" />
     </Collapsible>
   )
 }

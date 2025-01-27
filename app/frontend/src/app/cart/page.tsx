@@ -1,11 +1,18 @@
+"use client";
+import SectionHeader from '@/components/dashboard/SectionHeader'
+import CheckoutButton from '@/components/marketplace/Cart/Buttons/CheckoutButton'
 import CartProducts from '@/components/marketplace/Cart/CartProducts'
-import PageTitleSection from '@/components/marketplace/Cart/PageTitleSection'
 import PageContainer from '@/components/marketplace/PageContainer'
+import { cartPageTitle } from '@/lib/constants'
 
 function Page() {
   return (
     <PageContainer>
-      <PageTitleSection />
+      <SectionHeader 
+        HeaderTitle={cartPageTitle}
+        Action={<CheckoutButton />}
+        className='pl-2'
+      />
       <CartProducts />
     </PageContainer>
   )

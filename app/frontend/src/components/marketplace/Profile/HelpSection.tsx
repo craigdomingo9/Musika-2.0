@@ -8,8 +8,8 @@ export function SectionContent() {
   return (
     <div className="grid">
       <SectionLink title="Contact Support" href={'/help/support'} />
-      <SectionLink title="Guides" href={'/help/guides'} />
-      <SectionLink title="FAQs" href={'/help/faqs'} />
+      {/* <SectionLink title="Guides" href={'/help/guides'} />
+      <SectionLink title="FAQs" href={'/help/faqs'} /> */}
     </div>
   )
 }

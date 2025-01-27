@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/avatar"
 import AddAssignmentButton from "./Buttons/AddAssignmentButton";
 import Loading from "@/app/dashboard/loading";
+import { cn } from "@/lib/utils";
+import { ListItemClassName } from "../ListItem";
  
 
 function Assignments() {
@@ -33,7 +35,7 @@ function Assignments() {
         <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
           {relationships.map((relationship, index) => (
             <AccordionItem key={relationship.id} value={`item-${index}`}>
-              <AccordionTrigger className="shadow px-2 flex justify-between rounded-md my-1"
+              <AccordionTrigger className={cn(ListItemClassName, "px-2")}
                 actionElements={
                   [<AddAssignmentButton agent={relationship.agent} />]
                 }

@@ -17,7 +17,15 @@ export default class ProfileEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-  updateProfile(body: FormData, id?: number) {
+  getUserProfile(): Promise<UserProfile> {
+    const urlPath = '/users/auth/expose-account/';
+    this.constructUrl(urlPath);
+    this.applyCredentials();
+
+    return this.fulfillRequest();
+  }
+
+  updateProfile(body: any, id?: number): Promise<GenericApiResponse<UserProfile>> {
     const urlPath = `/users/accounts/${id}/`;
     this.applyCredentials();
     this.setRequestType("PUT", body);

@@ -34,7 +34,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class OrderCreateSerializer(serializers.ModelSerializer):
     customer = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-    agent = serializers.PrimaryKeyRelatedField(queryset=Agent.objects.all())
+    agent = serializers.PrimaryKeyRelatedField(queryset=Agent.objects.all(), required=False)
     product = serializers.PrimaryKeyRelatedField(queryset=ProductVariant.objects.all())
     
     class Meta:

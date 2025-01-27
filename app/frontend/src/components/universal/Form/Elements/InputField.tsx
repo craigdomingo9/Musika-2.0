@@ -1,9 +1,24 @@
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-
+export type InputFieldProps = {
+  form: UseFormReturn<any, any, undefined>,
+  defaultValue: any,
+  fieldName: string,
+  label: string,
+  placeholder?: string,
+  description?: string,
+  type?: string,
+  id?: string,
+  disabled?: boolean,
+  autoComplete?: string,
+  reRenderState?: any,
+  callbackfn?: (value: any) => void,
+  inputClassName?: string,
+}
 
 function InputField({ 
   form, 
@@ -17,21 +32,10 @@ function InputField({
   disabled, 
   autoComplete,
   reRenderState,
-  callbackfn
-  } : {
-    form: UseFormReturn<any, any, undefined>,
-    defaultValue: any,
-    fieldName: string,
-    label: string,
-    placeholder?: string,
-    description?: string,
-    type?: string,
-    id?: string,
-    disabled?: boolean,
-    autoComplete?: string,
-    reRenderState?: any,
-    callbackfn?: (value: any) => void,
-  })
+  callbackfn,
+  inputClassName,
+  ...inputProps
+  } : InputFieldProps)
   {
 
   const [fieldValue, setFieldValue] = useState<string>("");
@@ -53,8 +57,9 @@ function InputField({
           <FormLabel className="text-opacity font-semibold">{label}</FormLabel>
           <FormControl>
             <Input 
+              {...inputProps}
               type={type ? type : "text"}
-              className="text-sm" 
+              className={cn("text-sm", inputClassName)}
               placeholder={placeholder}
               value={fieldValue}
               onChange={(e) => {

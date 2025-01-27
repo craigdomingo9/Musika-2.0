@@ -5,7 +5,7 @@ import SaleProductList from "./SaleProductList"
 function Sale() {
   return (
     <div className="flex place-content-center">
-      <div className="mt-6 section-width">
+      <div className="mt-6 page-width">
         <SectionHeader sectionTitle={saleSectionTitle} showExplore />
         <SaleProductList />
       </div>

@@ -36,7 +36,7 @@ function CreateLinksButton() {
     const baseUrl = urlObject.origin;
 
     const productParam = `/product?id=${assigned?.product.id}&`;
-    const agentParam = `ag=${assigned?.agent.code}&`;
+    const agentParam = `ag=${assigned?.agent.id}&`;
     const srcParam = `src=${selectedSource}`;
 
     setLink(baseUrl + productParam + agentParam + srcParam);

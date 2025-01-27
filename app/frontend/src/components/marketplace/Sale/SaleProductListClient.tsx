@@ -26,8 +26,10 @@ function SaleProductListClient({products}: Props) {
               </CarouselItem>
             ))}
       </CarouselContent>
-      <CarouselPrevious className="absolute left-2 outline-0" />
-      <CarouselNext className="absolute right-2 outline-0" />
+      <div className="[&>button]:sm:h-5/6 [&>button]:outline-0 [&>button]:absolute [&>button]:sm:rounded-md">
+        <CarouselPrevious className="left-2 sm:-left-8 sm:rounded-r-none" />
+        <CarouselNext className="right-2 sm:-right-9 sm:rounded-l-none" />
+      </div>
     </Carousel>
   )
 }

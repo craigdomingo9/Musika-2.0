@@ -7,13 +7,14 @@ import NotificationDrawerContent from "./NotificationDrawerContent";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import { createEntityAction } from "@/types/dashboard/factory";
 import NotificationsToggler, { useNotificationTabsValue } from "./NotificationsToggler";
+import { cn } from "@/lib/utils";
 
 
 export const useNotificationDrawerState = createEntityStore(false);
 export const useNotificationMutation = createEntityStore(createEntityAction<Notification>("read"))
 export const useNotificationAction = createEntityStore(false);
 
-function Notifications() {
+function Notifications({className}: {className?: string}) {
   const { entities: open, setEntities: setOpen } = useNotificationDrawerState();
   const { entities: action } = useNotificationAction();
   const { entities: value } = useNotificationTabsValue();
@@ -25,7 +26,7 @@ function Notifications() {
 
   
   return (
-    <div className="page-width">
+    <div className={cn("page-width", className)}>
       <SectionHeader 
         className="items-center h-20"
         HeaderTitle="Notifications"

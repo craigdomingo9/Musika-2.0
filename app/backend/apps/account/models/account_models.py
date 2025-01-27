@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password,check_password
+from phonenumber_field.modelfields import PhoneNumberField
 from uuid import uuid4
 
 
@@ -27,6 +28,9 @@ class Account(models.Model):
     age = models.IntegerField(null=True, blank=True)
     sex = models.CharField(**get_field_args())
     city = models.CharField(**get_field_args())
+    address = models.CharField(**get_field_args(max_length=255))
+    country_code = models.CharField(default=263, **get_field_args(max_length=4))
+    phone_number = models.CharField(null=True, blank=True)
     
     is_agent = models.BooleanField(default=False)
     is_business = models.BooleanField(default=False)

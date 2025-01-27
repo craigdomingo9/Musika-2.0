@@ -8,7 +8,8 @@ type Props = {
 
 function SectionLink({title, href}: Props) {
   return (
-    <Link href={href} className='flex border justify-between duration-200 text-opacity font-normal shadow-md p-2 rounded my-2 hover:scale-[1.025]'>
+    <>
+    <Link href={href} className='shadow my-1 h-14 items-center px-2 rounded-lg flex justify-between min-w-full cursor-pointer hover:scale-[1.01] duration-300'>
       <div>
         <p>{title}</p>
       </div>
@@ -16,6 +17,8 @@ function SectionLink({title, href}: Props) {
         <ChevronRight />
       </div>
     </Link>
+    <hr />
+    </>
   )
 }
 

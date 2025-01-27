@@ -37,7 +37,7 @@ function ProductBody({product}: Props) {
         </div>
       </div>
       
-      <Link href={`/b/${product.business.code}/`} className="flex w-full shadow mt-2 p-2 max-h-14">
+      <Link href={`/b/${product.business.code}/`} className="flex w-full shadow rounded-lg mt-2 p-2 max-h-14 hover:scale-[1.01] duration-300">
           <>
             <Image
             className="w-10 h-10 rounded-full border text-opacity"
@@ -49,7 +49,7 @@ function ProductBody({product}: Props) {
             priority
             />
           </>
-          <div className="my-auto ml-2 text-opacity">
+          <div className="my-auto ml-2 text-opacity-mid font-semibold text-sm">
             <p>{business.name}</p>
           </div>
       </Link>

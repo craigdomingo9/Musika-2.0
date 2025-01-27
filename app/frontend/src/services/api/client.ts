@@ -115,7 +115,7 @@ export class ApiClient {
     }
   }
 
-  protected applyCache(t: number) {
+  public applyCache(t: number) {
     this.options.next = {
       revalidate: t,
     }

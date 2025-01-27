@@ -13,6 +13,8 @@ import { useCatalogMutation } from "./Dialogs/CatalogFormDialog";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import EditCatalogButton from "./Buttons/EditCatalogButton";
 import Loading from "@/app/dashboard/loading";
+import { ListItemClassName } from "../ListItem";
+import { cn } from "@/lib/utils";
 
 export const useInventoryAction = createEntityStore<boolean>(false);
 
@@ -44,7 +46,7 @@ function InventoryProducts() {
                   className="my-1"
                 >
                   <AccordionTrigger 
-                    className="shadow rounded-lg pr-2 flex justify-between min-w-full"
+                    className={cn(ListItemClassName, "px-2")}
                     actionElements=
                     {[
                       <EditCatalogButton catalog={catalog} />, 
@@ -53,7 +55,6 @@ function InventoryProducts() {
                   >
                     <p className="px-2">{catalog.name}</p>
                   </AccordionTrigger>
-                  <hr />
                 </div>
 
                 <AccordionContent>

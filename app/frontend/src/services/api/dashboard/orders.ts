@@ -14,6 +14,15 @@ export default class OrderEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
+  placeOrder(body: any): Promise<GenericApiResponse<Order>> {
+    const urlPath = `/orders/orders/`;
+    this.setRequestType("POST", body);
+    this.constructUrl(urlPath);
+    this.applyCredentials()
+    
+    return this.fulfillRequest();
+  }
+
   
   fulfillOrder(body: any, id: number): Promise<GenericApiResponse<Order>> {
     const urlPath = `/orders/orders/${id}/fulfill-order/`;

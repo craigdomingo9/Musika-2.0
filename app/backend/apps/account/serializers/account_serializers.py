@@ -9,11 +9,21 @@ class AccountSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = get_user_model()
-        fields = ['id', 'first_name', 'last_name', 'full_name', 'username', 'email', 'profile_picture', 'uuid', 'age', 'sex', 'city', 'is_agent', 'is_business', 'is_anonymous', 'is_active', 'is_admin', 'created_at','updated_at']
+        fields = '__all__'
 
     def get_profile_picture(self, obj):
-        # Return relative URL instead of absolute URL
-        return obj.profile_picture.url.replace(f'http://{self.context.get("request").get_host()}', '')
+        try:
+            if obj.profile_picture:
+                request = self.context.get('request')
+                if request:
+                    host = request.get_host()
+                else:
+                    host = 'localhost:8000'  # Default host if request is not available
+                return obj.profile_picture.url.replace(f'http://{host}', '')
+            return None 
+        except Exception as e:
+            print(f"Error getting profile picture URL: {e}")
+            return None
     
     def get_full_name(self, obj):
         return obj.get_full_name()
@@ -23,5 +33,8 @@ class AccountSerializer(serializers.ModelSerializer):
 
 
 class AccountCreateSerializer(serializers.ModelSerializer):
-    class Meta(AccountSerializer.Meta):
-        fields = ['first_name', 'last_name', 'username', 'email', 'profile_picture', 'age', 'sex', 'city', 'is_agent', 'is_business']
+    profile_picture = serializers.ImageField(required=False)
+    
+    class Meta:
+        model = get_user_model()
+        fields = ['first_name', 'last_name', 'username', 'email', 'profile_picture', 'age', 'sex', 'city', 'country_code', 'phone_number', 'address', 'is_agent', 'is_business']

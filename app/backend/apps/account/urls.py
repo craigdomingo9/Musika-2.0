@@ -7,7 +7,7 @@ from .views import (
   PasswordChangeView,
   LoginView,
   LogoutView,
-  ExposeUuid
+  ExposeAccount
 )
 
 
@@ -20,6 +20,6 @@ urlpatterns = [
     path('auth/password/change/', PasswordChangeView.as_view(),name="change-password"),
     path('auth/login/',LoginView.as_view(),name="login"),
     path('auth/logout/',LogoutView.as_view(),name="logout"),
-    path('auth/expose-uuid/',ExposeUuid.as_view(), name='expose-uuid')
+    path('auth/expose-account/',ExposeAccount.as_view(), name='expose-uuid')
     
 ] + router.urls

@@ -3,9 +3,9 @@ import useFetchBusinessConversations from "@/services/api/dashboard/hooks/busine
 import SectionHeader from "../../SectionHeader";
 import CreateConversationButton from "./Buttons/CreateConversationButton";
 import Loading from "@/app/dashboard/loading";
-import ConversationLink from "./ConversationLink";
 import Link from "next/link";
 import createEntityStore from "@/store/dashboard/EntityStore";
+import ConversationLink from "../ConversationLink";
 
 export const useConversationAction = createEntityStore(false);
 
@@ -33,21 +33,26 @@ function BusinessConversations() {
           )}
 
           {conversations.length > 0 && (
-            <ul className="list-none space-y-4">
+            <ul className="list-none space-y-2">
               {conversations.map((conversation) => {
                 const partner = conversation.participants.find(
                   (participant) => participant.role !== "business"
                 );
 
                 if (!partner) return null; // Handle missing partner
-
+                const initials = partner.user.agent_profile?.full_name
+                  ?.split(" ")
+                  .map((str) => str.charAt(0).toUpperCase())
+                  .join("");
+                
                 return (
                   <li key={partner.id}>
-                    <Link
+                    <ConversationLink
+                      initials={initials}
+                      avatar={partner.user.agent_profile?.profile.profile_picture}
+                      fullName={partner.user.agent_profile?.full_name}
                       href={`/dashboard/comms/chat/?id=${conversation.uuid}&mode=business`}
-                    >
-                      <ConversationLink partner={partner} />
-                    </Link>
+                    />
                   </li>
                 );
               })}

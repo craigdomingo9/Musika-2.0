@@ -5,7 +5,7 @@ import ProfileLink from "../Links/ProfileLink"
 
 function HeaderLinksSlot() {
   return (
-    <div className="flex gap-4 px-2">
+    <div className="flex gap-4">
       <DashboardLink />
       <CartLink />
       <NotificationsLink />

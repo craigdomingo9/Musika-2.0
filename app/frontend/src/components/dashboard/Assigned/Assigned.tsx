@@ -14,6 +14,8 @@ import useFetchBusinesses from "@/services/api/dashboard/hooks/agent/portfolio/u
 import SectionHeader from "../SectionHeader"
 import Loading from "@/app/dashboard/loading";
 import AssignedProducts from "./AssignedProducts"
+import { ListItemClassName } from "../ListItem"
+import { cn } from "@/lib/utils"
 
 
 
@@ -35,11 +37,11 @@ function Assigned() {
         <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
           {businesses.map((business, index) => (
             <AccordionItem key={business.id} value={`item-${index}`}>
-              <AccordionTrigger className="shadow px-2 flex justify-between rounded-md my-1"
+              <AccordionTrigger className={cn(ListItemClassName, "px-2 my-2")}
                 actionElements={
                   []
                 }
-                >
+              >
                 <div className="flex justify-start items-center space-x-2">
                   <Avatar>
                     <AvatarImage 

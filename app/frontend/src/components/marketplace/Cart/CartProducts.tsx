@@ -10,7 +10,7 @@ import { cartIsEmptyLabel } from "@/lib/constants";
 export function EmptyCartProducts() {
   return (
     <div className="min-h-full h-96 grid">
-      <p className="items-center m-auto">{cartIsEmptyLabel}</p>
+      <p className="items-center m-auto text-sm font-semibold text-opacity-mid">{cartIsEmptyLabel}</p>
     </div>
   )
 }
@@ -66,8 +66,6 @@ function CartProducts() {
             </div>
           </div>
         </div>
-          
-
       ))}
     </div>
   )

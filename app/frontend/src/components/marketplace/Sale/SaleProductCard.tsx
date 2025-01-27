@@ -19,7 +19,7 @@ function SaleProductCard({product}: Props) {
           v: product.variant_id
         }
       }}
-      className={cn("grid grid-cols-[40%_60%] place-content-center ml-2 px-4 shadow-lg rounded-lg",
+      className={cn("grid grid-cols-[40%_60%] sm:grid-cols-2 place-content-center ml-2 px-4 shadow-lg rounded-lg",
         "h-36 sm:h-48 w-[280px] sm:w-[375px]"
       )}>
         <ProductCardFace product={product} isSale />

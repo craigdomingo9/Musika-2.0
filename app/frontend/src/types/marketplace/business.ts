@@ -81,6 +81,9 @@ interface UserProfile {
   age: string,
   sex: string,
   city: string,
+  country_code: string,
+  address: string,
+  phone_number: string,
   is_agent: boolean,
   is_business: boolean,
   is_anonymous: boolean,
@@ -134,6 +137,7 @@ interface StandardProduct {
 
 interface CartProduct extends StandardProduct {
   quantity: number,
+  referrerAgent?: string,
 }
 
 

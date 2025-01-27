@@ -1,5 +1,6 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
@@ -11,19 +12,32 @@ type Props = {
   placeholder?: string,
   description?: string,
   selectionList: string[],
+  selectClassName?: string,
+  reRenderState?: any,
 }
 
-function SelectField({ form, defaultValue, fieldName, label, placeholder, description, selectionList}: Props) {
-  const [fieldValue, setFieldValue] = useState<string>("");
+function SelectField({ 
+  form, 
+  defaultValue, 
+  fieldName, 
+  label, 
+  placeholder, 
+  description, 
+  selectionList, 
+  selectClassName, 
+  reRenderState
+}: Props) {
+  const [fieldValue, setFieldValue] = useState<string>(defaultValue || selectionList[0]);
 
   useEffect(() => {
     if (!form) return;
-    if (!defaultValue) return setFieldValue(selectionList[0]);
 
-    setFieldValue(defaultValue);
-    form.setValue(fieldName, defaultValue.toString())
-  }, [defaultValue])
+    // Ensure defaultValue is a string before setting
+    const stringDefaultValue = defaultValue ? defaultValue.toString() : defaultValue; 
 
+    form.setValue(fieldName, stringDefaultValue); 
+  }, [defaultValue, reRenderState])
+  
   
   return (
     <>
@@ -35,16 +49,16 @@ function SelectField({ form, defaultValue, fieldName, label, placeholder, descri
             <FormLabel className="text-opacity font-semibold">{label}</FormLabel>
               <FormControl>
                 <Select 
-                onValueChange={(value) => {
-                    field.onChange;
-                    form.setValue(`${fieldName}`, value);
-                    setFieldValue(value);
-                }}
-                value={fieldValue}
+                  onValueChange={(value) => {
+                      field.onChange;
+                      form.setValue(`${fieldName}`, value);
+                      setFieldValue(value);
+                  }}
+                  value={fieldValue}
                 >
                   <FormControl>
-                    <SelectTrigger>
-                        <SelectValue placeholder={placeholder ? placeholder : "Choose your gender"} />
+                    <SelectTrigger className={cn("", selectClassName)}>
+                        <SelectValue placeholder={placeholder ? placeholder : "Choose"} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -57,7 +71,7 @@ function SelectField({ form, defaultValue, fieldName, label, placeholder, descri
             <FormMessage />
           </FormItem>
         )}
-    />
+      />
     </>
   )
 }

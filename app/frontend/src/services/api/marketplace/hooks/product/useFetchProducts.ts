@@ -4,7 +4,8 @@ import { splitVariants } from '@/services/marketplace/product';
 async function useFetchProducts(config?: {}) {
   // fetch the products
   const apiService = new ProductEndpoints();
-
+  apiService.applyCache(60 * 60)
+  
   const data = await apiService.getProducts({
     ...config,
     page_size: 10,
