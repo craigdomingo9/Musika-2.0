@@ -12,7 +12,7 @@ interface CartStore {
   decrementQuantity: (existingItem: CartProduct) => void,
   getTotalPrice: () => number,
   getTotalItems: () => number,
-  resetBag: () => void;
+  resetCart: () => void;
 }
 
 
@@ -69,7 +69,7 @@ const UseCartStore = create<CartStore>()(
           getTotalItems: () => {
             return get().items.reduce((total, item) => total + 1, 0);
           },
-          resetBag: () => {
+          resetCart: () => {
             set({ items: [] });
           },
         })

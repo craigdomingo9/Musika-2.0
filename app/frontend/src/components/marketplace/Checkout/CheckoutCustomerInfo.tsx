@@ -13,6 +13,7 @@ import ProfileEndpoints from "@/services/api/marketplace/profile";
 import { dangerToastFactory, successToastFactory } from "@/services/marketplace/toast";
 import { useToast } from "@/hooks/use-toast";
 import OrderEndpoints from "@/services/api/dashboard/orders";
+import { useRouter } from "next/navigation";
 
 const orderApiServices = new OrderEndpoints();
 const userApiServices = new ProfileEndpoints();
@@ -20,9 +21,10 @@ const userApiServices = new ProfileEndpoints();
 function CheckoutCustomerInfo() {
   const { data: user, isLoading } = useFetchUserProfileInfo();
   const [isPurchasing, setIsPurchasing] = useState(false);
-  const { items } = UseCartStore();
+  const { items, resetCart } = UseCartStore();
   const { toast } = useToast();
   const form = createCheckoutForm();
+  const router = useRouter();
 
 
   async function onSubmit(values: any) {
@@ -58,6 +60,8 @@ function CheckoutCustomerInfo() {
       });
       
       successToastFactory(toast, "Orders have been placed successfully.");
+      resetCart();
+      router.push('/');
       
     } catch (error) {
       setIsPurchasing(false);
