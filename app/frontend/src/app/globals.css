@@ -116,7 +116,7 @@ body {
 }
 
 .page-width {
-  @apply w-full sm:w-[600px] md:w-[700px];
+  @apply w-full min-w-[350px] sm:w-[600px] md:w-[700px];
 }
 
 

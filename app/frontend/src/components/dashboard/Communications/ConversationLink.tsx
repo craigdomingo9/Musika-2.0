@@ -9,6 +9,10 @@ type Props = {
   href: string,
 }
 
+export function makeChatLink(id: string, mode: string, receiverName?: string) {
+  return `/dashboard/comms/chat/?id=${id}&mode=${mode}&receiverName=${receiverName}`
+}
+
 function ConversationLink({initials, avatar, fullName, href}: Props) {
   return (
     <>

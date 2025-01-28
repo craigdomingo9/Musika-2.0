@@ -1,9 +1,11 @@
+import PageContainer from "@/components/marketplace/PageContainer"
+import CustomerPendingOffers from "@/components/marketplace/Profile/Orders/CustomerPendingOffers"
 
 function page() {
   return (
-    <div>
-      
-    </div>
+    <PageContainer className="mx-2">
+      <CustomerPendingOffers />
+    </PageContainer>
   )
 }
 

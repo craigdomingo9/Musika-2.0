@@ -1,9 +1,11 @@
+import PageContainer from "@/components/marketplace/PageContainer"
+import CustomerOrderHistory from "@/components/marketplace/Profile/Orders/CustomerOrderHistory"
 
 function page() {
   return (
-    <div>
-      
-    </div>
+    <PageContainer className="mx-2">
+      <CustomerOrderHistory />
+    </PageContainer>
   )
 }
 

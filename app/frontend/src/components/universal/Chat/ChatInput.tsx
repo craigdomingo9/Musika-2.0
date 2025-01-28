@@ -4,15 +4,14 @@ import CommunicationEndpoints from "@/services/api/dashboard/communications"
 import { constructBody } from "@/services/dashboard/forms/form_utils";
 import { dangerToastFactory } from "@/services/marketplace/toast";
 import { useState } from "react";
-import { useChatAction, useChatScope } from "./ChatHeader";
-
+import { useSupportChatAction, useSupportChatScope } from "./Chat";
 
 
 
 
 function ChatInput() {
-  const { entities: action, setEntities: setChatAction } = useChatAction();
-  const { entities: chatScope } = useChatScope();
+  const { entities: action, setEntities: setChatAction } = useSupportChatAction();
+  const { entities: chatScope } = useSupportChatScope();
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const { toast } = useToast();
@@ -40,13 +39,13 @@ function ChatInput() {
 
       if (!response.ok) {
         console.log("res: ", response.data)
-        dangerToastFactory(toast, "Message failed to send. Please tyr again later.")
+        dangerToastFactory(toast, "Message failed to send. Please try again later.")
       }
       
       setChatAction(!action);
     } catch (error) {
       console.log(error)
-      dangerToastFactory(toast, "Message failed to send. Please tyr again later.")
+      dangerToastFactory(toast, "Message failed to send. Please try again later.")
     } finally {
       setIsSending(false);
       setMessage("");

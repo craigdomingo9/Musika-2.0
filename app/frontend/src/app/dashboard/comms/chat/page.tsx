@@ -1,21 +1,28 @@
-import Chat from "@/components/dashboard/Communications/Chat/Chat";
 import PageContainer from "@/components/dashboard/PageContainer";
+import Chat from "@/components/universal/Chat/Chat";
 
 type Props = {
   searchParams: {
     id: string,
     mode: string,
+    receiverName: string,
   }
 }
 
 
 async function page({ searchParams }: Props) {
-  const {id, mode} = await searchParams;
+  const {id, mode, receiverName} = await searchParams;
   
 
   return (
     <PageContainer>
-      <Chat id={id} mode={mode} />
+
+      <Chat 
+        id={id} 
+        mode={mode} 
+        receiverName={receiverName}
+      />
+
     </PageContainer>
   )
 }

@@ -21,7 +21,8 @@ function useFetchBusinessConversations(reRenderState?: any) {
         
         const data = await apiServices.getConversations({
           business_code: testBusiness,
-          role: "business"
+          role: "business",
+          type: "business_agent",
         });
 
         setData(data);
@@ -33,7 +34,7 @@ function useFetchBusinessConversations(reRenderState?: any) {
     };
 
     fetchData();
-  }, [business]);
+  }, [business, reRenderState]);
 
   return { data, isLoading, error };
 }

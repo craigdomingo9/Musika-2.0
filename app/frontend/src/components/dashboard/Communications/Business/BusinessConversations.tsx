@@ -3,9 +3,8 @@ import useFetchBusinessConversations from "@/services/api/dashboard/hooks/busine
 import SectionHeader from "../../SectionHeader";
 import CreateConversationButton from "./Buttons/CreateConversationButton";
 import Loading from "@/app/dashboard/loading";
-import Link from "next/link";
 import createEntityStore from "@/store/dashboard/EntityStore";
-import ConversationLink from "../ConversationLink";
+import ConversationLink, { makeChatLink } from "../ConversationLink";
 
 export const useConversationAction = createEntityStore(false);
 
@@ -40,6 +39,7 @@ function BusinessConversations() {
                 );
 
                 if (!partner) return null; // Handle missing partner
+                const fullName = partner.user.agent_profile?.full_name
                 const initials = partner.user.agent_profile?.full_name
                   ?.split(" ")
                   .map((str) => str.charAt(0).toUpperCase())
@@ -50,8 +50,8 @@ function BusinessConversations() {
                     <ConversationLink
                       initials={initials}
                       avatar={partner.user.agent_profile?.profile.profile_picture}
-                      fullName={partner.user.agent_profile?.full_name}
-                      href={`/dashboard/comms/chat/?id=${conversation.uuid}&mode=business`}
+                      fullName={fullName}
+                      href={makeChatLink(conversation.uuid, "business", fullName)}
                     />
                   </li>
                 );

@@ -4,7 +4,7 @@ import SectionHeader from "../SectionHeader";
 import useFetchConversations from "@/services/api/dashboard/hooks/useFetchConversations";
 import { testUuid } from "@/lib/constants";
 import CreateSupportButton from "./Buttons/CreateSupportButton";
-import Chat from "./Chat/Chat";
+import Chat from "../../universal/Chat/Chat";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import Loading from "@/app/dashboard/loading";
 
@@ -31,7 +31,7 @@ function Support() {
         <>
           {supportChat && ( 
             <div className="mt-8">
-              <Chat id={supportChat.uuid} />
+              <Chat id={supportChat.uuid} mode={mode} />
             </div>
           )}
 

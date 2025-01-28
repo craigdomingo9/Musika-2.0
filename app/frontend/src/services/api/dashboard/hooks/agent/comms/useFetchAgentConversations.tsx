@@ -20,7 +20,8 @@ function useFetchAgentConversations(reRenderState?: any) {
         
         const data = await apiServices.getConversations({
           agent_code: agent.code,
-          role: "agent"
+          role: "agent",
+          type: "business_agent",
         });
 
         setData(data);
@@ -32,7 +33,7 @@ function useFetchAgentConversations(reRenderState?: any) {
     };
 
     fetchData();
-  }, [agent]);
+  }, [agent, reRenderState]);
 
   return { data, isLoading, error };
 }

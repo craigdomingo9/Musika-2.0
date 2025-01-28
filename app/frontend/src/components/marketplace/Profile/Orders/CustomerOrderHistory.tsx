@@ -1,0 +1,48 @@
+"use client";
+import Loading from "@/app/dashboard/loading";
+import ListItem from "@/components/dashboard/ListItem";
+import SectionHeader from "@/components/dashboard/SectionHeader";
+import { cn } from "@/lib/utils";
+import useFetchOrders from "@/services/api/dashboard/hooks/orders/useFetchOrders";
+import useFetchUserProfileInfo from "@/services/api/marketplace/hooks/useFetchUserProfileinfo";
+
+
+function CustomerOrderHistory() {
+  const { data: user } = useFetchUserProfileInfo();
+  const { data: orderHistory, isLoading } = useFetchOrders({
+    customer: user.uuid
+  }, user);
+
+
+  return (
+    <div>
+
+      <SectionHeader 
+        HeaderTitle='Order History'
+        SubText='The orders you have placed.'
+      />
+
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {orderHistory.map(order => (
+            <ListItem 
+              className="px-2 my-2"
+              key={order.id}
+            >
+              <p className="text-opacity">
+                You ordered {order.quantity} {order.product.product?.name}
+                &nbsp;from {order.business.profile.name}
+              </p>
+              <p className={cn("text-xs text-opacity", order.status == "pending" && "text-orange-300", order.status == "completed" && "text-green-500")}>{order.status}</p>
+            </ListItem>
+          ))}
+        </>
+      )}
+      
+    </div>
+  )
+}
+
+export default CustomerOrderHistory 
