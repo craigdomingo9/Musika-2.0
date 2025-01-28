@@ -39,6 +39,7 @@ function ChatDisplay({id, mode}: Props) {
         <>
           {messages.map((message, indx, arr) => {
             const senderIsMe = message.sender.role == mode?.toLowerCase();
+            console.log(message.sender.role, mode?.toLowerCase(), senderIsMe)
             const sentAtDate = new Date(message.sent_at)
 
             let sentAt = format(sentAtDate, "p")
@@ -62,13 +63,15 @@ function ChatDisplay({id, mode}: Props) {
                     </Ribbon>
                   </div>
                 )}
-                <div className={cn("flex items-center gap-x-1", !senderIsMe ? "self-start flex-row-reverse" : "self-end")}>
-                  <p className="sub-text-opacity text-[0.6rem]">
-                    {!senderIsMe && "·"}
-                    &nbsp;{sentAt}&nbsp;
-                    {senderIsMe && "·"}
-                  </p>
-                  <p className={cn("text-sm rounded-lg px-3 text-white max-w-xs py-1.5", senderIsMe ? "bg-blue-500" : " bg-zinc-500")}>{message.content}</p>
+                <div className={cn("flex", senderIsMe && "flex-row-reverse")}>
+                  <div className={cn("flex items-center gap-x-1", !senderIsMe && "flex-row-reverse")}>
+                    <p className="sub-text-opacity text-[0.6rem]">
+                      {!senderIsMe && "·"}
+                      &nbsp;{sentAt}&nbsp;
+                      {senderIsMe && "·"}
+                    </p>
+                    <p className={cn("text-sm rounded-lg px-3 text-white max-w-xs py-1.5", senderIsMe ? "bg-blue-500" : " bg-zinc-500")}>{message.content}</p>
+                  </div>
                 </div>
               </div>
             )
