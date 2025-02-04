@@ -1,12 +1,20 @@
 
-const business: any = [
-  {
-    title: "Overview",
-    url: "/dashboard/overview",
-  },
+
+export interface LinkItem {
+  title: string,
+  url: string,
+  icon?: any
+}
+
+interface Links extends LinkItem {
+  items: LinkItem[]
+}
+
+
+const business: Links[] = [
   {
     title: "Workspace",
-    url: "",
+    url: "/dashboard/workspace",
     items: [
       {
         title: "Earnings",
@@ -34,44 +42,14 @@ const business: any = [
       },
     ]
   },
-  // {
-  //   title: "Analytics",
-  //   url: "",
-  //   items: [
-  //     {
-  //       title: "Sales Analytics",
-  //       url: "/dashboard/analytics/sales",
-  //     },
-  //     {
-  //       title: "Customer Insights",
-  //       url: "/dashboard/analytics/insights",
-  //     },
-  //     {
-  //       title: "Product Performance",
-  //       url: "/dashboard/analytics/products",
-  //     },
-  //     {
-  //       title: "Reports",
-  //       url: "/dashboard/analytics/reports",
-  //     },
-  //   ]
-  // },
   {
     title: "More",
-    url: "",
+    url: "/dashboard/more",
     items: [
       {
         title: "Notifications",
         url: "/dashboard/notifications",
       },
-      // {
-      //   title: "Financials",
-      //   url: "/dashboard/financials",
-      // },
-      // {
-      //   title: "Subscriptions",
-      //   url: "/dashboard/subscriptions",
-      // },
       {
         title: "Profile",
         url: "/dashboard/profile",
@@ -80,32 +58,21 @@ const business: any = [
   },
   {
     title: "Help",
-    url: "",
+    url: "/dashboard/help",
     items: [
       {
         title: "Contact Support",
         url: "/dashboard/help/support",
       },
-      // {
-      //   title: "Guides",
-      //   url: "/dashboard/help/guides",
-      // },
-      // {
-      //   title: "FAQs",
-      //   url: "/dashboard/help/faqs",
-      // },
     ]
   },
 ]
 
-const agent: any = [
-  {
-    title: "Overview",
-    url: "/dashboard/overview",
-  },
+
+const agent: Links[] = [
   {
     title: "Workspace",
-    url: "",
+    url: "/dashboard/workspace",
     items: [
       {
         title: "Earnings",
@@ -125,48 +92,14 @@ const agent: any = [
       },
     ]
   },
-  // {
-  //   title: "Analytics",
-  //   url: "",
-  //   items: [
-  //     {
-  //       title: "Performance",
-  //       url: "/dashboard/analytics/performance",
-  //     },
-  //     {
-  //       title: "Customer Insights",
-  //       url: "/dashboard/analytics/insights",
-  //     },
-  //     {
-  //       title: "Leads Insights",
-  //       url: "/dashboard/analytics/leads",
-  //     },
-  //     {
-  //       title: "Growth Metrics",
-  //       url: "/dashboard/analytics/growth",
-  //     },
-  //     {
-  //       title: "Reports",
-  //       url: "/dashboard/analytics/reports",
-  //     },
-  //   ]
-  // },
   {
     title: "More",
-    url: "",
+    url: "/dashboard/more",
     items: [
       {
         title: "Notifications",
         url: "/dashboard/notifications",
       },
-      // {
-      //   title: "Financials",
-      //   url: "/dashboard/financials",
-      // },
-      // {
-      //   title: "Subscriptions",
-      //   url: "/dashboard/subscriptions",
-      // },
       {
         title: "Profile",
         url: "/dashboard/profile",
@@ -175,34 +108,45 @@ const agent: any = [
   },
   {
     title: "Help",
-    url: "",
+    url: "/dashboard/help",
     items: [
       {
         title: "Contact Support",
         url: "/dashboard/help/support",
       },
-      // {
-      //   title: "Guides",
-      //   url: "/dashboard/help/guides",
-      // },
-      // {
-      //   title: "FAQs",
-      //   url: "/dashboard/help/faqs",
-      // },
     ]
   },
 ]
 
 
 
-export const getLinks = (mode: "agent" | "business") => {
-  return mode.toLowerCase() === "agent" ? agent : business;
+export const getLinks = (mode: "agent" | "business", sectionTitle?: string) => {
+  if (!mode) return;
+  if (!sectionTitle) return mode.toLowerCase() === "agent" ? agent : business;
+
+  const selectedSection = 
+    mode.toLowerCase() === "agent" ? 
+    agent.find(section => section.title == sectionTitle) 
+    :
+    business.find(section => section.title == sectionTitle);
+  
+    console.log(selectedSection)
+  
+  return selectedSection;
 };
 
 
-
 const getPathNameTitle = (obj: any[], target: string) => {
-  let result: { base: { title: string; url: string } | null; children: { title: string; url: string }[] } = {
+  let result: { 
+    base: { 
+      title: string; 
+      url: string 
+    } | null; 
+    children: { 
+      title: string; 
+      url: string 
+    }[] 
+  } = {
     base: null, // Initialize base as null
     children: [],
   };

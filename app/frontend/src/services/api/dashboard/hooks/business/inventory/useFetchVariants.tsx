@@ -37,7 +37,7 @@ function useFetchVariants(config: Record<string, any>, reRenderState?: any) {
       }
     }
     fetchProductVariants()
-  }, [reRenderState])
+  }, [user, reRenderState])
 
 
   return { data, isLoading, error };

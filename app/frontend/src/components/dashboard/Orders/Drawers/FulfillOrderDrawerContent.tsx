@@ -1,5 +1,6 @@
 import { useMutationLog } from "@/app/dashboard/stores";
 import FulfillOrderForm from "../Forms/FulfillOrderForm";
+import OrderCustomerInfo from "../OrderCustomerInfo";
 
 
 function FulfillOrderDrawerContent() {
@@ -13,6 +14,9 @@ function FulfillOrderDrawerContent() {
           &nbsp;{order.product.attributes.map((attr: ProductAttribute) => attr.value)}
           &nbsp;{order.product.attributes.map((attr: ProductAttribute) => attr.name)}
         </p>
+      </div>
+      <div>
+        <OrderCustomerInfo order={order} />
       </div>
       <div>
         <p className="sub-text"></p>

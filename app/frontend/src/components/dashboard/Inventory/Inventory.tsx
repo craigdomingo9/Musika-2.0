@@ -22,7 +22,7 @@ function Inventory() {
           HeaderTitle="Inventory"
           SubText="Manage your inventory."
           Action={
-            <a target="_blank" href={`/b/${business}/`}>
+            <a target="_blank" href={`/b/${business?.code}/`}>
               <Button variant={"link"} className="text-sm text-opacity underline underline-offset-2">View your store</Button>
             </a>
           }

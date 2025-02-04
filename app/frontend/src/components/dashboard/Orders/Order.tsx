@@ -2,6 +2,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import FulfillButton from "./Buttons/FulfillButton"
 import { cn } from "@/lib/utils"
 import ListItem from "../ListItem"
+import OrderCustomerInfo from "./OrderCustomerInfo"
 
 
 type Props = {

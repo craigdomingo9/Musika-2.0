@@ -120,7 +120,7 @@ function CheckoutCustomerInfo() {
                   type='submit'
                   disabled={items.length === 0}
                 >
-                  {isPurchasing ? "Purchasing..." : "Purchase"}
+                  {isPurchasing ? "Ordering..." : "Place Order"}
                 </Button>
               </div>
 
