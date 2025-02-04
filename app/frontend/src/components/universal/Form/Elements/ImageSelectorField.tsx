@@ -3,6 +3,13 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
+import { correctImageUrl } from "@/services/utils";
+ 
 
 function ImageSelectorField({
   form, 
@@ -22,12 +29,8 @@ function ImageSelectorField({
   useEffect(() => {
     if (!defaultImage) return;
 
-    const correctImageUrl = () => {
-      const urlObject = new URL(window.location.href);
-      setImagePreview(urlObject.origin + defaultImage)
-    }
-    correctImageUrl()
-  }, [defaultImage])
+    setImagePreview(defaultImage);
+  }, [defaultImage, imagePreview])
   
 
 
@@ -73,6 +76,14 @@ function ImageSelectorField({
                         unoptimized
                         priority
                       />
+                      // <Avatar>
+                      //   <AvatarImage 
+                      //     className="size"
+                      //     src={imagePreview} 
+                      //     alt="Image Preview" 
+                      //   />
+                      //   <AvatarFallback>PP</AvatarFallback>
+                      // </Avatar>
                   )}
                 </FormLabel>
 

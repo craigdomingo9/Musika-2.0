@@ -1,15 +1,8 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import ProfileEndpoints from "@/services/api/marketplace/profile"
 
 
-
-let profileId = 0;
-
-export const setProfileId = (id: number) => {
-  profileId = id;
-}
 
 export const profileFormSchema = z.object({
   username: z.string().min(2,{ message: 'username must be at least two characters.' }).max(50,{ message: 'username must not be longer than 50 characters.' }),
@@ -30,26 +23,3 @@ export const createProfileForm = () => {
 }
 
 
-function constructBody(values: Record<string, any>) {
-  const formData = new FormData();
-
-  for (const [key, value] of Object.entries(values)) {
-    if (!value) continue;
-    
-    formData.set(key, value);
-  }
-
-  return formData
-}
-
-
-
-export async function ProfileOnSubmit(values: z.infer<typeof profileFormSchema>) {
-  
-  const body = constructBody(values);
-
-  const apiServices = new ProfileEndpoints();
-  apiServices.isOnClient(window);
-  apiServices.updateProfile(body, profileId)
-  
-}

@@ -49,7 +49,8 @@ class AccountSerializer(serializers.ModelSerializer):
                     host = request.get_host()
                 else:
                     host = 'localhost:8000'  # Default host if request is not available
-                return obj.profile_picture.url.replace(f'http://{host}', '')
+                image_url = obj.profile_picture.url.replace(f'http://{host}', '')
+                return image_url
             return None 
         except Exception as e:
             print(f"Error getting profile picture URL: {e}")
