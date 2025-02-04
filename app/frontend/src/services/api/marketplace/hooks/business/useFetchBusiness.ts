@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BusinessEndpoints } from "../../business";
 import { useParams } from "next/navigation";
-import { fixLogoImageUrl } from "@/services/marketplace/business";
+import { correctImageUrl } from "@/services/utils";
 
 
 function useFetchBusiness() {
@@ -22,7 +22,16 @@ function useFetchBusiness() {
   
         const data = await apiServices.getBusiness(code.toString());
   
-        const businessData = fixLogoImageUrl(window.location.href, data);
+        const businessData: Business = {
+          ...data,
+          profile: {
+            ...data.profile,
+            logo: correctImageUrl(
+              data.profile.logo,
+              window.location.href,
+            )
+          }
+        }
 
         setData(businessData);
       } catch (error) {

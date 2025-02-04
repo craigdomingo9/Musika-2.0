@@ -5,8 +5,8 @@ import { useProductVariantCarouselStore } from "@/store/ProductVariantCarousel";
 import ProductFaceSelector from "./ProductFaceSelector";
 import ProductBody from "./ProductBody";
 import ProductActions from "./ProductActions";
-import { fixVariantImageUrl } from "@/services/marketplace/product";
 import createEntityStore from "@/store/dashboard/EntityStore";
+import { correctImageUrl } from "@/services/utils";
 
 type Props = {
   product: Product,
@@ -18,7 +18,20 @@ export const useReferrerAgent = createEntityStore<string | undefined>("");
 
 function ProductClient({product, defaultVariant, ag}: Props) {
   const { entities: agent, setEntities: setAgent } = useReferrerAgent();
-  const _product = fixVariantImageUrl(window.location.href, product);
+  const _product: Product = {
+    ...product,
+    variants: product.variants
+    .map(variant => ({
+      ...variant,
+      image: {
+        ...variant.image,
+        image: correctImageUrl(
+          variant.image.image,
+          window.location.href,
+        )
+      }
+    }))
+  };
   const {setSelectedVariant} = useProductVariantCarouselStore();
   
 

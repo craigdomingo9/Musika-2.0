@@ -1,16 +1,25 @@
 "use client";
-import { fixProductImageUrl, splitVariants } from "@/services/marketplace/product";
+import {splitVariants } from "@/services/marketplace/product";
 import useSearchedProductsStore from "@/store/SearchedProducts"
 import ProductCardFace from "../../ProductCardFace";
 import Link from "next/link";
+import { correctImageUrl } from "@/services/utils";
 
 function SearchedProducts() {
   let {products} = useSearchedProductsStore();
 
   let _products = splitVariants(products);
 
-  const url = window.location.href;
-  _products = fixProductImageUrl(url, _products)
+  products = _products.map(product => ({
+    ...product,
+    image: {
+      ...product.image,
+      image: correctImageUrl(
+        product.image.image,
+        window.location.href
+      )
+    }
+  }))
   
   return (
     <div className="min-w-full grid grid-cols-2 pb-2 md:grid-cols-3 items-center space-y-2 mt-4 overflow-x-hidden">

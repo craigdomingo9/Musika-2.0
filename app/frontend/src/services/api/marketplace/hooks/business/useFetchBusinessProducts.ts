@@ -1,7 +1,8 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ProductEndpoints } from "../../product";
-import { fixProductImageUrl, splitVariants } from "@/services/marketplace/product";
+import { splitVariants } from "@/services/marketplace/product";
+import { correctImageUrl } from "@/services/utils";
 
 
 
@@ -23,10 +24,23 @@ function useFetchBusinessProducts() {
 
         const data = await apiServices.getCatalogs({business: code});
         
-        let catalogData: Catalog[] = data.map(catalog => ({
-          ...catalog,
-            products: fixProductImageUrl(window.location.href, splitVariants(catalog.products)),
-        }));
+        let catalogData: Catalog[] = data
+        .filter(catalog => catalog.products.length > 0)
+        .map(catalog => ({
+            ...catalog,
+            products: splitVariants(catalog.products)
+            .map((product: StandardProduct) => ({
+              ...product,
+              image: {
+                ...product.image,
+                image: correctImageUrl(
+                  product.image.image,
+                  window.location.href
+                )
+              }
+            })),
+          })
+        );
 
         setData(catalogData);
         

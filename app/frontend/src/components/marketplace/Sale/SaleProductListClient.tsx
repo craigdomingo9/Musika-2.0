@@ -1,7 +1,7 @@
 "use client";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import SaleProductCard from "./SaleProductCard";
-import { fixProductImageUrl } from "@/services/marketplace/product";
+import { correctImageUrl } from "@/services/utils";
 
 
 type Props = {
@@ -10,7 +10,17 @@ type Props = {
 
 function SaleProductListClient({products}: Props) {
 
-  products = fixProductImageUrl(window.location.href, products);
+  products = products.map(product => ({
+    ...product,
+    image: {
+      ...product.image,
+      image: correctImageUrl(
+        product.image.image,
+        window.location.href
+      )
+    }
+  }))
+
 
   return (
       <Carousel

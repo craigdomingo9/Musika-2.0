@@ -1,7 +1,8 @@
 import { ProductEndpoints } from "@/services/api/marketplace/product";
 import usePageConfigStore from "@/store/PageConfigStore"
 import { useEffect, useState } from "react";
-import { fixProductImageUrl, splitVariants } from "@/services/marketplace/product";
+import { splitVariants } from "@/services/marketplace/product";
+import { correctImageUrl } from "@/services/utils";
 
 
 
@@ -24,8 +25,16 @@ function useFetchExploreProducts() {
 
         let products = splitVariants(data.results, config)
 
-        const url = window.location.href;
-        products = fixProductImageUrl(url, products);
+        products = products.map(product => ({
+          ...product,
+          image: {
+            ...product.image,
+            image: correctImageUrl(
+              product.image.image,
+              window.location.href
+            )
+          }
+        }));
 
         setData(products)
       } catch (error) {

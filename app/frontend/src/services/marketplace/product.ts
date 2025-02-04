@@ -41,35 +41,3 @@ export function splitVariants(products: Product[], config?: Record<string, any>)
   );
 }
 
-
-
-export function fixVariantImageUrl(url: string, product: Product) {
-  const urlObject = new URL(url);
-  
-  const updatedVariants = product.variants.map(variant => ({
-    ...variant,
-    image: {
-      ...variant.image,
-      image: `${urlObject.origin}${variant.image.image}`
-    }
-  }));
-
-  product =  {
-    ...product,
-    variants: updatedVariants
-  };
-  return product
-}
-
-export const fixProductImageUrl = (url: string, products: StandardProduct[]) => {
-  const urlObject = new URL(url);
-  return products.map(product => {
-    return {
-      ...product,
-      image: {
-        ...product.image,
-        image: `${urlObject.origin}${product.image.image}`
-      }
-    }
-  })
-}

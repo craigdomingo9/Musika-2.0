@@ -1,6 +1,6 @@
 "use client";
-import { fixProductImageUrl } from "@/services/marketplace/product";
 import FeaturedProductCard from "./FeaturedProductCard";
+import { correctImageUrl } from "@/services/utils";
 
 type Props = {
   products: StandardProduct[];
@@ -8,7 +8,16 @@ type Props = {
 
 function FeaturedProductListClient({products}: Props) {
 
-  products = fixProductImageUrl(window.location.href, products);
+  products = products.map(product => ({
+    ...product,
+    image: {
+      ...product.image,
+      image: correctImageUrl(
+        product.image.image,
+        window.location.href
+      )
+    }
+  }))
   
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 items-center space-y-2 overflow-x-hidden">
