@@ -71,6 +71,14 @@ class Account(models.Model):
 
     def has_perm(self, perm, obj=None):
         return True
+      
+    def get_agent_profile(self):
+        if self.is_agent:
+            return self.agent_profile or None
+    
+    def get_business_profile(self):
+        if self.is_business:
+            return self.business_profile or None
     
     @property
     def is_authenticated(self):

@@ -5,11 +5,11 @@ import Ribbon from '@/components/dashboard/Ribbon';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import { cn } from '@/lib/utils';
 import useFetchOrders from '@/services/api/dashboard/hooks/orders/useFetchOrders';
-import useFetchUserProfileInfo from '@/services/api/marketplace/hooks/useFetchUserProfileinfo';
+import useUserProfile from '@/services/api/marketplace/hooks/useUserProfile';
 
 
 function CustomerPendingOffers() {
-  const { data: user } = useFetchUserProfileInfo();
+  const { data: user } = useUserProfile();
   const { data: pendingOrders, isLoading } = useFetchOrders({
     status: "pending",
     customer: user.uuid

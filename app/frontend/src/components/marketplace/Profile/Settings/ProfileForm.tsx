@@ -1,5 +1,4 @@
 "use client"
-import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import {
   Form
@@ -8,15 +7,15 @@ import ImageSelectorField from "@/components/universal/Form/Elements/ImageSelect
 import InputField from "@/components/universal/Form/Elements/InputField"
 import CitySelector from "./CitySelector"
 import GenderSelector from "./GenderSelector"
-import useFetchProfile from "@/services/api/marketplace/hooks/profile/useFetchProfile"
 import { createProfileForm, ProfileOnSubmit, setProfileId } from "@/services/marketplace/forms/profile"
 import FormContainer from "@/components/universal/Form/FormContainer"
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile"
 
 
 
 
 function ProfileForm() {
-  const {data, error, isLoading} = useFetchProfile();
+  const {data, error, isLoading} = useUserProfile();
   setProfileId(data.id);
 
 

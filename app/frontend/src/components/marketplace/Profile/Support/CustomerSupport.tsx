@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import CommunicationEndpoints from "@/services/api/dashboard/communications";
 import useFetchConversations from "@/services/api/dashboard/hooks/useFetchConversations";
-import useFetchUserProfileInfo from "@/services/api/marketplace/hooks/useFetchUserProfileinfo";
 import { constructBody } from "@/services/dashboard/forms/form_utils";
 import { dangerToastFactory } from "@/services/marketplace/toast";
 import createEntityStore from "@/store/dashboard/EntityStore";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 const apiServices = new CommunicationEndpoints();
 
@@ -18,7 +18,7 @@ export const useCustomerSupportAction = createEntityStore(false);
 function CustomerSupport() {
   const { toast } = useToast();
   const { entities: action, setEntities: setSupportAction } = useCustomerSupportAction();
-  const { data: user } = useFetchUserProfileInfo();
+  const { data: user } = useUserProfile();
   const { data: supportChats, isLoading } = useFetchConversations({
     type: "customer_platform",
     role: "customer",

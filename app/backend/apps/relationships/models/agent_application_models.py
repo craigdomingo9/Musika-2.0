@@ -5,10 +5,16 @@ from agents.models import Agent
 
 
 class AgentApplication(models.Model):
+    STATUS_CHOICES = [
+      ('pending', 'Pending'), 
+      ('cancelled', 'Cancelled'), 
+      ('approved', 'Approved'), 
+      ('rejected', 'Rejected')
+    ]
     agent = models.ForeignKey(Agent, on_delete=models.CASCADE, related_name='applications')
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='agent_applications')
     commission_rate = models.DecimalField(max_digits=5, decimal_places=3, default=0.00)
-    status = models.CharField(max_length=50, default='pending', choices=[('pending', 'Pending'), ('cancelled', 'Cancelled'), ('approved', 'Approved'), ('rejected', 'Rejected')])
+    status = models.CharField(max_length=50, default='pending', choices=STATUS_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

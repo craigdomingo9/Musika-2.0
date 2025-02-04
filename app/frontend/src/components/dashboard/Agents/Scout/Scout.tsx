@@ -4,7 +4,6 @@ import Loading from "@/app/dashboard/loading";
 import SectionHeader from "../../SectionHeader";
 
 function Scout() {
-
   const { data: agents, isLoading } = useFetchScoutAgents();
 
   return (
@@ -13,6 +12,7 @@ function Scout() {
         HeaderTitle="Scout"
         SubText="Recruit agents to sell on your behalf."
       />
+
       <div className="min-w-[350px] sm:w-[600px] md:w-[700px]">
         {isLoading ? (
           <Loading /> // Display loading indicator
@@ -23,7 +23,7 @@ function Scout() {
                 <ScoutAgent key={agent.id} agent={agent} />
               ))
             )}
-            {!agents.length && !isLoading && <p className="sub-text-opacity text-sm">No agents available.</p>}
+            {!agents.length && !isLoading && <p className="sub-text-opacity text-sm text-center mt-48">No agents available.</p>}
           </>
         )}
       </div>

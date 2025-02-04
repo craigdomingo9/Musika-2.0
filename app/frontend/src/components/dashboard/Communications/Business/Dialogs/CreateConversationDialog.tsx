@@ -1,6 +1,4 @@
-import useFetchRelationships from '@/services/api/dashboard/hooks/business/agents/useFetchRelationships'
 import { useCreateConversationDialogState } from '../Buttons/CreateConversationButton';
-import useFetchBusiness from '@/services/api/dashboard/hooks/business/useFetchBusiness';
 import { useToast } from '@/hooks/use-toast';
 import Loading from '@/app/dashboard/loading';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -8,6 +6,8 @@ import { constructBody } from '@/services/dashboard/forms/form_utils';
 import CommunicationEndpoints from '@/services/api/dashboard/communications';
 import { dangerToastFactory, successToastFactory } from '@/services/marketplace/toast';
 import { useConversationAction } from '../BusinessConversations';
+import useFetchActiveRelationships from '@/services/api/dashboard/hooks/useFetchActiveRelationships';
+import useUserProfile from '@/services/api/marketplace/hooks/useUserProfile';
 
 
 const apiServices = new CommunicationEndpoints();
@@ -15,14 +15,16 @@ const apiServices = new CommunicationEndpoints();
 
 function CreateConversationDialog() {
   const { entities: action, setEntities: setConversationAction } = useConversationAction();
-  const { data: partners, isLoading } = useFetchRelationships();
+  const { data: partners, isLoading } = useFetchActiveRelationships();
   const { entities: open, setEntities: setOpen } = useCreateConversationDialogState();
-  const { data: business } = useFetchBusiness();
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
   const { toast } = useToast();
-  
   
   async function createConversation(partner: Agent) {
     try {
+      if (!business) return;
+
       const conversationTitle = `${business.profile.name} and ${partner.full_name}`;
       const body = constructBody({
         conversation_type: "business_agent",
@@ -34,13 +36,14 @@ function CreateConversationDialog() {
       const response = await apiServices.createConversation(body);
       
       if (!response.ok) {
+        console.log(response.data)
         return dangerToastFactory(toast, "Failed to create conversation. Try again later.");
       }
       
       const conversationId = (await response.data).id;
-      
+
       const addParticipantPromises = [
-        addParticipant(business.user.id, "business", conversationId),
+        addParticipant(user.id, "business", conversationId),
         addParticipant(partner.user.id, "agent", conversationId),
       ];
 
@@ -49,7 +52,8 @@ function CreateConversationDialog() {
       successToastFactory(toast, "Conversation created successfully.");
       setOpen(!open);
       setConversationAction(!action);
-    } catch (error) {
+    } catch (error: any) {
+      console.log("error: ", error)
       dangerToastFactory(toast, "Failed to create conversation. Try again later.");
       setOpen(!open);
     }
@@ -61,6 +65,7 @@ function CreateConversationDialog() {
     const response = await apiServices.addParticipants(body);
 
     if (!response.ok) {
+      console.log(response.data)
       setOpen(!open);
       return dangerToastFactory(toast, "Failed to add participant. Try again later.");
     }

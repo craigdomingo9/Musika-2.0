@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { correctImageUrl } from '@/services/utils';
 import RelationshipEndpoints from '../../../relationships';
 import useFetchAgent from '../useFetchAgent';
+import useUserProfile from '@/services/api/marketplace/hooks/useUserProfile';
 
 
 
@@ -25,7 +26,8 @@ function transformAgentData(data: BusinessOffer[], baseUrl: string): BusinessOff
 
 function useFetchPendingOffers(reRenderState?: any) {
   const [data, setData] = useState<BusinessOffer[]>([]);
-  const { data: agent } = useFetchAgent();
+  const { data: user } = useUserProfile();
+  const agent = user.agent_profile;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -36,7 +38,7 @@ function useFetchPendingOffers(reRenderState?: any) {
         const apiServices = new RelationshipEndpoints();
         apiServices.isOnClient(window);
         
-        if (!agent.code) return;
+        if (!agent) return;
 
         const rawData = await apiServices.getPendingOffers({
           agent: agent.code,
@@ -54,7 +56,7 @@ function useFetchPendingOffers(reRenderState?: any) {
     };
 
     fetchData();
-  }, [agent, reRenderState]);
+  }, [agent, user, reRenderState]);
 
   return { data, isLoading, error };
 }

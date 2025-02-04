@@ -25,6 +25,10 @@ class Business(models.Model):
         verbose_name_plural = "Businesses"
     
     def __str__(self) -> str:
-        return f"{self.profile.name}"
+        profile_name = getattr(self, 'profile', None)  # Attempt to get profile attribute
+        if profile_name and hasattr(profile_name, 'name'):
+            return f"{profile_name.name}"
+        else:
+            return f"{self.user.username + "'s business'"}"
 
 

@@ -1,19 +1,18 @@
 "use client";
-
 import RecruitedAgent from "./RecruitedAgent";
 import ScoutAgentsButton from "../Buttons/ScoutAgentsButton";
 import SectionHeader from "../../SectionHeader";
-import useFetchRelationships from "@/services/api/dashboard/hooks/business/agents/useFetchRelationships";
 import PendingOffers from "./PendingOffers";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import Loading from "@/app/dashboard/loading";
+import useFetchActiveRelationships from "@/services/api/dashboard/hooks/useFetchActiveRelationships";
 
 
 export const useRelationshipAction = createEntityStore(false);
 
 function RecruitedAgents() {
   const { entities: action} = useRelationshipAction();
-  const { data: relationships, isLoading, error } = useFetchRelationships(action);
+  const { data: relationships, isLoading, error } = useFetchActiveRelationships(action);
 
   return (
     <div className="page-width">

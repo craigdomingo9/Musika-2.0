@@ -1,4 +1,3 @@
-import useFetchRelationships from "@/services/api/dashboard/hooks/agent/portfolio/useFetchRelationships"
 import SectionHeader from "../../SectionHeader"
 import GetMoreButton from "../Buttons/GetMoreButton"
 import Loading from "@/app/dashboard/loading";
@@ -6,6 +5,7 @@ import Relationship from "./Relationship";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import { createEntityAction } from "@/types/dashboard/factory";
 import BusinessOffers from "./BusinessOffers";
+import useFetchActiveRelationships from "@/services/api/dashboard/hooks/useFetchActiveRelationships";
 
 
 
@@ -15,7 +15,7 @@ export const useBusinessMutation = createEntityStore(createEntityAction<Business
 
 function Relationships() {
   const { entities: action } = useRelationshipAction();
-  const { data: relationships, isLoading, error } = useFetchRelationships(action);
+  const { data: relationships, isLoading, error } = useFetchActiveRelationships(action);
 
   // console.log(relationships)
 

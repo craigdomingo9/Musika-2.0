@@ -3,7 +3,6 @@ import Loading from "@/app/dashboard/loading";
 import { Form } from "@/components/ui/form";
 import InputField from "@/components/universal/Form/Elements/InputField"
 import PhoneNumberField from "@/components/universal/Form/Elements/PhoneNumberField";
-import useFetchUserProfileInfo from "@/services/api/marketplace/hooks/useFetchUserProfileinfo";
 import { createCheckoutForm } from "@/services/dashboard/forms/checkoutForm";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -14,12 +13,13 @@ import { dangerToastFactory, successToastFactory } from "@/services/marketplace/
 import { useToast } from "@/hooks/use-toast";
 import OrderEndpoints from "@/services/api/dashboard/orders";
 import { useRouter } from "next/navigation";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 const orderApiServices = new OrderEndpoints();
 const userApiServices = new ProfileEndpoints();
 
 function CheckoutCustomerInfo() {
-  const { data: user, isLoading } = useFetchUserProfileInfo();
+  const { data: user, isLoading } = useUserProfile();
   const [isPurchasing, setIsPurchasing] = useState(false);
   const { items, resetCart } = UseCartStore();
   const { toast } = useToast();

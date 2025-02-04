@@ -7,6 +7,7 @@ import TextareaField from "@/components/universal/Form/Elements/TextareaField";
 import FormContainer from "@/components/universal/Form/FormContainer";
 import { useToast } from "@/hooks/use-toast";
 import useFetchAgent from "@/services/api/dashboard/hooks/agent/useFetchAgent";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 import ProfileEndpoints from "@/services/api/marketplace/profile";
 import { createAgentProfileForm } from "@/services/dashboard/forms/agentProfileForm"
 import { constructBody } from "@/services/dashboard/forms/form_utils";
@@ -20,13 +21,17 @@ export const useAgentProfileAction = createEntityStore(false);
 
 function AgentProfileForm() {
   const { entities: action, setEntities: setAction } = useAgentProfileAction();
-  const { data: agent, isLoading } = useFetchAgent({}, action);
+  const { data: user, isLoading } = useUserProfile();
+  const agent = user.agent_profile;
+
   const form = createAgentProfileForm();
   const { toast } = useToast();
   
 
   async function ProfileOnSubmit(values: any) {
     try {
+      if (!agent) return;
+      
       const apiServices = new ProfileEndpoints();
       apiServices.isOnClient(window);
       
@@ -75,7 +80,7 @@ function AgentProfileForm() {
         <Loading />
       ) : (
         <Form {...form}>
-        {agent.profile && (
+        {agent?.profile && (
         <form 
           onSubmit={form.handleSubmit(ProfileOnSubmit)} 
           className="space-y-2"

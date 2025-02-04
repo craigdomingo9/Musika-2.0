@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast";
-import { agentMode } from "@/lib/dashboard/constants";
+import { agentMode, businessMode } from "@/lib/dashboard/constants";
 import CommunicationEndpoints from "@/services/api/dashboard/communications";
-import useFetchAgent from "@/services/api/dashboard/hooks/agent/useFetchAgent";
-import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness";
 import { constructBody } from "@/services/dashboard/forms/form_utils";
 import { dangerToastFactory } from "@/services/marketplace/toast";
 import { useSupportAction } from "../Support";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 const apiServices = new CommunicationEndpoints();
 
@@ -16,18 +15,23 @@ type Props = {
 
 function CreateSupportButton({mode}: Props) {
   const { entities: action, setEntities: setSupportAction } = useSupportAction();
-  const { data: business } = useFetchBusiness();
-  const { data: agent } = useFetchAgent();
+  const { data: user } = useUserProfile();
+  const agent = user.agent_profile;
+  const business = user.business_profile;
   const { toast } = useToast();
 
   const isAgentMode = mode === agentMode();
+  const isBusinessMode = mode === businessMode();
 
 
   const handleCreateSupportChat = async () => {
     apiServices.isOnClient(window);
     try {
+      if (!agent && isAgentMode) return;
+      if (!business && isBusinessMode) return;
+
       const conversationTitle = `Platform Support to ${
-        isAgentMode ? 'Agent: ' + agent.full_name : 'Business: ' + business.profile.name
+        isAgentMode ? 'Agent: ' + agent?.full_name : 'Business: ' + business?.profile.name
       }`;
 
       const body = constructBody({
@@ -42,7 +46,7 @@ function CreateSupportButton({mode}: Props) {
 
       // Add participants
       await Promise.all([
-        addParticipant(isAgentMode ? agent.user.id : business.user.id, mode.toLowerCase(), (await response.data).id),
+        addParticipant(user.id, mode.toLowerCase(), (await response.data).id),
         apiServices.addAdminsToConversation((await response.data).uuid),
       ]);
 
@@ -56,7 +60,7 @@ function CreateSupportButton({mode}: Props) {
     }
   }
 
-  const addParticipant = async (user: number, role: string, conversation: number) => {
+  const addParticipant = async (user: any, role: string, conversation: number) => {
     apiServices.isOnClient(window);
     const body = constructBody({ conversation, role, user });
     const response = await apiServices.addParticipants(body);

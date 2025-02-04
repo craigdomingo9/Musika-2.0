@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
-import useFetchBusiness from '../useFetchBusiness';
 import AgentEndpoints from '../../../agents';
 import { correctImageUrl } from '@/services/utils';
+import useUserProfile from '@/services/api/marketplace/hooks/useUserProfile';
 
 
 function transformAgentData(data: AgentApplication[], baseUrl: string): AgentApplication[] {
@@ -24,7 +24,7 @@ function transformAgentData(data: AgentApplication[], baseUrl: string): AgentApp
 
 function useFetchApplications(reRenderState: any) {
   const [data, setData] = useState<AgentApplication[]>([]);
-  const { data: business } = useFetchBusiness();
+  const { data: user } = useUserProfile();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -35,10 +35,10 @@ function useFetchApplications(reRenderState: any) {
         const apiServices = new AgentEndpoints();
         apiServices.isOnClient(window);
         
-        if (!business.code) return;
+        if (!user.business_profile) return;
 
         const rawData = await apiServices.getApplications({
-          business: business?.code,
+          business: user.business_profile?.code,
           status: "pending",
         });
         const transformedData = transformAgentData(rawData, window.location.href)
@@ -52,7 +52,7 @@ function useFetchApplications(reRenderState: any) {
     };
 
     fetchData();
-  }, [business, reRenderState]);
+  }, [user, reRenderState]);
 
   return { data, isLoading, error };
 }

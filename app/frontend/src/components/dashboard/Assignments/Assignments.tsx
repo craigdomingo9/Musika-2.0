@@ -1,7 +1,6 @@
 "use client";
 import SectionHeader from "../SectionHeader"
 import AgentAssignments from "./AgentAssignments";
-import useFetchRelationships from "@/services/api/dashboard/hooks/business/agents/useFetchRelationships";
 import {
   Accordion,
   AccordionContent,
@@ -17,10 +16,11 @@ import AddAssignmentButton from "./Buttons/AddAssignmentButton";
 import Loading from "@/app/dashboard/loading";
 import { cn } from "@/lib/utils";
 import { ListItemClassName } from "../ListItem";
+import useFetchActiveRelationships from "@/services/api/dashboard/hooks/useFetchActiveRelationships";
  
 
 function Assignments() {
-  const { data: relationships, isLoading } = useFetchRelationships();
+  const { data: relationships, isLoading } = useFetchActiveRelationships();
 
   return (
     <div className="page-width">

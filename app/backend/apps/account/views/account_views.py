@@ -6,7 +6,6 @@ from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from django_filters import rest_framework as filters
 
-    
 from account.serializers import AccountSerializer, AccountCreateSerializer
 from account.filters import AccountFilter
 

@@ -4,11 +4,11 @@ import ListItem from "@/components/dashboard/ListItem";
 import SectionHeader from "@/components/dashboard/SectionHeader";
 import { cn } from "@/lib/utils";
 import useFetchOrders from "@/services/api/dashboard/hooks/orders/useFetchOrders";
-import useFetchUserProfileInfo from "@/services/api/marketplace/hooks/useFetchUserProfileinfo";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 function CustomerOrderHistory() {
-  const { data: user } = useFetchUserProfileInfo();
+  const { data: user } = useUserProfile();
   const { data: orderHistory, isLoading } = useFetchOrders({
     customer: user.uuid
   }, user);

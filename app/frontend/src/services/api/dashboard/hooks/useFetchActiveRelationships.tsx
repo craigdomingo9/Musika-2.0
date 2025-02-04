@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { correctImageUrl } from '@/services/utils';
-import AgentEndpoints from '../agents';
 import RelationshipEndpoints from '../relationships';
-import useFetchBusiness from './business/useFetchBusiness';
-import useFetchAgent from './agent/useFetchAgent';
 import useDashboardConfigStore from '@/store/dashboard/DashboardConfig';
+import useUserProfile from '../../marketplace/hooks/useUserProfile';
+import { agentMode, businessMode } from '@/lib/dashboard/constants';
 
+const apiServices = new RelationshipEndpoints();
 
 
 function transformAgentData(data: Relationship[], baseUrl: string): Relationship[] {
@@ -37,30 +37,44 @@ function transformAgentData(data: Relationship[], baseUrl: string): Relationship
 }
 
 
-function useFetchActiveRelationships(mode: "agent" | "business", reRenderState?: any) {
+
+async function fetchActiveRelationships(user: any, isAgentMode: boolean, isBusinessMode: boolean) {
+  if ((isBusinessMode && !user.business_profile) || (isAgentMode && !user.agent_profile)) {
+    return;
+  }
+  apiServices.isOnClient(window);
+
+
+  const rawData = await apiServices.getRelationships({
+    business: isBusinessMode ? user.business_profile?.code : "",
+    agent: isAgentMode ? user.agent_profile?.code : "",
+    status: "active",
+  });
+
+  return transformAgentData(rawData, window.location.href);
+}
+
+
+function useFetchActiveRelationships(reRenderState?: any) {
   const [data, setData] = useState<Relationship[]>([]);
-  const { data: business } = useFetchBusiness();
-  const { data: agent } = useFetchAgent();
+  const { data: user } = useUserProfile();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { config: {mode} } = useDashboardConfigStore();
+
+  const isAgentMode = mode == agentMode();
+  const isBusinessMode = mode == businessMode();
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const apiServices = new RelationshipEndpoints();
-        apiServices.isOnClient(window);
+        if (!user) return;
         
-        if (!business.code) return;
-
-        const rawData = await apiServices.getRelationships({
-          business: mode == "business" ? business.code : "",
-          agent: mode == "agent" ? agent.code : "",
-          status: "active",
-        });
-        const transformedData = transformAgentData(rawData, window.location.href); 
-        
-        setData(transformedData);
+        const transformedData = await fetchActiveRelationships(user, isAgentMode, isBusinessMode)
+        if (transformedData) {
+          setData(transformedData);
+        }
 
       } catch (error: any) {
         setError(error);
@@ -70,7 +84,7 @@ function useFetchActiveRelationships(mode: "agent" | "business", reRenderState?:
     };
 
     fetchData();
-  }, [business, reRenderState]);
+  }, [user, reRenderState]);
 
   return { data, isLoading, error };
 }

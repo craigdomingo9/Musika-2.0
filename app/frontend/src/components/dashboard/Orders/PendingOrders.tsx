@@ -1,19 +1,19 @@
 import useFetchOrders from "@/services/api/dashboard/hooks/orders/useFetchOrders";
 import SectionHeader from "../SectionHeader"
 import Loading from "@/app/dashboard/loading";
-import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness";
-import { testBusiness } from "@/lib/constants";
 import Order from "./Order";
 import createEntityStore from "@/store/dashboard/EntityStore";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 export const useOrderAction = createEntityStore(false);
 
 function PendingOrders() {
-  const { data: business} = useFetchBusiness();
   const { entities: action } = useOrderAction();
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
   const { data: pendingOrders, isLoading } = useFetchOrders({
     status: "pending",
-    business: testBusiness,
+    business: business?.code,
   }, `${business}${action}`);
 
   return (

@@ -32,7 +32,7 @@ class ExposeAccount(APIView):
 
         try:
             user = Account.objects.get(uuid=uuid_header)
-            serializer = AccountSerializer(user)
+            serializer = AccountSerializer(user, context=self.get_serializer_context())
             return Response(data=serializer.data, status=status.HTTP_200_OK) 
         except Account.DoesNotExist:
             logger.error(f"User with UUID {uuid_header} not found.")

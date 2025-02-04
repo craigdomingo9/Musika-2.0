@@ -6,7 +6,6 @@ import SelectField from "@/components/universal/Form/Elements/SelectField"
 import FormContainer from "@/components/universal/Form/FormContainer"
 import { constructBody, createProductForm } from "@/services/dashboard/forms/productForm"
 
-import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness"
 import useFetchCategories from "@/services/api/marketplace/hooks/categories/useFetchCategories"
 import InventoryEndpoints from "@/services/api/dashboard/inventory"
 import useFetchInventory from "@/services/api/dashboard/hooks/business/inventory/useFetchInventory"
@@ -16,6 +15,8 @@ import { useToast } from "@/hooks/use-toast"
 import { completeEntityAction, processingEntityAction } from "@/types/dashboard/factory"
 import { useInventoryAction } from "../InventoryProducts"
 import { useCatalogMutation } from "../Dialogs/CatalogFormDialog"
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile"
+import Loading from "@/app/dashboard/loading"
 
 
 
@@ -26,11 +27,12 @@ function ProductForm() {
   const { entities: {object: catalog} } = useCatalogMutation();
   const { entities: inventoryState, setEntities: setInventoryAction } = useInventoryAction();
   const { entities: { action, object: product }, setEntities: setProductMutation } = useProductMutation();
-  const { data: business } = useFetchBusiness();  
   const { setEntities: setDialog } = useProductDialogState();
   const { data: catalogs, isLoading, error } = useFetchInventory();
   const { data: categories } = useFetchCategories();
   const { toast } = useToast();
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
   
   const findCategoryById = (id: any) => categories.find(category => category.id == id)?.name
   const findCatalogById = (id: any) => catalogs.find(catalog => catalog.id == id)?.name
@@ -79,6 +81,9 @@ function ProductForm() {
 
   return (
     <FormContainer>
+      {isLoading ? (
+        <Loading />
+      ) : (
       <Form {...form}>
       <form 
         onSubmit={form.handleSubmit(onSubmit)} 
@@ -105,7 +110,7 @@ function ProductForm() {
           label="Catalog"
           selectionList={catalogs.map(catalog => catalog.name)}
           placeholder="Select the Catalog" 
-        />
+          />
         <SelectField 
           form={form}
           defaultValue={findCategoryById(product?.category)}
@@ -121,6 +126,7 @@ function ProductForm() {
 
       </form>
       </Form>
+        )}
     </FormContainer>
   )
 }

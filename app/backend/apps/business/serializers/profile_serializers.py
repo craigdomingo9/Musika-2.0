@@ -12,10 +12,20 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['id', 'business', 'name', 'description', 'categories', 'logo', 'cover_photo', 'phone_number', 'email', 'website', 'business_type']
         depth = 1
-        
+
     def get_logo(self, obj):
-        # Return relative URL instead of absolute URL
-        return obj.logo.url.replace(f'http://{self.context.get("request").get_host()}', '')
+        try:
+            if obj.logo:
+                request = self.context.get('request')
+                if request:
+                    host = request.get_host()
+                else:
+                    host = 'localhost:8000'  # Default host if request is not available
+                return obj.logo.url.replace(f'http://{host}', '')
+            return None 
+        except Exception as e:
+            print(f"Error getting logo URL: {e}")
+            return None
 
 
 class ProfileCreateSerializer(serializers.ModelSerializer):

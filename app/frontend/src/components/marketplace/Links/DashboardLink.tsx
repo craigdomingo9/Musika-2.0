@@ -1,11 +1,11 @@
 "use client";
-import useFetchProfile from "@/services/api/marketplace/hooks/profile/useFetchProfile";
 import IconLink from "../Header/IconLink"
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 function DashboardLink() {
 
-  const { data } = useFetchProfile();
+  const { data } = useUserProfile();
 
   return (
     <>

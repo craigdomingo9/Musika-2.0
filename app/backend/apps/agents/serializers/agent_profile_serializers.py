@@ -13,9 +13,18 @@ class AgentProfileSerializer(serializers.ModelSerializer):
         depth = 1
     
     def get_profile_picture(self, obj):
-        # Return relative URL instead of absolute URL
-        return obj.profile_picture.url.replace(f'http://{self.context.get("request").get_host()}', '')
-
+        try:
+            if obj.profile_picture:
+                request = self.context.get('request')
+                if request:
+                    host = request.get_host()
+                else:
+                    host = 'localhost:8000'  # Default host if request is not available
+                return obj.profile_picture.url.replace(f'http://{host}', '')
+            return None 
+        except Exception as e:
+            print(f"Error getting profile picture URL: {e}")
+            return None
         
 
 class AgentProfileCreateSerializer(serializers.ModelSerializer):

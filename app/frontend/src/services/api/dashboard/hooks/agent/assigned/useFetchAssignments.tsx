@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import RelationshipEndpoints from "../../../relationships";
 import { correctImageUrl } from "@/services/utils";
 import useFetchAgent from "../useFetchAgent";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 
@@ -27,13 +28,16 @@ function useFetchAssignments(businessCode: string, reRenderState?: any) {
   const [data, setData] = useState<Assignment[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-  const { data: agent } = useFetchAgent();
+  const { data: user } = useUserProfile();
+  const agent = user.agent_profile;
 
   useEffect(() => {
 
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        if (!agent) return;
+
         const apiServices = new RelationshipEndpoints();
         apiServices.isOnClient(window);
         
@@ -53,7 +57,7 @@ function useFetchAssignments(businessCode: string, reRenderState?: any) {
     };
 
     fetchData();
-  }, [agent, reRenderState])
+  }, [agent, user, reRenderState])
 
 
   return { data, isLoading, error }

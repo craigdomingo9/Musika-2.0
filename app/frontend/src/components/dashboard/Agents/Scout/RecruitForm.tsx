@@ -5,19 +5,20 @@ import { constructBody, createRecruitAgentForm } from "@/services/dashboard/form
 import InputField from "@/components/universal/Form/Elements/InputField";
 import { Button } from "@/components/ui/button";
 import { roundNumber } from "@/lib/utils";
-import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness";
 import { processingEntityAction } from "@/types/dashboard/factory";
 import RelationshipEndpoints from "@/services/api/dashboard/relationships";
 import { dangerToastFactory, successToast } from "@/services/marketplace/toast";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 
 
 
 function RecruitForm() {
-  const { data: business, isLoading } = useFetchBusiness();
+  const { data: user, isLoading } = useUserProfile();
+  const business = user.business_profile;
   const { entities: {object: agent}, setEntities: setAgentMutation } = useAgentMutation();
   const { entities: open, setEntities: setOpen } = useRecruitDrawerState();
   const { toast } = useToast();
@@ -38,6 +39,8 @@ function RecruitForm() {
     )
     setIsRecruiting(true);
     try {
+      if (!business) return;
+      
       const apiServices = new RelationshipEndpoints();
       apiServices.isOnClient(window);
 

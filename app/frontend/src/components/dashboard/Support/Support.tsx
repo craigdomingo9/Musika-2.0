@@ -2,11 +2,11 @@
 import useDashboardConfigStore from "@/store/dashboard/DashboardConfig";
 import SectionHeader from "../SectionHeader";
 import useFetchConversations from "@/services/api/dashboard/hooks/useFetchConversations";
-import { testUuid } from "@/lib/constants";
 import CreateSupportButton from "./Buttons/CreateSupportButton";
 import Chat from "../../universal/Chat/Chat";
 import createEntityStore from "@/store/dashboard/EntityStore";
 import Loading from "@/app/dashboard/loading";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 
@@ -15,10 +15,10 @@ export const useSupportAction = createEntityStore(false);
 function Support() {
   const { config: { mode } } = useDashboardConfigStore();
   const { entities: action } = useSupportAction();
+  
   const { data: supportChats, isLoading } = useFetchConversations({
     type: "business_agent_platform",
     role: String(mode).toLowerCase() || "",
-    user_uuid: testUuid || "",
   }, `${action}${mode}`)
 
   const supportChat = supportChats?.[0];

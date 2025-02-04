@@ -1,19 +1,40 @@
 import { useEffect, useState } from "react";
-
-import useFetchBusiness from "../useFetchBusiness";
-import { testBusiness } from "@/lib/constants";
 import InventoryEndpoints from "../../../inventory";
-import { fixCatalogVariantImageUrl } from "@/services/dashboard/product";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
+import { correctImageUrl } from "@/services/utils";
+
+
+function transformData(data: EditableCatalog[]): EditableCatalog[] {
+  return data.map(catalog => ({
+    ...catalog,
+    products: catalog.products
+    .map(product => ({
+      ...product,
+      variants: product.variants
+      .map(variant => ({
+        ...variant,
+        image: ({
+          ...variant.image,
+          image: correctImageUrl(
+            variant.image.image, 
+            window.location.href
+          )
+        })
+      }))
+    }))
+  }))
+}
 
 
 function useFetchInventory(reRenderState?: any) {
   const [data, setData] = useState<EditableCatalog[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
-  const { data: business } = useFetchBusiness();
-  
-  let code = business?.code
-  code = testBusiness
+
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
+
+  let businessCode = business?.code
 
   
   useEffect(() => {
@@ -23,13 +44,12 @@ function useFetchInventory(reRenderState?: any) {
         const apiServices = new InventoryEndpoints();
         apiServices.isOnClient(window);
         
-        if (!code) return;
+        if (!businessCode) return;
 
-        const data = await apiServices.getCatalogs({business: code});
+        const data = await apiServices.getCatalogs({business: businessCode});
+        let transformedData  = transformData(data);
         
-        let _data  = fixCatalogVariantImageUrl(window.location.href,data)
-        
-        setData(_data);
+        setData(transformedData);
         
       } catch (error) {
         setError(error);
@@ -39,7 +59,7 @@ function useFetchInventory(reRenderState?: any) {
       }
     }
     fetchBusinessProducts()
-  }, [reRenderState])
+  }, [user, reRenderState])
 
 
   return { data, isLoading, error };

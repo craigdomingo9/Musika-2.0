@@ -13,7 +13,7 @@ function transformData(data: UserProfile): UserProfile {
   })
 }
 
-function useFetchUserProfileInfo() {
+function useUserProfile() {
   const [data, setData] = useState<UserProfile>({} as UserProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
@@ -43,4 +43,4 @@ function useFetchUserProfileInfo() {
 
 }
 
-export default useFetchUserProfileInfo
+export default useUserProfile

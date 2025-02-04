@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
-import useFetchBusiness from "../useFetchBusiness";
-import { testBusiness } from "@/lib/constants";
 import InventoryEndpoints from "../../../inventory";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 
@@ -10,10 +9,10 @@ function useFetchVariants(config: Record<string, any>, reRenderState?: any) {
   const [data, setData] = useState<ProductVariant[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
-  const { data: business } = useFetchBusiness();
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
 
   let code = business?.code
-  code = testBusiness // testing
 
 
   useEffect(() => {

@@ -1,13 +1,13 @@
 "use client";
 import { agentMode, businessMode } from "@/lib/dashboard/constants";
-import useFetchProfile from "@/services/api/marketplace/hooks/profile/useFetchProfile";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 import useDashboardConfigStore from "@/store/dashboard/DashboardConfig";
 import { useEffect } from "react";
 
 
 
 function DashboardMiddleware() {
-  const {data: user} = useFetchProfile();
+  const {data: user} = useUserProfile();
   const {config, setConfig} = useDashboardConfigStore()
 
 

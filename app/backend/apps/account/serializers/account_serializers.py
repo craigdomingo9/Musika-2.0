@@ -1,6 +1,24 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
+from agents.serializers import AgentSerializer
+from django.apps import apps
+
+
+Agent = apps.get_model('agents', 'Agent') 
+Business = apps.get_model('business', 'Business') 
+
+class AgentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Agent
+        fields = ['id', 'code', 'first_name', 'last_name', 'email', 'phone_number', 'profile', 'created_at', 'updated_at']
+        depth = 1
+
+class BusinessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Business
+        fields = ['id', 'code', 'profile', 'created_at', 'updated_at']
+        depth = 1
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -10,7 +28,19 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = '__all__'
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        request = self.context.get('request')
 
+        if request and hasattr(request, 'user') and instance == request.user:
+            if instance.is_agent:
+                data["agent_profile"] = AgentSerializer(instance.get_agent_profile()).data
+            
+            if instance.is_business:
+                data["business_profile"] = BusinessSerializer(instance.get_business_profile()).data
+        return data
+    
     def get_profile_picture(self, obj):
         try:
             if obj.profile_picture:

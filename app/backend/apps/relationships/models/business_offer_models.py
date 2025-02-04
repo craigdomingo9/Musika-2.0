@@ -39,4 +39,4 @@ class BusinessOffer(models.Model):
         
 
     def __str__(self):
-        return f"{self.title} from {self.business} (Commission: {self.offered_commission})"
+        return f"Offer from {self.business} (Commission: {self.offered_commission}) {self.status}"

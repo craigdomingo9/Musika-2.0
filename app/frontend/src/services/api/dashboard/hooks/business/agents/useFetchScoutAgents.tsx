@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
-import useFetchBusiness from '../useFetchBusiness';
 import AgentEndpoints from '../../../agents';
 import { correctImageUrl } from '@/services/utils';
+import useUserProfile from '@/services/api/marketplace/hooks/useUserProfile';
 
 
 function transformAgentData(data: Agent[], baseUrl: string): Agent[] {
@@ -22,7 +22,7 @@ function transformAgentData(data: Agent[], baseUrl: string): Agent[] {
 
 function useFetchScoutAgents(config?: {}) {
   const [data, setData] = useState<Agent[]>([]);
-  const { data: business } = useFetchBusiness();
+  const { data: user } = useUserProfile();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -30,11 +30,13 @@ function useFetchScoutAgents(config?: {}) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        if (!user.business_profile) return;
+
         const apiServices = new AgentEndpoints();
         apiServices.isOnClient(window);
         
         const rawData = await apiServices.getAgents({
-          exclude_business_code: business.code,
+          exclude_related_agents: user.business_profile.code,
         });
         const transformedData = transformAgentData(rawData, window.location.href)
         setData(transformedData);
@@ -47,7 +49,7 @@ function useFetchScoutAgents(config?: {}) {
     };
 
     fetchData();
-  }, [business]);
+  }, [user]);
 
   return { data, isLoading, error };
 }

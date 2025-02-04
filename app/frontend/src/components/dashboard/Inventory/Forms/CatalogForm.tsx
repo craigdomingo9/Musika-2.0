@@ -4,15 +4,13 @@ import InputField from "@/components/universal/Form/Elements/InputField";
 import TextareaField from "@/components/universal/Form/Elements/TextareaField";
 import FormContainer from "@/components/universal/Form/FormContainer";
 import { constructBody, createCatalogForm } from "@/services/dashboard/forms/catalogForm";
-import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness";
 import { useCatalogDialogState, useCatalogMutation } from "../Dialogs/CatalogFormDialog";
-import { testBusinessId } from "@/lib/constants"
 import InventoryEndpoints from "@/services/api/dashboard/inventory";
 import { successToast } from "@/services/marketplace/toast";
 import { useToast } from "@/hooks/use-toast";
 import { completeEntityAction } from "@/types/dashboard/factory";
 import { useInventoryAction } from "../InventoryProducts";
-import { useEffect } from "react";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 
@@ -22,14 +20,19 @@ function CatalogForm() {
   const { entities: {action, object: catalog}, setEntities: setCatalogMutation } = useCatalogMutation();
   const { entities: inventoryState, setEntities: setInventoryAction } = useInventoryAction();
   const { setEntities: setDialog } = useCatalogDialogState();
-  const { data: business } = useFetchBusiness();
   const { toast } = useToast();
+
+  const { data: user } = useUserProfile();
+  const businessId = user.business_profile?.id;
+
   
   async function CatalogOnSubmit(values: any) {
+    if (!businessId) return;
+
     const apiServices = new InventoryEndpoints();
     apiServices.isOnClient(window);
     
-    values = {...values, business: testBusinessId}
+    values = {...values, business: businessId}
   
     const body = constructBody(values)
     
@@ -50,7 +53,10 @@ function CatalogForm() {
       setCatalogMutation(completeEntityAction());
       setDialog(false);
       setInventoryAction(!inventoryState);
+    } else {
+      console.log(response.data)
     }
+
   }
 
 

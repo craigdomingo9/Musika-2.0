@@ -27,8 +27,8 @@ export class ApiClient {
     const url = new URL(window.location.href)
     this.baseURL = url.origin + '/api';
 
-    if (skipGetUUId) return;
-    Cookies.set('uuid', testUuid)
+    // if (skipGetUUId) return;
+    // Cookies.set('uuid', testUuid)
     this.getUUID()
   }
   
@@ -83,7 +83,7 @@ export class ApiClient {
 
     if (!uuid) {
       try {
-        this.constructUrl('/users/auth/expose-uuid/');
+        this.constructUrl('/users/auth/expose-account/');
         const response = await fetch(this.url, this.options)
           .then(res => res.json())
           

@@ -4,18 +4,17 @@ import InventoryProducts from "./InventoryProducts";
 import ProductFormDialog from "./Dialogs/ProductDialog";
 import CatalogFormDialog from "./Dialogs/CatalogFormDialog";
 import VariantDialog from "./Dialogs/VariantDialog";
-import Link from "next/link";
-import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness";
 import { Button } from "@/components/ui/button";
-import { testBusiness } from "@/lib/constants";
 import SectionHeader from "../SectionHeader";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 
 function Inventory() {
 
-  const { data: business } = useFetchBusiness();
-  
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
+
   return (
     <div className="page-width">
       <div className="flex justify-between my-4">

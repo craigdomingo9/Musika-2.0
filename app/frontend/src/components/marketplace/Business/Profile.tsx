@@ -3,15 +3,16 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { truncationLength } from "@/lib/constants";
 import { trunc } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import useFetchBusiness from "@/services/api/marketplace/hooks/business/useFetchBusiness";
 import { useState } from "react";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 
 function Profile() {
   const [truncateDescription, setTruncateDescription] = useState<boolean>(true);
   const isMobile = useIsMobile();
-  const { data: business, isLoading, error } = useFetchBusiness();
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
   const initials = business?.profile?.name
     ?.split(" ")
     .map((str) => str.charAt(0).toUpperCase())
@@ -19,7 +20,7 @@ function Profile() {
 
   return (
     <div className="grid grid-cols-2 h-48 sm:mt-4">
-      {business.code && (
+      {business && (
         <>
           <div className="grid">
             <div className="shadow-2xl rounded-full m-auto h-32 w-32 sm:h-48 sm:w-48 lg:h-56 lg:w-56 flex justify-center place-items-center">

@@ -18,6 +18,9 @@ class AgentProfileViewSet(viewsets.ModelViewSet):
         if self.request.method in ['POST', 'PUT']:
             return AgentProfileCreateSerializer
         return AgentProfileSerializer
+      
+    def get_serializer_context(self):
+        return {'request': self.request}
 
     def update(self, request, *args, **kwargs):
         kwargs['partial'] = True

@@ -13,9 +13,10 @@ class BusinessFilter(django_filters.FilterSet):
         fields = ['uuid', 'exclude_agent_code']
     
     def filter_exclude_agent_code(self, queryset, name, value):
-        if value is None: return queryset
+        if value is None: 
+            return queryset
         
         return queryset.exclude(
-            Q(agent_relationships__agent__code=value) & 
-            Q(agent_relationships__status='active')
-        ) 
+            Q(agent_relationships__agent__code=value, agent_relationships__status='active') | 
+            Q(agent_applications__agent__code=value, agent_applications__status='pending')
+        )

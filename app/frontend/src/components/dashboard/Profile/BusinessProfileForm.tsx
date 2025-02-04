@@ -8,7 +8,7 @@ import TextareaField from "@/components/universal/Form/Elements/TextareaField";
 import FormContainer from "@/components/universal/Form/FormContainer";
 import { useToast } from "@/hooks/use-toast";
 import { business_types } from "@/lib/lists";
-import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 import ProfileEndpoints from "@/services/api/marketplace/profile";
 import { createBusinessProfileForm } from "@/services/dashboard/forms/businessProfileForm"
 import { constructBody } from "@/services/dashboard/forms/form_utils";
@@ -22,13 +22,16 @@ export const useBusinessProfileAction = createEntityStore(false);
 
 function BusinessProfileForm() {
   const { entities: action, setEntities: setAction } = useBusinessProfileAction();
-  const { data: business, isLoading } = useFetchBusiness(action);
+  const { data: user, isLoading } = useUserProfile();
+  const business = user.business_profile;
   const form = createBusinessProfileForm();
   const { toast } = useToast();
 
 
   async function ProfileOnSubmit(values: any) {
     try {
+      if (!business) return;
+      
       const apiServices = new ProfileEndpoints();
       apiServices.isOnClient(window);
       
@@ -70,7 +73,7 @@ function BusinessProfileForm() {
           className="space-y-2"
         >
 
-          {business.profile && (
+          {business && (
           <>
             <ImageSelectorField 
               form={form} 

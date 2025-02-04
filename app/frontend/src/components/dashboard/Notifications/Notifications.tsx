@@ -22,6 +22,7 @@ function Notifications({className}: {className?: string}) {
     {is_read: value == "read"}, 
     `${value}${action}`
   );
+  console.log(notifications)
 
 
   

@@ -6,33 +6,37 @@ import {
 } from "@/components/ui/avatar"
 import { useToast } from "@/hooks/use-toast";
 import CommunicationEndpoints from "@/services/api/dashboard/communications";
-import useFetchBusinesses from "@/services/api/dashboard/hooks/agent/portfolio/useFetchBusinesses";
 import useFetchAgent from "@/services/api/dashboard/hooks/agent/useFetchAgent";
 import { constructBody } from "@/services/dashboard/forms/form_utils";
 import { dangerToastFactory, successToastFactory } from "@/services/marketplace/toast";
 import { useCreateConversationDialogState } from "../Buttons/CreateConversationButton";
 import { useConversationAction } from "../AgentConversations";
+import useFetchBusinesses from "@/services/api/dashboard/hooks/agent/portfolio/useFetchBusinesses";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
+const apiServices = new CommunicationEndpoints();
 
 
 function CreateConversationDialog() {
   const { entities: action, setEntities: setConversationAction } = useConversationAction();
   const { data: partners, isLoading } = useFetchBusinesses();
   const { entities: open, setEntities: setOpen } = useCreateConversationDialogState();
-  const { data: agent } = useFetchAgent();
+  const { data: user } = useUserProfile();
+  const agent = user.agent_profile;
   const { toast } = useToast();
   
   async function createConversation(partner: Business) {
     
     try {
+      if (!agent) return;
+      
       const conversationTitle = `${agent.full_name} and ${partner.profile.name}`;
       const body = constructBody({
         conversation_type: "business_agent",
         title: conversationTitle,
       });
       
-      const apiServices = new CommunicationEndpoints();
       apiServices.isOnClient(window);
       const response = await apiServices.createConversation(body)
   

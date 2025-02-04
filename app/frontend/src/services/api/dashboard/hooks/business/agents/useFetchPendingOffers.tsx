@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
-import useFetchBusiness from '../useFetchBusiness';
 import { correctImageUrl } from '@/services/utils';
 import RelationshipEndpoints from '../../../relationships';
+import useUserProfile from '@/services/api/marketplace/hooks/useUserProfile';
 
 
 
@@ -25,7 +25,8 @@ function transformAgentData(data: BusinessOffer[], baseUrl: string): BusinessOff
 
 function useFetchPendingOffers(reRenderState: any) {
   const [data, setData] = useState<BusinessOffer[]>([]);
-  const { data: business } = useFetchBusiness();
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 

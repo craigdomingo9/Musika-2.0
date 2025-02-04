@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import AgentEndpoints from '../../../agents';
 import { correctImageUrl } from '@/services/utils';
 import useFetchAgent from '../useFetchAgent';
+import useUserProfile from '@/services/api/marketplace/hooks/useUserProfile';
 
 
 function transformData(data: AgentApplication[], baseUrl: string): AgentApplication[] {
@@ -24,7 +25,8 @@ function transformData(data: AgentApplication[], baseUrl: string): AgentApplicat
 
 function useFetchPendingApplications(reRenderState?: any) {
   const [data, setData] = useState<AgentApplication[]>([]);
-  const { data: agent } = useFetchAgent();
+  const { data: user } = useUserProfile();
+  const agent = user.agent_profile;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -52,7 +54,7 @@ function useFetchPendingApplications(reRenderState?: any) {
     };
 
     fetchData();
-  }, [agent, reRenderState]);
+  }, [agent, user, reRenderState]);
 
   return { data, isLoading, error };
 }

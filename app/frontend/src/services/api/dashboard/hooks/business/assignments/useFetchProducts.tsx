@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { correctImageUrl } from "@/services/utils";
 import InventoryEndpoints from "../../../inventory";
-import useFetchBusiness from "../useFetchBusiness";
-import { testBusiness, testUuid } from "@/lib/constants";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 
@@ -25,19 +24,22 @@ function useFetchProducts(agentCode: string, reRenderState?: any) {
   const [data, setData] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
 
   useEffect(() => {
 
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        if (!business) return;
+
         const apiServices = new InventoryEndpoints();
         apiServices.isOnClient(window);
         
         const rawData = await apiServices.getProducts({
           exclude_agent_assigned: agentCode,
-          business: testBusiness,
+          business: business.code,
           page_size: 50
         });
         const transformedData = transformData(rawData.results, window.location.href)
@@ -51,7 +53,7 @@ function useFetchProducts(agentCode: string, reRenderState?: any) {
     };
 
     fetchData();
-  }, [reRenderState])
+  }, [business, reRenderState])
 
 
   return { data, isLoading, error }

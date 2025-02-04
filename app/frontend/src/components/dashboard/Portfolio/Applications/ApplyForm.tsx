@@ -12,12 +12,14 @@ import { completeEntityAction, processingEntityAction } from "@/types/dashboard/
 import RelationshipEndpoints from "@/services/api/dashboard/relationships";
 import { dangerToastFactory, successToast } from "@/services/marketplace/toast";
 import { useApplicationAction } from "./Applications";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 
 
 function ApplyForm() {
-  const { data: agent, isLoading } = useFetchAgent();
+  const { data: user, isLoading } = useUserProfile();
+  const agent = user.agent_profile;
   const { entities: {object: business}, setEntities: setApplicationMutation } = useApplicationMutation();
   const { entities: open, setEntities: setOpen } = useApplyDrawerState();
   const { entities: action, setEntities: setApplicationAction } = useApplicationAction();
@@ -38,6 +40,8 @@ function ApplyForm() {
     )
     setIsApplying(true);
     try {
+      if (!user) return;
+      
       values = {
         ...values,
         business: business?.id,

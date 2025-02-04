@@ -14,14 +14,6 @@ export default class AgentEndpoints extends ApiClient {
     return this.fulfillRequest();
   }
 
-
-  getRelationships(params?: Record<string, any>): Promise<Relationship[]> {
-    const urlPath = `/relationships/business-agent-relationships/`;
-    this.constructUrl(urlPath, params);
-
-    return this.fulfillRequest();
-  }
-
   getApplications(params?: Record<string, any>): Promise<AgentApplication[]> {
     const urlPath = `/relationships/agent-applications/`;
     this.constructUrl(urlPath, params);

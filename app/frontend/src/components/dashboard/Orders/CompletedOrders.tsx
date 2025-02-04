@@ -1,16 +1,16 @@
-import useFetchBusiness from "@/services/api/dashboard/hooks/business/useFetchBusiness";
 import SectionHeader from "../SectionHeader"
 import useFetchOrders from "@/services/api/dashboard/hooks/orders/useFetchOrders";
-import { testBusiness } from "@/lib/constants";
 import Loading from "@/app/dashboard/loading";
 import Order from "./Order";
+import useUserProfile from "@/services/api/marketplace/hooks/useUserProfile";
 
 
 function CompletedOrders() {
-  const { data: business} = useFetchBusiness();
+  const { data: user } = useUserProfile();
+  const business = user.business_profile;
   const { data: completedOrders, isLoading } = useFetchOrders({
     status: "completed",
-    business: testBusiness,
+    business: business?.code,
   }, business);
 
   return (

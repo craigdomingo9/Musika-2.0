@@ -13,6 +13,8 @@ function BusinessConversations() {
   const { entities: action } = useConversationAction();
   const { data: conversations, isLoading } = useFetchBusinessConversations(action);
 
+  console.log(conversations)
+
   return (
     <div className="page-width">
       <SectionHeader 
@@ -39,6 +41,7 @@ function BusinessConversations() {
                 );
 
                 if (!partner) return null; // Handle missing partner
+                
                 const fullName = partner.user.agent_profile?.full_name
                 const initials = partner.user.agent_profile?.full_name
                   ?.split(" ")

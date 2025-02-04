@@ -39,7 +39,6 @@ function ChatDisplay({id, mode}: Props) {
         <>
           {messages.map((message, indx, arr) => {
             const senderIsMe = message.sender.role == mode?.toLowerCase();
-            console.log(message.sender.role, mode?.toLowerCase(), senderIsMe)
             const sentAtDate = new Date(message.sent_at)
 
             let sentAt = format(sentAtDate, "p")
@@ -47,10 +46,9 @@ function ChatDisplay({id, mode}: Props) {
             .split(" ")
             .join("");
             
-
             const transformDate = (date: string) => format(date, "dd")
             const dayChanged = (
-              indx > 1 && 
+              indx > 0 && 
               transformDate(message.sent_at) > transformDate(arr[indx - 1].sent_at)
             ) || indx == 0
 

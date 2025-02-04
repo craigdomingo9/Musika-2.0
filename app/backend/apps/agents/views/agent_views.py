@@ -16,6 +16,9 @@ class AgentViewSet(viewsets.ModelViewSet):
     filterset_class = AgentFilter
     lookup_field = 'user__uuid'
     
+    def get_serializer_context(self):
+        return {'request': self.request}
+    
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT']:
             return AgentCreateSerializer

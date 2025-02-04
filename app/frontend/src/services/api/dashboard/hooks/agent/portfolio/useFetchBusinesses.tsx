@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { correctImageUrl } from '@/services/utils';
-import useFetchAgent from '../useFetchAgent';
 import { BusinessEndpoints } from '@/services/api/marketplace/business';
+import useUserProfile from '@/services/api/marketplace/hooks/useUserProfile';
 
 
 function transformData(data: Business[], baseUrl: string): Business[] {
@@ -19,11 +19,11 @@ function transformData(data: Business[], baseUrl: string): Business[] {
 
 
 function useFetchBusinesses(reRenderState?: any) {
+  const { data: user } = useUserProfile();
   const [data, setData] = useState<Business[]>([]);
-  const { data: agent } = useFetchAgent();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
- 
+  
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -31,10 +31,10 @@ function useFetchBusinesses(reRenderState?: any) {
         const apiServices = new BusinessEndpoints();
         apiServices.isOnClient(window);
         
-        if (!agent) return;
+        if (!user?.agent_profile) return;
 
         const rawData = await apiServices.getBusinesses({
-          exclude_agent_code: agent.code,
+          exclude_agent_code: user.agent_profile.code,
         });
         const transformedData = transformData(rawData, window.location.href)
         setData(transformedData);
@@ -47,7 +47,7 @@ function useFetchBusinesses(reRenderState?: any) {
     };
 
     fetchData();
-  }, [agent, reRenderState]);
+  }, [user, reRenderState]);
 
   return { data, isLoading, error };
 }
