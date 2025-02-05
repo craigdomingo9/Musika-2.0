@@ -1,10 +1,7 @@
-from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework import status
 from logging import getLogger
-from rest_framework.views import APIView
-from django.contrib.auth import login,authenticate
-from rest_framework.permissions import AllowAny
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
 
 from account.models import Account
 
@@ -12,21 +9,19 @@ logger = getLogger(__name__)
 
 
 
-class LoginView(APIView):
-    permission_classes = [AllowAny]
-    
-    def post(self, request: Request) -> Response:
-        username = request.data['username']
-        password = request.data['password']
-        
-        if not username or not password:
-            return Response({'error': 'username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+class LoginView(ObtainAuthToken):
 
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            request.session['user_uuid'] = str(user.uuid)
-            return Response({'user_uuid': request.session['user_uuid'], 'message':"Logged in successfully."}, status=status.HTTP_200_OK)
-        else:
-            logger.warning(f"Invalid login attempt for username: {username}")
-            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        
+        token,_ = Token.objects.get_or_create(user=user)
+        
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+            'email': user.email,
+            'uuid': user.uuid,
+        })

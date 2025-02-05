@@ -6,8 +6,17 @@ export default class CredentialsEndpoints extends ApiClient {
     super()
   }
 
-  updateCredentials(body: FormData) {
+  updateCredentials(body: any) {
     const urlPath = '/users/auth/password/change/';
+    this.setRequestType("POST", body)
+    this.applyCredentials();
+    this.constructUrl(urlPath);
+
+    return this.fulfillRequest();
+  }
+
+  login(body: any): Promise<GenericApiResponse<{token: string, uuid: string}>> {
+    const urlPath = '/users/auth/login/';
     this.setRequestType("POST", body)
     this.applyCredentials();
     this.constructUrl(urlPath);

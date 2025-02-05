@@ -1,7 +1,6 @@
-import { testUuid } from '@/lib/constants';
 import { API_CONFIG } from './config';
-import Cookies from "js-cookie";
-
+import { getCookie, setCookie } from '../cookies';
+import crypto from 'crypto';
 
 type paramsProps<T extends Record<string, any>> = T;
 
@@ -27,8 +26,6 @@ export class ApiClient {
     const url = new URL(window.location.href)
     this.baseURL = url.origin + '/api';
 
-    // if (skipGetUUId) return;
-    // Cookies.set('uuid', testUuid)
     this.getUUID()
   }
   
@@ -65,7 +62,6 @@ export class ApiClient {
     try {
       const response = await fetch(this.url, this.options);
 
-      // Handle different response types based on HTTP method
       if (this.options.method === 'GET') {
         return await response.json(); 
       } else {
@@ -76,10 +72,10 @@ export class ApiClient {
       console.log('Error fetching data:', error);
       throw error; 
     }
-}
+  }
 
   public async getUUID() {
-    let uuid = Cookies.get('uuid');
+    let uuid = getCookie('uuid');
 
     if (!uuid) {
       try {
@@ -90,7 +86,7 @@ export class ApiClient {
         uuid = response.uuid;
 
         if (uuid) {
-          Cookies.set("uuid", uuid);
+          setCookie("uuid", uuid);
         }
       } catch (error) {
         console.error('Error fetching UUID:', error);
@@ -105,19 +101,40 @@ export class ApiClient {
     return uuid
   }
 
+  applyToken() {
+    const token = getCookie("token");
+
+    this.options.headers = {
+      ...this.options.headers,
+      'Authorization': 'Token ' + token
+    }
+  }
+
   protected applyCredentials() {
-    let csrftoken = Cookies.get('csrftoken');
+    let csrftoken = getCookie('csrftoken');
+
+    if (!csrftoken) {
+      csrftoken = crypto.randomBytes(32).toString('hex');
+      setCookie('csrftoken', csrftoken);
+    }
 
     this.options.credentials = 'include';
     this.options.headers = {
       ...this.options.headers,
-      'X-CSRFToken': csrftoken
+      'X-CSRFToken': csrftoken,
     }
+
+    this.applyToken()
   }
 
   public applyCache(t: number) {
     this.options.next = {
       revalidate: t,
+    }
+    this.options.cache = 'no-store'
+    this.options.headers = {
+      ...this.options.headers,
+      'Cache-Control': `max-age=${t}`
     }
   }
 }

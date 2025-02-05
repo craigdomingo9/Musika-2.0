@@ -1,5 +1,6 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 
 from .views import (
   AccountViewSet,
@@ -18,8 +19,8 @@ router.register(r'preferences', AccountPreferencesViewSet, basename="User Prefer
 
 urlpatterns = [
     path('auth/password/change/', PasswordChangeView.as_view(),name="change-password"),
-    path('auth/login/',LoginView.as_view(),name="login"),
-    path('auth/logout/',LogoutView.as_view(),name="logout"),
-    path('auth/expose-account/',ExposeAccount.as_view(), name='expose-uuid')
+    path('auth/login/', LoginView.as_view(), name="login"),
+    path('auth/logout/', LogoutView.as_view(), name="logout"),
+    path('auth/expose-account/', ExposeAccount.as_view(), name='expose-uuid')
     
 ] + router.urls

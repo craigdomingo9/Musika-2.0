@@ -6,16 +6,16 @@ import { useForm } from "react-hook-form"
 
 export const credentialsFormSchema = z.object({
   email: z.string().email("Invalid email address"),
-    password: z.string()
+  password: z.string()
     .min(8, 'Password must be at least 8 characters long')
     .max(100, 'Password must be no more than 100 characters long'),
-    confirm_password: z.string()
+  confirm_password: z.string()
     .min(8, 'Password must be at least 8 characters long')
     .max(100, 'Password must be no more than 100 characters long')
-    })
-    .refine(data => data.password === data.confirm_password, {
-    message: "Passwords do not match",
-    path: ["confirm_password"],
+  })
+  .refine(data => data.password === data.confirm_password, {
+  message: "Passwords do not match",
+  path: ["confirm_password"],
 })
 
 
