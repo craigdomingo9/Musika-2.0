@@ -2,23 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
 from agents.serializers import AgentSerializer
-from django.apps import apps
-
-
-Agent = apps.get_model('agents', 'Agent') 
-Business = apps.get_model('business', 'Business') 
-
-class AgentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Agent
-        fields = ['id', 'code', 'first_name', 'last_name', 'email', 'phone_number', 'profile', 'created_at', 'updated_at']
-        depth = 1
-
-class BusinessSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Business
-        fields = ['id', 'code', 'profile', 'created_at', 'updated_at']
-        depth = 1
+from business.serializers import BusinessSerializer
 
 
 class AccountSerializer(serializers.ModelSerializer):

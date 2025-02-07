@@ -9,18 +9,19 @@ from account.models import Account
 logger = getLogger(__name__)
 
 
-class SessionAssignmentMiddleware(MiddlewareMixin):
+class SessionMiddleware(MiddlewareMixin):
     model = Account
     
     def process_request(self, request: Request) -> None:
       """
-        Gets the uuid from the request and assigns the user account to the session.
+        Gets the uuid from the request and assigns the related user account to the session.
+        This functionality is for anonymous users.
       """
       try: 
         
         if 'HTTP_X_UUID' in request.META:
             uuid = request.META['HTTP_X_UUID']
-            print(uuid)
+
             del request.META['HTTP_X_UUID']
 
             try:
@@ -33,7 +34,7 @@ class SessionAssignmentMiddleware(MiddlewareMixin):
                 request.user = user
           
       except Exception as e:
-            logger.error(f"{e}")
+          logger.error(f"{e}")
         
 
 

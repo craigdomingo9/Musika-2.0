@@ -15,7 +15,5 @@ export const checkoutActionTitle = "Checkout";
 export const cartIsEmptyLabel = "Your cart is Empty...";
 export const truncationLength = 80;
 
-export const testUuid = 'f4303fc0-cb09-4f6f-848c-9c1a8a911cd1'
-export const testBusiness = 'FGLUDDWT'
-export const testBusinessId = '23'
-export const testAgent = 'HIAGTNEL'
+
+export const contactNumber = "0781 901 939"

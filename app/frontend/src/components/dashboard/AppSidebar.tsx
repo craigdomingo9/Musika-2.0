@@ -22,7 +22,6 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { ModeSwitcher } from "./ModeSwitcher"
 import useDashboardConfigStore from "@/store/dashboard/DashboardConfig"
 import { useEffect, useState } from "react"
-import { modes } from "@/lib/dashboard/constants"
 
 
 
@@ -47,7 +46,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
-        <ModeSwitcher modes={modes} defaultMode={config.mode} />
+        <ModeSwitcher defaultMode={config.mode} />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

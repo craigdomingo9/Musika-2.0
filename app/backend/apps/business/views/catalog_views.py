@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from business.filters import (
     CatalogFilter,
@@ -17,6 +17,6 @@ from business.serializers import (
 class CatalogViewSet(viewsets.ModelViewSet):
     queryset = Catalog.objects.all()
     serializer_class = CatalogSerializer
-    permission_classes = [AllowAny,]
+    permission_classes = [IsAuthenticatedOrReadOnly,]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CatalogFilter

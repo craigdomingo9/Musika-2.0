@@ -27,16 +27,18 @@ function CustomerOrderHistory() {
       ) : (
         <>
           {orderHistory.map(order => (
-            <ListItem 
-              className="px-2 my-2"
-              key={order.id}
-            >
-              <p className="text-opacity">
-                You ordered {order.quantity} {order.product.product?.name}
-                &nbsp;from {order.business.profile.name}
-              </p>
-              <p className={cn("text-xs text-opacity", order.status == "pending" && "text-orange-300", order.status == "completed" && "text-green-500")}>{order.status}</p>
-            </ListItem>
+            <div key={order.id}>
+              <ListItem 
+                className="px-2 my-2"
+              >
+                <p className="text-opacity">
+                  You ordered {order.quantity} {order.product.product?.name}
+                  &nbsp;from {order.business.profile.name}
+                </p>
+                <p className={cn("text-xs text-opacity", order.status == "pending" && "text-orange-300", order.status == "completed" && "text-green-500")}>{order.status}</p>
+              </ListItem>
+              <hr />
+            </div>
           ))}
         </>
       )}

@@ -14,7 +14,7 @@ function PendingOrders() {
   const { data: pendingOrders, isLoading } = useFetchOrders({
     status: "pending",
     business: business?.code,
-  }, `${business}${action}`);
+  }, `${business}${action}${user.business_profile}`);
 
   return (
     <div className="page-width">

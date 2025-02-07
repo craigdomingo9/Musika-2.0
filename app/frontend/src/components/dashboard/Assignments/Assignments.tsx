@@ -32,7 +32,7 @@ function Assignments() {
       {isLoading ? (
         <Loading />
       ) : (
-        <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+        <Accordion type="single" collapsible defaultValue="item-0" className="w-full">
           {relationships.map((relationship, index) => (
             <AccordionItem key={relationship.id} value={`item-${index}`}>
               <AccordionTrigger className={cn(ListItemClassName, "px-2")}

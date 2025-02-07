@@ -8,5 +8,7 @@ export function getCookie(name: string) {
   return Cookies.get(name);
 }
 
-
+export function removeCookie(name: string) {
+  return Cookies.remove(name);
+}
 

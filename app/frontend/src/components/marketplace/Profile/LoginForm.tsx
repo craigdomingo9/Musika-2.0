@@ -8,11 +8,13 @@ import { setCookie } from "@/services/cookies";
 import { constructBody } from "@/services/dashboard/forms/form_utils";
 import { createLoginForm } from "@/services/marketplace/forms/login";
 import { dangerToastFactory, successToastFactory } from "@/services/marketplace/toast";
+import { useRouter } from "next/navigation";
 
 
 
 function LoginForm() {
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = createLoginForm();
 
@@ -35,6 +37,7 @@ function LoginForm() {
       const data = (await response.data);
       setCookie("token", data.token);
       setCookie("uuid", data.uuid);
+      router.push('/');
 
     } catch (error: any) {
       console.log(error);

@@ -1,9 +1,10 @@
+import { BellIcon, BookOpenCheckIcon, CoinsIcon, HandshakeIcon, ListCollapse, ListCollapseIcon, MessageCircleQuestionIcon, MessagesSquareIcon, TruckIcon, UserRoundPenIcon, UsersRoundIcon, type LucideIcon } from "lucide-react"
 
 
 export interface LinkItem {
   title: string,
   url: string,
-  icon?: any
+  icon?: LucideIcon,
 }
 
 interface Links extends LinkItem {
@@ -19,26 +20,32 @@ const business: Links[] = [
       {
         title: "Earnings",
         url: "/dashboard/earnings",
+        icon: CoinsIcon
       },
       {
         title: "Inventory",
         url: "/dashboard/inventory",
+        icon: ListCollapseIcon
       },
       {
         title: "Agents",
         url: "/dashboard/agents",
+        icon: UsersRoundIcon,
       },
       {
         title: "Assignments",
         url: "/dashboard/assignments",
+        icon: BookOpenCheckIcon,
       },
       {
         title: "Orders",
         url: "/dashboard/orders",
+        icon: TruckIcon,
       },
       {
         title: "Communications",
         url: "/dashboard/comms/business",
+        icon: MessagesSquareIcon,
       },
     ]
   },
@@ -49,10 +56,12 @@ const business: Links[] = [
       {
         title: "Notifications",
         url: "/dashboard/notifications",
+        icon: BellIcon,
       },
       {
         title: "Profile",
         url: "/dashboard/profile",
+        icon: UserRoundPenIcon,
       },
     ]
   },
@@ -63,6 +72,7 @@ const business: Links[] = [
       {
         title: "Contact Support",
         url: "/dashboard/help/support",
+        icon: MessageCircleQuestionIcon,
       },
     ]
   },
@@ -77,18 +87,22 @@ const agent: Links[] = [
       {
         title: "Earnings",
         url: "/dashboard/earnings",
+        icon: CoinsIcon,
       },
       {
         title: "Products",
         url: "/dashboard/assigned",
+        icon: BookOpenCheckIcon,
       },
       {
         title: "Portfolio",
         url: "/dashboard/portfolio",
+        icon: HandshakeIcon,
       },
       {
         title: "Communications",
         url: "/dashboard/comms/agent",
+        icon: MessagesSquareIcon,
       },
     ]
   },
@@ -99,10 +113,12 @@ const agent: Links[] = [
       {
         title: "Notifications",
         url: "/dashboard/notifications",
+        icon: BellIcon,
       },
       {
         title: "Profile",
         url: "/dashboard/profile",
+        icon: UserRoundPenIcon,
       },
     ]
   },
@@ -113,6 +129,7 @@ const agent: Links[] = [
       {
         title: "Contact Support",
         url: "/dashboard/help/support",
+        icon: MessageCircleQuestionIcon,
       },
     ]
   },
@@ -130,7 +147,6 @@ export const getLinks = (mode: "agent" | "business", sectionTitle?: string) => {
     :
     business.find(section => section.title == sectionTitle);
   
-    console.log(selectedSection)
   
   return selectedSection;
 };

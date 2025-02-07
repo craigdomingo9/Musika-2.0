@@ -7,7 +7,6 @@ import useFetchInventory from "@/services/api/dashboard/hooks/business/inventory
 import ProductCardFace from "./ProductCardFace";
 import CreateCatalogButton from "./Buttons/CreateCatalogButton";
 import CreateProductButton from "./Buttons/CreateProductButton";
-import { createEntityAction } from "@/types/dashboard/factory";
 import DeleteCatalogButton from "./Buttons/DeleteCatalogButton";
 import { useCatalogMutation } from "./Dialogs/CatalogFormDialog";
 import createEntityStore from "@/store/dashboard/EntityStore";
@@ -22,7 +21,6 @@ export const useInventoryAction = createEntityStore<boolean>(false);
 
 function InventoryProducts() {
 
-  const { setEntities: setCatalogMutation} = useCatalogMutation();
   const { entities: inventoryState } = useInventoryAction();
 
   const { data, isLoading, error } = useFetchInventory(inventoryState);

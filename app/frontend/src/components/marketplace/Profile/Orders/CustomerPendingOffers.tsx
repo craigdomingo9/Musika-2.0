@@ -32,19 +32,21 @@ function CustomerPendingOffers() {
             You must provide the fulfillment code upon order collection.
           </Ribbon>
           {pendingOrders.map(order => (
-              <ListItem 
-                className="px-2 my-2 h-[4.5rem]"
-                key={order.id}
-              >
-                <div className='grid'>
-                  <p className="text-opacity pt-1 sm:pt-2">
-                    You ordered {order.quantity} {order.product.product?.name}
-                    &nbsp;from {order.business.profile.name}
-                  </p>
-                  <p className='text-[0.7rem] text-opacity pt-2'>fulfillment code: {order.fulfillment_code}</p>
-                </div>
-                <p className={cn("text-xs text-opacity", "text-orange-300")}>Pending</p>
-              </ListItem>
+              <div key={order.id}>
+                <ListItem 
+                  className="px-2 my-2 h-[4.5rem]"
+                >
+                  <div className='grid'>
+                    <p className="text-opacity pt-1 sm:pt-2">
+                      You ordered {order.quantity} {order.product.product?.name}
+                      &nbsp;from {order.business.profile.name}
+                    </p>
+                    <p className='text-[0.7rem] text-opacity pt-2'>fulfillment code: {order.fulfillment_code}</p>
+                  </div>
+                  <p className={cn("text-xs text-opacity", "text-orange-300")}>Pending</p>
+                </ListItem>
+                <hr />
+              </div>
           ))}
         </>
       )}
