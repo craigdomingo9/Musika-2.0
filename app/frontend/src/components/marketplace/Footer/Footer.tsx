@@ -1,11 +1,11 @@
-import { contactNumber } from "@/lib/constants"
+import { contactEmail } from "@/lib/constants"
+import Link from "next/link"
 
 function Footer() {
   return (
-    <div className="flex flex-col justify-center">
-      <hr />
-      <p className="text-xs my-3 text-center text-opacity">Contact <strong>{contactNumber}</strong> on Whatsapp to register your business.</p>
-    </div>
+    <Link href={`mailto:${contactEmail}`} className="flex flex-col justify-center bg-sidebar-accent">
+      <p className="text-xs my-3 text-center text-opacity">Contact <strong className="hover:underline">{contactEmail}</strong> to register your business.</p>
+    </Link>
   )
 }
 

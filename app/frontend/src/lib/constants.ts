@@ -16,4 +16,4 @@ export const cartIsEmptyLabel = "Your cart is Empty...";
 export const truncationLength = 80;
 
 
-export const contactNumber = "0781 901 939"
+export const contactEmail = "craigdomingo9@gmail.com"
